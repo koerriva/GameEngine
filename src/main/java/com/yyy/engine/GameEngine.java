@@ -37,6 +37,8 @@ public class GameEngine implements Runnable {
             gameLoop();
         } catch (Exception excp) {
             excp.printStackTrace();
+        } finally {
+            cleanup();
         }
     }
 
@@ -94,4 +96,9 @@ public class GameEngine implements Runnable {
         gameLogic.render(window);
         window.update();
     }
+
+    protected void cleanup() {
+        gameLogic.cleanup();
+    }
+
 }
