@@ -1,9 +1,11 @@
 package com.yyy.game;
 
+import com.yyy.engine.GameItem;
 import com.yyy.engine.Utils;
 import com.yyy.engine.Window;
 import com.yyy.engine.graph.Mesh;
 import com.yyy.engine.graph.ShaderProgram;
+import com.yyy.engine.graph.Transformation;
 import org.joml.Matrix4f;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -20,7 +22,11 @@ public class Renderer {
 
     private static final float Z_FAR = 1000.f;
 
-    private Matrix4f projectionMatrix;
+    private Transformation transformation;
+
+    public Renderer() {
+        transformation = new Transformation();
+    }
 
     public void init(Window window) throws Exception {
         shaderProgram = new ShaderProgram();
@@ -30,15 +36,17 @@ public class Renderer {
 
         // Create projection matrix
         float aspectRatio = (float) window.getWidth() / window.getHeight();
-        projectionMatrix = new Matrix4f().perspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
         shaderProgram.createUniform("projectionMatrix");
+        shaderProgram.createUniform("worldMatrix");
+
+        window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
     public void clear() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render(Window window,Mesh mesh) {
+    public void render(Window window, GameItem... items) {
         clear();
 
         if (window.isResized()) {
@@ -47,18 +55,20 @@ public class Renderer {
         }
 
         shaderProgram.bind();
+        Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV,window.getWidth(),window.getHeight(),Z_NEAR,Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-        // Draw the mesh
-        glBindVertexArray(mesh.getVaoId());
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-        glDrawElements(GL_TRIANGLES, mesh.getVertexCount(), GL_UNSIGNED_INT, 0);
-
-        // Restore state
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glBindVertexArray(0);
+        for (GameItem gameItem:items){
+            // Set world matrix for this item
+            Matrix4f worldMatrix =
+                    transformation.getWorldMatrix(
+                            gameItem.getPosition(),
+                            gameItem.getRotation(),
+                            gameItem.getScale());
+            shaderProgram.setUniform("worldMatrix", worldMatrix);
+            // Render the mesh for this game item
+            gameItem.getMesh().render();
+        }
 
         shaderProgram.unbind();
     }
