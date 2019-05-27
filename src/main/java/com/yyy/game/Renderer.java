@@ -35,10 +35,12 @@ public class Renderer {
         // Draw the mesh
         glBindVertexArray(mesh.getVaoId());
         glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
         glDrawElements(GL_TRIANGLES, mesh.getVertexCount(), GL_UNSIGNED_INT, 0);
 
         // Restore state
         glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
         glBindVertexArray(0);
 
         shaderProgram.unbind();

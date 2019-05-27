@@ -30,7 +30,13 @@ public class DummyGame implements IGameLogic {
                 0.5f, 0.5f, 0.0f,};
         int[] indices = new int[]{
                 0, 1, 3, 3, 1, 2,};
-        mesh = new Mesh(positions, indices);
+        float[] colours = new float[]{
+                0.5f, 0.0f, 0.0f,
+                0.0f, 0.5f, 0.0f,
+                0.0f, 0.0f, 0.5f,
+                0.0f, 0.5f, 0.5f,
+        };
+        mesh = new Mesh(positions,colours,indices);
     }
 
     @Override
