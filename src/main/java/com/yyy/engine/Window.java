@@ -139,4 +139,8 @@ public class Window {
         glfwSwapBuffers(windowHandle);
         glfwPollEvents();
     }
+
+    public long getWindowHandle() {
+        return windowHandle;
+    }
 }

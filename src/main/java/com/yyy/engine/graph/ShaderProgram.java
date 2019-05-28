@@ -16,23 +16,20 @@ public class ShaderProgram {
 
     private int fragmentShaderId;
 
-    private final Map<String,Integer> uniforms;
+    private final Map<String, Integer> uniforms;
 
     public ShaderProgram() throws Exception {
         programId = glCreateProgram();
         if (programId == 0) {
             throw new Exception("Could not create Shader");
         }
-
         uniforms = new HashMap<>();
     }
 
     public void createUniform(String uniformName) throws Exception {
-        int uniformLocation = glGetUniformLocation(programId,
-                uniformName);
+        int uniformLocation = glGetUniformLocation(programId, uniformName);
         if (uniformLocation < 0) {
-            throw new Exception("Could not find uniform:" +
-                    uniformName);
+            throw new Exception("Could not find uniform:" + uniformName);
         }
         uniforms.put(uniformName, uniformLocation);
     }
@@ -61,7 +58,7 @@ public class ShaderProgram {
     protected int createShader(String shaderCode, int shaderType) throws Exception {
         int shaderId = glCreateShader(shaderType);
         if (shaderId == 0) {
-            throw new Exception("Error creating shaders. Type: " + shaderType);
+            throw new Exception("Error creating shader. Type: " + shaderType);
         }
 
         glShaderSource(shaderId, shaderCode);
