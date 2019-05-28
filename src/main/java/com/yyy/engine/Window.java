@@ -22,12 +22,15 @@ public class Window {
 
     private boolean vSync;
 
+    private boolean polygonMode;
+
     public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
         this.resized = false;
+        this.polygonMode = false;
     }
 
     public void init() {
@@ -65,6 +68,15 @@ public class Window {
         glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
+            }
+            if (key == GLFW_KEY_F3 && action == GLFW_RELEASE){
+                if(!polygonMode){
+                    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+                    polygonMode = true;
+                }else{
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    polygonMode = false;
+                }
             }
         });
 

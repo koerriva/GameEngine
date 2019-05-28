@@ -4,6 +4,7 @@ import com.yyy.engine.GameItem;
 import com.yyy.engine.Utils;
 import com.yyy.engine.Window;
 import com.yyy.engine.graph.Camera;
+import com.yyy.engine.graph.Mesh;
 import com.yyy.engine.graph.ShaderProgram;
 import com.yyy.engine.graph.Transformation;
 import org.joml.Matrix4f;
@@ -38,6 +39,8 @@ public class Renderer {
         shaderProgram.createUniform("projectionMatrix");
         shaderProgram.createUniform("modelViewMatrix");
         shaderProgram.createUniform("texture_sampler");
+        shaderProgram.createUniform("colour");
+        shaderProgram.createUniform("useColour");
 
         window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
@@ -66,6 +69,10 @@ public class Renderer {
             Matrix4f modelViewMatrix =
                     transformation.getModelViewMatrix(gameItem,viewMatrix);
             shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
+            // Render the mes for this game item
+            Mesh mesh = gameItem.getMesh();
+            shaderProgram.setUniform("colour", mesh.getColour());
+            shaderProgram.setUniform("useColour", mesh.isTextured() ? 0 : 1);
             // Render the mesh for this game item
             gameItem.getMesh().render();
         }
