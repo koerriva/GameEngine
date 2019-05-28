@@ -46,6 +46,10 @@ public class ShaderProgram {
         }
     }
 
+    public void setUniform(String uniformName, int value) {
+        glUniform1i(uniforms.get(uniformName), value);
+    }
+
     public void createVertexShader(String shaderCode) throws Exception {
         vertexShaderId = createShader(shaderCode, GL_VERTEX_SHADER);
     }
@@ -57,7 +61,7 @@ public class ShaderProgram {
     protected int createShader(String shaderCode, int shaderType) throws Exception {
         int shaderId = glCreateShader(shaderType);
         if (shaderId == 0) {
-            throw new Exception("Error creating shader. Type: " + shaderType);
+            throw new Exception("Error creating shaders. Type: " + shaderType);
         }
 
         glShaderSource(shaderId, shaderCode);

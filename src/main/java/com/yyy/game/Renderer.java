@@ -3,13 +3,11 @@ package com.yyy.game;
 import com.yyy.engine.GameItem;
 import com.yyy.engine.Utils;
 import com.yyy.engine.Window;
-import com.yyy.engine.graph.Mesh;
 import com.yyy.engine.graph.ShaderProgram;
 import com.yyy.engine.graph.Transformation;
 import org.joml.Matrix4f;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer {
     private ShaderProgram shaderProgram;
@@ -30,14 +28,15 @@ public class Renderer {
 
     public void init(Window window) throws Exception {
         shaderProgram = new ShaderProgram();
-        shaderProgram.createVertexShader(Utils.loadResource("/vertex.vert"));
-        shaderProgram.createFragmentShader(Utils.loadResource("/fragment.frag"));
+        shaderProgram.createVertexShader(Utils.loadResource("/shaders/vertex.vert"));
+        shaderProgram.createFragmentShader(Utils.loadResource("/shaders/fragment.frag"));
         shaderProgram.link();
 
         // Create projection matrix
         float aspectRatio = (float) window.getWidth() / window.getHeight();
         shaderProgram.createUniform("projectionMatrix");
         shaderProgram.createUniform("worldMatrix");
+        shaderProgram.createUniform("texture_sampler");
 
         window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
@@ -58,6 +57,7 @@ public class Renderer {
         Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV,window.getWidth(),window.getHeight(),Z_NEAR,Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
+        shaderProgram.setUniform("texture_sampler", 0);
         for (GameItem gameItem:items){
             // Set world matrix for this item
             Matrix4f worldMatrix =
