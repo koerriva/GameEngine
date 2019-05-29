@@ -9,7 +9,6 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-
     private final String title;
 
     private int width;
@@ -22,15 +21,12 @@ public class Window {
 
     private boolean vSync;
 
-    private boolean polygonMode;
-
     public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
         this.resized = false;
-        this.polygonMode = false;
     }
 
     public void init() {
@@ -69,15 +65,6 @@ public class Window {
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
             }
-            if (key == GLFW_KEY_F3 && action == GLFW_RELEASE){
-                if(!polygonMode){
-                    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-                    polygonMode = true;
-                }else{
-                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                    polygonMode = false;
-                }
-            }
         });
 
         // Get the resolution of the primary monitor
@@ -105,10 +92,18 @@ public class Window {
         // Set the clear color
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glEnable(GL_DEPTH_TEST);
+        //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
         // Support for transparencies
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    }
+
+    public long getWindowHandle() {
+        return windowHandle;
     }
 
     public void setClearColor(float r, float g, float b, float alpha) {
@@ -154,9 +149,5 @@ public class Window {
     public void update() {
         glfwSwapBuffers(windowHandle);
         glfwPollEvents();
-    }
-
-    public long getWindowHandle() {
-        return windowHandle;
     }
 }

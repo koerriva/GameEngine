@@ -4,6 +4,10 @@ import com.yyy.engine.*;
 import com.yyy.engine.graph.*;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+
+import java.util.List;
+import java.util.Map;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class DummyGame implements IGameLogic {
@@ -44,7 +48,7 @@ public class DummyGame implements IGameLogic {
         mesh.setMaterial(material);
 
         float blockScale = 0.5f;
-        float skyBoxScale = 10.0f;
+        float skyBoxScale = 50.0f;
         float extension = 2.0f;
 
         float startx = extension * (-skyBoxScale + blockScale);
@@ -174,9 +178,9 @@ public class DummyGame implements IGameLogic {
     @Override
     public void cleanup() {
         renderer.cleanup();
-        GameItem[] gameItems = scene.getGameItems();
-        for (GameItem gameItem : gameItems) {
-            gameItem.getMesh().cleanUp();
+        Map<Mesh, List<GameItem>> mapMeshes = scene.getGameMeshes();
+        for (Mesh mesh : mapMeshes.keySet()) {
+            mesh.cleanUp();
         }
         hud.cleanup();
     }
