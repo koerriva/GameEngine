@@ -11,7 +11,6 @@ import org.joml.Vector4f;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
-    private ShaderProgram shaderProgram;
     /**
      * Field of View in Radians
      */
@@ -23,7 +22,9 @@ public class Renderer {
 
     private final Transformation transformation;
 
-    private float specularPower;
+    private ShaderProgram shaderProgram;
+
+    private final float specularPower;
 
     public Renderer() {
         transformation = new Transformation();
@@ -31,13 +32,13 @@ public class Renderer {
     }
 
     public void init(Window window) throws Exception {
+        // Create shader
         shaderProgram = new ShaderProgram();
         shaderProgram.createVertexShader(Utils.loadResource("/shaders/vertex.vert"));
         shaderProgram.createFragmentShader(Utils.loadResource("/shaders/fragment.frag"));
         shaderProgram.link();
 
-        // Create projection matrix
-        float aspectRatio = (float) window.getWidth() / window.getHeight();
+        // Create uniforms for modelView and projection matrices and texture
         shaderProgram.createUniform("projectionMatrix");
         shaderProgram.createUniform("modelViewMatrix");
         shaderProgram.createUniform("texture_sampler");
@@ -47,23 +48,25 @@ public class Renderer {
         shaderProgram.createUniform("specularPower");
         shaderProgram.createUniform("ambientLight");
         shaderProgram.createPointLightUniform("pointLight");
-
-        window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        shaderProgram.createDirectionalLightUniform("directionalLight");
     }
 
     public void clear() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render(Window window, Camera camera, Vector3f ambientLight, PointLight pointLight, GameItem... items) {
+    public void render(Window window, Camera camera, GameItem[] gameItems, Vector3f ambientLight,
+                       PointLight pointLight, DirectionalLight directionalLight) {
+
         clear();
 
-        if (window.isResized()) {
+        if ( window.isResized() ) {
             glViewport(0, 0, window.getWidth(), window.getHeight());
             window.setResized(false);
         }
 
         shaderProgram.bind();
+
         // Update projection Matrix
         Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
@@ -74,7 +77,7 @@ public class Renderer {
         // Update Light Uniforms
         shaderProgram.setUniform("ambientLight", ambientLight);
         shaderProgram.setUniform("specularPower", specularPower);
-        // Get a copy of the light object and transform its position to view coordinates
+        // Get a copy of the point light object and transform its position to view coordinates
         PointLight currPointLight = new PointLight(pointLight);
         Vector3f lightPos = currPointLight.getPosition();
         Vector4f aux = new Vector4f(lightPos, 1);
@@ -84,19 +87,23 @@ public class Renderer {
         lightPos.z = aux.z;
         shaderProgram.setUniform("pointLight", currPointLight);
 
+        // Get a copy of the directional light object and transform its position to view coordinates
+        DirectionalLight currDirLight = new DirectionalLight(directionalLight);
+        Vector4f dir = new Vector4f(currDirLight.getDirection(), 0);
+        dir.mul(viewMatrix);
+        currDirLight.setDirection(new Vector3f(dir.x, dir.y, dir.z));
+        shaderProgram.setUniform("directionalLight", currDirLight);
+
         shaderProgram.setUniform("texture_sampler", 0);
         // Render each gameItem
-        // Update view Matrix
-        for (GameItem gameItem:items){
-            // Set world matrix for this item
-            Matrix4f modelViewMatrix =
-                    transformation.getModelViewMatrix(gameItem,viewMatrix);
-            shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
-            // Render the mes for this game item
+        for(GameItem gameItem : gameItems) {
             Mesh mesh = gameItem.getMesh();
-            shaderProgram.setUniform("material",mesh.getMaterial());
+            // Set model view matrix for this item
+            Matrix4f modelViewMatrix = transformation.getModelViewMatrix(gameItem, viewMatrix);
+            shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
             // Render the mesh for this game item
-            gameItem.getMesh().render();
+            shaderProgram.setUniform("material", mesh.getMaterial());
+            mesh.render();
         }
 
         shaderProgram.unbind();
