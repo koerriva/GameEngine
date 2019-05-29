@@ -85,7 +85,7 @@ public class DummyGame implements IGameLogic {
         sceneLight.setDirectionalLight(new DirectionalLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity));
 
         // Create HUD
-        hud = new Hud("DEMO");
+        hud = new Hud("DEMO (POWERD BY KOERRIVA)");
     }
 
     @Override

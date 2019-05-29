@@ -4,10 +4,13 @@ import com.yyy.engine.GameItem;
 import com.yyy.engine.IHud;
 import com.yyy.engine.TextItem;
 import com.yyy.engine.Window;
+import com.yyy.engine.graph.FontTexture;
 import com.yyy.engine.graph.Material;
 import com.yyy.engine.graph.Mesh;
 import com.yyy.engine.graph.OBJLoader;
 import org.joml.Vector4f;
+
+import java.awt.*;
 
 public class Hud implements IHud {
 
@@ -24,7 +27,8 @@ public class Hud implements IHud {
     private final GameItem compassItem;
 
     public Hud(String statusText) throws Exception {
-        this.statusTextItem = new TextItem(statusText, FONT_TEXTURE, FONT_COLS, FONT_ROWS);
+        FontTexture fontTexture = new FontTexture(new Font("Purisa", Font.PLAIN, 24),"ISO-8859-1");
+        this.statusTextItem = new TextItem(statusText,fontTexture);
         this.statusTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 1));
 
         // Create compass
