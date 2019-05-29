@@ -108,26 +108,31 @@ public class DummyGame implements IGameLogic {
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
+        float speed = 10.0f;
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            cameraInc.z = -1;
+            cameraInc.z = -speed;
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
-            cameraInc.z = 1;
+            cameraInc.z = speed;
         }
         if (window.isKeyPressed(GLFW_KEY_A)) {
-            cameraInc.x = -1;
+            cameraInc.x = -speed;
         } else if (window.isKeyPressed(GLFW_KEY_D)) {
-            cameraInc.x = 1;
+            cameraInc.x = speed;
         }
         if (window.isKeyPressed(GLFW_KEY_Z)) {
-            cameraInc.y = -1;
+            cameraInc.y = -speed;
         } else if (window.isKeyPressed(GLFW_KEY_X)) {
-            cameraInc.y = 1;
+            cameraInc.y = speed;
         }
     }
 
+    float time = 0;
+    int count = 0;
     @Override
     public void update(float interval, MouseInput mouseInput) {
+        time +=interval;
+        count +=1;
         // Update camera based on mouse
         if (mouseInput.isRightButtonPressed()) {
             Vector2f rotVec = mouseInput.getDisplVec();
@@ -135,6 +140,11 @@ public class DummyGame implements IGameLogic {
 
             // Update HUD compass
             hud.rotateCompass(camera.getRotation().y);
+            if(time>=1){
+                hud.setStatusText("DEMO (FPS : " + count + ")");
+                time=0;
+                count=0;
+            }
         }
 
         // Update camera position
