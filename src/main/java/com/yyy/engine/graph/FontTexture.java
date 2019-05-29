@@ -4,13 +4,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import static org.lwjgl.stb.STBImage.*;
 
 public class FontTexture {
     private static final String IMAGE_FORMAT = "png";
@@ -63,7 +61,6 @@ public class FontTexture {
     }
 
     private void buildTexture() throws Exception {
-
         // Get the font metrics for each character for the selected font by using image
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2D = img.createGraphics();
@@ -95,7 +92,6 @@ public class FontTexture {
         ByteBuffer buf = null;
         try ( ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             ImageIO.write(img, IMAGE_FORMAT, out);
-//            ImageIO.write(img, IMAGE_FORMAT, new FileOutputStream("font_texture.png"));
             out.flush();
             byte[] data = out.toByteArray();
             buf = ByteBuffer.allocateDirect(data.length);

@@ -5,7 +5,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL15.*;
@@ -16,6 +15,7 @@ import com.yyy.engine.GameItem;
 import org.lwjgl.system.MemoryUtil;
 
 public class Mesh {
+
     private final int vaoId;
 
     private final List<Integer> vboIdList;
