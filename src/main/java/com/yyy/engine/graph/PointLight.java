@@ -3,12 +3,11 @@ package com.yyy.engine.graph;
 import org.joml.Vector3f;
 
 public class PointLight {
-
     private Vector3f color;
 
     private Vector3f position;
 
-    protected float intensity;
+    private float intensity;
 
     private Attenuation attenuation;
 
