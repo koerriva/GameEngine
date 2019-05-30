@@ -42,39 +42,15 @@ public class DummyGame implements IGameLogic {
 
         // Setup  GameItems
         float reflectance = 1f;
-        Mesh mesh = OBJLoader.loadMesh("/models/cube.obj");
+        Mesh mesh = OBJLoader.loadMesh("/models/Tree1/Tree1.obj");
         Texture texture = new Texture("/textures/grassblock.png");
         Material material = new Material(texture, reflectance);
         mesh.setMaterial(material);
+        GameItem tree = new GameItem(mesh);
 
-        float blockScale = 0.5f;
         float skyBoxScale = 50.0f;
-        float extension = 2.0f;
 
-        float startx = extension * (-skyBoxScale + blockScale);
-        float startz = extension * (skyBoxScale - blockScale);
-        float starty = -1.0f;
-        float inc = blockScale * 2;
-
-        float posx = startx;
-        float posz = startz;
-        float incy = 0.0f;
-        int NUM_ROWS = (int)(extension * skyBoxScale * 2 / inc);
-        int NUM_COLS = (int)(extension * skyBoxScale * 2/ inc);
-        GameItem[] gameItems  = new GameItem[NUM_ROWS * NUM_COLS];
-        for(int i=0; i<NUM_ROWS; i++) {
-            for(int j=0; j<NUM_COLS; j++) {
-                GameItem gameItem = new GameItem(mesh);
-                gameItem.setScale(blockScale);
-                incy = Math.random() > 0.9f ? blockScale * 2 : 0f;
-                gameItem.setPosition(posx, starty + incy, posz);
-                gameItems[i*NUM_COLS + j] = gameItem;
-
-                posx += inc;
-            }
-            posx = startx;
-            posz -= inc;
-        }
+        GameItem[] gameItems  = new GameItem[]{tree};
         scene.setGameItems(gameItems);
 
         // Setup  SkyBox
