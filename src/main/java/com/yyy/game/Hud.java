@@ -1,8 +1,8 @@
 package com.yyy.game;
 
-import com.yyy.engine.GameItem;
+import com.yyy.engine.items.GameItem;
 import com.yyy.engine.IHud;
-import com.yyy.engine.TextItem;
+import com.yyy.engine.items.TextItem;
 import com.yyy.engine.Window;
 import com.yyy.engine.graph.FontTexture;
 import com.yyy.engine.graph.Material;

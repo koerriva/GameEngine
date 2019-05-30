@@ -1,4 +1,4 @@
-package com.yyy.engine;
+package com.yyy.engine.items;
 
 import com.yyy.engine.graph.Mesh;
 import org.joml.Vector3f;

@@ -1,12 +1,14 @@
 package com.yyy.engine;
 
-import com.yyy.engine.graph.DirectionalLight;
-import com.yyy.engine.graph.PointLight;
-import com.yyy.engine.graph.SpotLight;
+import com.yyy.engine.graph.lights.DirectionalLight;
+import com.yyy.engine.graph.lights.PointLight;
+import com.yyy.engine.graph.lights.SpotLight;
 import org.joml.Vector3f;
 
 public class SceneLight {
     private Vector3f ambientLight;
+
+    private Vector3f skyBoxLight;
 
     private PointLight[] pointLightList;
 
@@ -44,5 +46,13 @@ public class SceneLight {
 
     public void setDirectionalLight(DirectionalLight directionalLight) {
         this.directionalLight = directionalLight;
+    }
+
+    public Vector3f getSkyBoxLight() {
+        return skyBoxLight;
+    }
+
+    public void setSkyBoxLight(Vector3f skyBoxLight) {
+        this.skyBoxLight = skyBoxLight;
     }
 }

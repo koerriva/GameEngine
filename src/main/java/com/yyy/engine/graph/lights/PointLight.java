@@ -1,4 +1,4 @@
-package com.yyy.engine.graph;
+package com.yyy.engine.graph.lights;
 
 import org.joml.Vector3f;
 

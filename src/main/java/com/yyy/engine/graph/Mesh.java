@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import com.yyy.engine.GameItem;
+import com.yyy.engine.items.GameItem;
 import org.lwjgl.system.MemoryUtil;
 
 public class Mesh {

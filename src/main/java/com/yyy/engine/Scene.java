@@ -1,6 +1,8 @@
 package com.yyy.engine;
 
 import com.yyy.engine.graph.Mesh;
+import com.yyy.engine.items.GameItem;
+import com.yyy.engine.items.SkyBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Scene {
-
     private Map<Mesh, List<GameItem>> meshMap;
 
     private SkyBox skyBox;
@@ -34,6 +35,12 @@ public class Scene {
                 meshMap.put(mesh, list);
             }
             list.add(gameItem);
+        }
+    }
+
+    public void cleanup() {
+        for (Mesh mesh : meshMap.keySet()) {
+            mesh.cleanUp();
         }
     }
 

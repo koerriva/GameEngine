@@ -1,5 +1,7 @@
 package com.yyy.engine;
 
+import com.yyy.engine.items.GameItem;
+
 public interface IHud {
     GameItem[] getGameItems();
 
