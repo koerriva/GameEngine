@@ -3,6 +3,7 @@ package com.yyy.engine.graph;
 import com.yyy.engine.graph.lights.DirectionalLight;
 import com.yyy.engine.graph.lights.PointLight;
 import com.yyy.engine.graph.lights.SpotLight;
+import com.yyy.engine.graph.weather.Fog;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -80,6 +81,12 @@ public class ShaderProgram {
         createUniform(uniformName + ".reflectance");
     }
 
+    public void createFogUniform(String uniformName) throws Exception {
+        createUniform(uniformName + ".activeFog");
+        createUniform(uniformName + ".colour");
+        createUniform(uniformName + ".density");
+    }
+
     public void setUniform(String uniformName, Matrix4f value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             // Dump the matrix into a float buffer
@@ -155,6 +162,12 @@ public class ShaderProgram {
         setUniform(uniformName + ".specular", material.getSpecularColour());
         setUniform(uniformName + ".hasTexture", material.isTextured() ? 1 : 0);
         setUniform(uniformName + ".reflectance", material.getReflectance());
+    }
+
+    public void setUniform(String uniformName, Fog fog) {
+        setUniform(uniformName + ".activeFog", fog.isActive() ? 1 : 0);
+        setUniform(uniformName + ".colour", fog.getColour() );
+        setUniform(uniformName + ".density", fog.getDensity());
     }
 
     public void createVertexShader(String shaderCode) throws Exception {

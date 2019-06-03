@@ -4,12 +4,14 @@ import com.yyy.engine.*;
 import com.yyy.engine.graph.Camera;
 import com.yyy.engine.graph.Renderer;
 import com.yyy.engine.graph.lights.DirectionalLight;
+import com.yyy.engine.graph.weather.Fog;
 import com.yyy.engine.items.SkyBox;
 import com.yyy.engine.items.Terrain;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glClearColor;
 
 public class DummyGame implements IGameLogic {
     private static final float MOUSE_SENSITIVITY = 0.2f;
@@ -69,6 +71,10 @@ public class DummyGame implements IGameLogic {
         camera.getPosition().y = 5.0f;
         camera.getPosition().z = 0.0f;
         camera.getRotation().x = 90;
+
+        // Setup fog
+
+        scene.setFog(new Fog(true,new Vector3f(0.5f, 0.5f, 0.5f),0.2f));
     }
 
     private void setupLights() {
@@ -143,12 +149,14 @@ public class DummyGame implements IGameLogic {
             directionalLight.getColor().y = Math.max(factor, 0.9f);
             directionalLight.getColor().z = Math.max(factor, 0.5f);
         } else {
-            sceneLight.getSkyBoxLight().set(1.0f, 1.0f, 1.0f);
+            sceneLight.getSkyBoxLight().set(252f/255, 252f/255, 245f/255);
             directionalLight.setIntensity(1);
             directionalLight.getColor().x = 1;
             directionalLight.getColor().y = 1;
             directionalLight.getColor().z = 1;
         }
+        Vector3f light = sceneLight.getSkyBoxLight();
+        glClearColor(light.x,light.y,light.z, 0.0f);
         double angRad = Math.toRadians(lightAngle);
         directionalLight.getDirection().x = (float) Math.sin(angRad);
         directionalLight.getDirection().y = (float) Math.cos(angRad);
@@ -158,6 +166,7 @@ public class DummyGame implements IGameLogic {
     public void render(Window window) {
         hud.updateSize(window);
         renderer.render(window, camera, scene, hud);
+        Vector3f light = scene.getSceneLight().getAmbientLight();
     }
 
     @Override

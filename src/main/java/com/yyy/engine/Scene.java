@@ -1,6 +1,7 @@
 package com.yyy.engine;
 
 import com.yyy.engine.graph.Mesh;
+import com.yyy.engine.graph.weather.Fog;
 import com.yyy.engine.items.GameItem;
 import com.yyy.engine.items.SkyBox;
 
@@ -15,6 +16,8 @@ public class Scene {
     private SkyBox skyBox;
 
     private SceneLight sceneLight;
+
+    private Fog fog = Fog.NOFOG;
 
     public Scene() {
         meshMap = new HashMap();
@@ -60,4 +63,11 @@ public class Scene {
         this.sceneLight = sceneLight;
     }
 
+    public Fog getFog() {
+        return fog;
+    }
+
+    public void setFog(Fog fog) {
+        this.fog = fog;
+    }
 }
