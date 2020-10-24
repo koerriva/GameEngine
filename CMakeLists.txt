@@ -30,6 +30,9 @@ add_subdirectory(ThirdLibrary/glad)
 add_subdirectory(ThirdLibrary/glfw)
 add_subdirectory(ThirdLibrary/spdlog)
 
+# 复制数据
+file(COPY data DESTINATION .)
+
 # 指定生成目标
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Graph/ShaderProgram.hpp"
+#include "Graph/Mesh.hpp"
+
 namespace Engine{
     class Renderer
     {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "IGameLogic.hpp"
 #include "Renderer.hpp"
 
@@ -8,8 +9,9 @@ namespace Engine {
     private:
         Window* window;
         IGameLogic* game;
+        Utils::ResourceLoader* resourceLoader;
     public:
-        GameEngine(Window* window,IGameLogic* game);
+        GameEngine(Window* window,IGameLogic* game,Utils::ResourceLoader* resourceLoader);
         ~GameEngine();
 
         void Run();
@@ -22,10 +24,11 @@ namespace Engine {
         void Cleanup();
     };
 
-    GameEngine::GameEngine(Window* window,IGameLogic* game)
+    GameEngine::GameEngine(Window* window,IGameLogic* game,Utils::ResourceLoader* resourceLoader)
     {
         this->game = game;
         this->window = window;
+        this->resourceLoader = resourceLoader;
     }
 
     GameEngine::~GameEngine()
@@ -33,10 +36,8 @@ namespace Engine {
     }
 
     void GameEngine::Init(){
-        if(window){
-            window->Init();
-            game->Init();
-        }
+        window->Init();
+        game->Init();
     }
 
     void GameEngine::Run(){

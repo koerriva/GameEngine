@@ -6,10 +6,11 @@ namespace Game{
     {
     private:
         Renderer* renderer;
+        Utils::ResourceLoader* resourceLoader;
 
         float color=0.1f;
     public:
-        DummyGame(Renderer* renderer);
+        DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader);
         ~DummyGame();
 
         void Init();
@@ -18,14 +19,17 @@ namespace Game{
         void Render(Window* window);
     };
 
-    DummyGame::DummyGame(Renderer* renderer){
+    DummyGame::DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader){
         this->renderer = renderer;
+        this->resourceLoader = resourceLoader;
     }
 
     DummyGame::~DummyGame(){}
 
     void DummyGame::Init(){
+        Utils::Logger::Info("DummyGame Init...");
         renderer->Init();
+        resourceLoader->LoadVertexShader("base");
     }
 
     void DummyGame::Input(Window* window){

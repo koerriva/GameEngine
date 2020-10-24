@@ -1,19 +1,52 @@
 #pragma once
+#include <vector>
+#include <glad.h>
+
+using namespace std;
+
 namespace Engine::Graph {
     class Mesh
     {
     private:
-        /* data */
+        const vector<float>* vertices;
+        const vector<float>* texCoords;
+        const vector<int>* indices;
+        unsigned int vao;
+        vector<unsigned int> vbos;
+        unsigned int ebo;
+
     public:
-        Mesh(/* args */);
+        Mesh(const vector<float>* vertices,const vector<float>* texCoords,const vector<int>* indices);
         ~Mesh();
+
+        void Draw(ShaderProgram* program);
     };
 
-    Mesh::Mesh(/* args */)
+    Mesh::Mesh(const vector<float>* vertices,const vector<float>* texCoords,const vector<int>* indices)
     {
+        this->vertices = vertices;
+        this->texCoords = texCoords;
+        this->indices = indices;
+
+        glGenVertexArrays(1,&vao);
+        glBindVertexArray(vao);
+
+        unsigned int vbo;
+        glGenBuffers(1,&vbo);
+        glBindBuffer(GL_ARRAY_BUFFER,vbo);
+        glBufferData(GL_ARRAY_BUFFER,vertices->size()*sizeof(float),this->vertices->data(),GL_STATIC_DRAW);
+        glVertexAttribPointer(0,vertices->size(),GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
+
+        glBindVertexArray(0);
     }
 
-    Mesh::~Mesh()
-    {
+    Mesh::~Mesh(){}
+
+    void Mesh::Draw(ShaderProgram *program) {
+        program->Bind();
+        glBindVertexArray(vao);
+        glDrawArrays(GL_TRIANGLES,0,3);
+        glBindVertexArray(0);
+        program->Unbind();
     }
 }

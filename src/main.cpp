@@ -1,6 +1,9 @@
 #include <iostream>
 #include <glad.h>
+#include <unordered_map>
+#include <vector>
 #include "Engine/Utils/Logger.hpp"
+#include "Engine/Utils/ResourceLoader.hpp"
 #include "Engine/Window.hpp"
 #include "Engine/GameEngine.hpp"
 #include "Game/DummyGame.hpp"
@@ -12,11 +15,15 @@ using namespace Game;
 
 int main(){
     Logger::Info("GameEngine Version 0.1");
+    ResourceLoader resourceLoader;
+    resourceLoader.Init();
+
     Window window("我的游戏引擎",800,600,true);
     Renderer renderer;
-    DummyGame game(&renderer);
-    GameEngine engine(&window,&game);
-
+    DummyGame game(&renderer,&resourceLoader);
+    GameEngine engine(&window,&game,&resourceLoader);
     engine.Run();
+
+    resourceLoader.Cleanup();
     return 0;
 }
