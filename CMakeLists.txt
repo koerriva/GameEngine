@@ -34,3 +34,9 @@ add_subdirectory(ThirdLibrary/spdlog)
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(GameEngine glad glfw spdlog)
+
+#设置编译链接选项
+if(MSVC)
+    # 取消Win32控制台
+#    set_property(TARGET GameEngine APPEND PROPERTY LINK_FLAGS "/DEBUG /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+endif()
