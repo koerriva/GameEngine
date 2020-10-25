@@ -15,7 +15,7 @@ namespace Engine{
         string title;
         bool closed = false;
 
-        GLFWwindow* glfwWindow{};
+        GLFWwindow* glfwWindow;
     public:
         Window(string title,int width,int height,bool vsync);
         ~Window();
@@ -35,6 +35,14 @@ namespace Engine{
 
         //Input
         bool GetKeyPressed(int key);
+
+        [[nodiscard]] int GetWidth() const {
+            return width;
+        }
+
+        [[nodiscard]] int GetHeight() const {
+            return height;
+        }
     };
 
     Window::Window(string title,int width,int height,bool vsync)
@@ -54,7 +62,7 @@ namespace Engine{
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-            glfwWindow = glfwCreateWindow(800, 600, title.c_str(), nullptr, nullptr);
+            glfwWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
             if(!glfwWindow){
                 glfwTerminate();
                 std::cerr << "Create GLFW Window Fail!"<<std::endl;
@@ -81,12 +89,15 @@ namespace Engine{
             if(vsync){
                 glfwSwapInterval(1);
             }
+
+            glViewport(0,0,width,height);
         }
         
     }
 
     void Window::Update(){
         closed = glfwWindowShouldClose(glfwWindow)==1;
+        glfwGetWindowSize(glfwWindow,&width,&height);
         glfwSwapBuffers(glfwWindow);
         glfwPollEvents();
     }

@@ -5,7 +5,7 @@ namespace Engine::Graph{
     private:
         const char* vertexSource;
         const char* fragmentSource;
-        unsigned int shaderProgram;
+        unsigned int shaderProgram=0;
 
         unsigned int CreateShader(GLuint type){
             unsigned int shader = glCreateShader(type);
@@ -30,7 +30,7 @@ namespace Engine::Graph{
             return shader;
         }
 
-        unsigned int CreateProgram(unsigned vertShader,unsigned fragShader){
+        static unsigned int CreateProgram(unsigned vertShader,unsigned fragShader){
             unsigned int program = glCreateProgram();
             glAttachShader(program,vertShader);
             glAttachShader(program,fragShader);
@@ -61,13 +61,14 @@ namespace Engine::Graph{
             glDeleteShader(vertexShader);
             glDeleteShader(fragmentShader);
         };
-        void Bind(){
+        void Bind() const{
             glUseProgram(shaderProgram);
         };
-        void Unbind(){
+        static void Unbind(){
             glUseProgram(0);
         };
-        void Cleanup(){
+        void Cleanup() const{
+            cout << "Clean Program " << shaderProgram << endl;
             glDeleteProgram(shaderProgram);
         }
     };
