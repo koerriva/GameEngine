@@ -33,6 +33,7 @@ namespace Engine {
 
     GameEngine::~GameEngine()
     {
+        cout << "Drop GameEngine" << endl;
     }
 
     void GameEngine::Init(){
@@ -67,7 +68,9 @@ namespace Engine {
     }
 
     void GameEngine::Cleanup(){
-        window->Cleanup();
         game->Cleanup();
+
+        //窗口必须最后清理，防止OpenGL Context关闭。
+        window->Cleanup();
     }
 }

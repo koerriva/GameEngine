@@ -10,19 +10,19 @@ namespace Game{
     private:
         Renderer* renderer;
         ResourceLoader* resourceLoader;
-        ShaderProgram* shaderProgram;
-        Mesh* mesh;
+        ShaderProgram* shaderProgram = nullptr;
+        Mesh* mesh = nullptr;
 
         float color=0.1f;
     public:
         DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader);
         ~DummyGame();
 
-        void Init();
-        void Input(Window* window);
-        void Update(float interval);
-        void Render(Window* window);
-        void Cleanup();
+        void Init() override;
+        void Input(Window* window) override;
+        void Update(float interval) override;
+        void Render(Window* window) override;
+        void Cleanup() override;
     };
 
     DummyGame::DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader){
@@ -30,7 +30,9 @@ namespace Game{
         this->resourceLoader = resourceLoader;
     }
 
-    DummyGame::~DummyGame(){}
+    DummyGame::~DummyGame(){
+        cout << "Drop DummyGame" << endl;
+    }
 
     void DummyGame::Init(){
         Logger::Info("DummyGame Init...");
@@ -72,11 +74,11 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        renderer->Render(color);
-        renderer->Render(mesh,shaderProgram);
+        renderer->Render(window,mesh,shaderProgram);
     }
 
     void DummyGame::Cleanup(){
+        mesh->Cleanup();
         shaderProgram->Cleanup();
         delete shaderProgram;
     }
