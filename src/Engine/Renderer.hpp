@@ -4,6 +4,7 @@
 #include "Graph/Mesh.hpp"
 
 namespace Engine{
+    using namespace Graph;
     class Renderer
     {
     private:
@@ -15,6 +16,7 @@ namespace Engine{
         void Init();
         void Render();
         void Render(float color);
+        void Render(Mesh* mesh,ShaderProgram* shaderProgram);
     };
 
     Renderer::Renderer(/* args */)
@@ -37,5 +39,11 @@ namespace Engine{
     void Renderer::Render(float color){
         glClearColor(color,color,color,1.0f);
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
+    }
+
+    void Renderer::Render(Mesh* mesh,ShaderProgram* shaderProgram){
+        shaderProgram->Bind();
+        mesh->Draw();
+        shaderProgram->Unbind();
     }
 }

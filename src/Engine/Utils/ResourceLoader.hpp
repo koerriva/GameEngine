@@ -1,5 +1,10 @@
 #pragma once
 
+#define FILE_SPLITER "\\"
+#ifdef __APPLE__
+    #define FILE_SPLITER "/"
+#endif
+
 #include <filesystem>
 #include <fstream>
 
@@ -21,32 +26,25 @@ namespace Engine::Utils{
                 }
             }else{
                 files.push_back(entry.path());
-                ifstream file(entry.path(),ios::ate);
+                ifstream file(entry.path(),ios::ate|ios::binary);
                 if(file.is_open()){
                     streampos size = file.tellg();
-                    cout << "File " << entry.path().filename() << ", Size " << size << endl;
                     auto& buffer = data[entry.path().string()];
                     if(size>0){
                         buffer.resize(size);
                         file.seekg(0,ios::beg);
                         file.read(buffer.data(),size);
-                    }else{
-                        file.seekg(0,ios::beg);
-                        cout <<"read text file" << endl;
-                        int count = 0;
-                        char c;
-                        while(file.get(c)){
-                            cout << "char " << c << endl;
-                        }
                     }
                     file.close();
-//                    Logger::Info("File {},{}",entry.path().string(),buffer.size());
+                    Logger::Info("File {},{}",entry.path().string(),buffer.size());
                 }
             }
         }
     public:
         ResourceLoader() = default;
-        ~ResourceLoader() = default;
+        ~ResourceLoader(){
+            cout << "Drop ResourceLoader" << endl;
+        };
 
         void Init(){
             directory_iterator list(root);
@@ -55,8 +53,17 @@ namespace Engine::Utils{
             }
         };
 
-        const char* LoadVertexShader(const char* name){
-            string filepath = string(root).append("\\").append("shader").append("\\").append(name).append(".vert");
+        const char* LoadShader(const char* name,int type){
+            string file_ext;
+            if(type==1){
+                file_ext = ".vert";
+            }else if(type==3){
+                file_ext = ".frag";
+            }else if(type==2){
+                file_ext = ".geom";
+            }
+            
+            string filepath = string(root).append(FILE_SPLITER).append("shader").append(FILE_SPLITER).append(name).append(file_ext);
             path dir(filepath);
             Logger::Info("Find Shader {}",dir.string());
 

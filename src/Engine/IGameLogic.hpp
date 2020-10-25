@@ -9,5 +9,6 @@ namespace Engine {
         virtual void Input(Window* window) = 0;
         virtual void Update(float interval) = 0;
         virtual void Render(Window* window) = 0;
+        virtual void Cleanup() = 0;
     };
 }
