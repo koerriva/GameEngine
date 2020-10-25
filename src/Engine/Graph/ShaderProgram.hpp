@@ -50,13 +50,15 @@ namespace Engine::Graph{
             this->vertexSource = vertexSource;
             this->fragmentSource = fragmentSource;
         }
-        ~ShaderProgram() {};
+        ~ShaderProgram() {
+            cout << "Drop ShaderProgram" << endl;
+        };
 
         void Init(){
             unsigned vertexShader = CreateShader(GL_VERTEX_SHADER);
             unsigned fragmentShader = CreateShader(GL_FRAGMENT_SHADER);
             shaderProgram = CreateProgram(vertexShader,fragmentShader);
-            glDeleteShader(shaderProgram);
+            glDeleteShader(vertexShader);
             glDeleteShader(fragmentShader);
         };
         void Bind(){
@@ -68,5 +70,9 @@ namespace Engine::Graph{
         void Cleanup(){
             glDeleteProgram(shaderProgram);
         }
+    };
+
+    enum ShaderType{
+        VERTEX_SHADER=1,GEOMETRY_SHADER,FRAGMENT_SHADER
     };
 }

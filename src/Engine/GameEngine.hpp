@@ -68,5 +68,6 @@ namespace Engine {
 
     void GameEngine::Cleanup(){
         window->Cleanup();
+        game->Cleanup();
     }
 }
