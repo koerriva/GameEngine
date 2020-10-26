@@ -15,7 +15,7 @@ namespace Engine{
         string title;
         bool closed = false;
 
-        GLFWwindow* glfwWindow;
+        GLFWwindow* glfwWindow = nullptr;
     public:
         Window(string title,int width,int height,bool vsync);
         ~Window();
@@ -34,7 +34,7 @@ namespace Engine{
         void Cleanup();
 
         //Input
-        bool GetKeyPressed(int key) const;
+        [[nodiscard]] bool GetKeyPressed(int key) const;
 
         [[nodiscard]] int GetWidth() const {
             return width;
@@ -46,6 +46,10 @@ namespace Engine{
 
         [[nodiscard]] static double GetTimeInSecond() {
             return glfwGetTime();
+        }
+
+        [[nodiscard]] float GetAspect() const{
+            return float(width)/float(height);
         }
     };
 

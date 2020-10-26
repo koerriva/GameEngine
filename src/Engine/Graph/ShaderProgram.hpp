@@ -81,8 +81,23 @@ namespace Engine::Graph{
                 location = glGetUniformLocation(shaderProgram,name.c_str());
                 cout << "Uniform[" << name << "] Location=" << location << endl;
                 uniforms[name]=location;
+            }else{
+                location = uniforms[name];
             }
             glUniform1f(location,value);
+        }
+
+        void SetMat4(string name,float* value){
+            int location = 0;
+            if(uniforms.count(name)==0){
+                cout << "Find Uniform : " << name << endl;
+                location = glGetUniformLocation(shaderProgram,name.c_str());
+                cout << "Uniform[" << name << "] Location=" << location << endl;
+                uniforms[name]=location;
+            }else{
+                location = uniforms[name];
+            }
+            glUniformMatrix4fv(location,1,GL_FALSE,value);
         }
     };
 

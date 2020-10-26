@@ -5,6 +5,8 @@
 
 #define PI 3.14159265358979323846
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
 #include "Engine/Window.hpp"
