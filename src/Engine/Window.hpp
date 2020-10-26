@@ -16,6 +16,8 @@ namespace Engine{
         bool closed = false;
 
         GLFWwindow* glfwWindow = nullptr;
+
+        float widthScale=1.0f,heightScale=1.0f;
     public:
         Window(string title,int width,int height,bool vsync);
         ~Window();
@@ -40,8 +42,16 @@ namespace Engine{
             return width;
         }
 
+        int GetFrameBufferWidth() const {
+            return width*int(widthScale);
+        }
+
         [[nodiscard]] int GetHeight() const {
             return height;
+        }
+
+        int GetFrameBufferHeight() const {
+            return height*int(heightScale);
         }
 
         [[nodiscard]] static double GetTimeInSecond() {
@@ -68,7 +78,9 @@ namespace Engine{
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            #ifdef __APPLE__
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            #endif
 
             glfwWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
             if(!glfwWindow){
@@ -98,7 +110,15 @@ namespace Engine{
                 glfwSwapInterval(1);
             }
 
-            glViewport(0,0,width,height);
+            int w,h;
+            glfwGetWindowSize(glfwWindow,&w,&h);
+            Utils::Logger::Info("Window Size ({},{})",w,h);
+            glfwGetFramebufferSize(glfwWindow,&w,&h);
+            Utils::Logger::Info("FrameBuffer Size Size ({},{})",w,h);
+            glfwGetWindowContentScale(glfwWindow,&widthScale,&heightScale);
+            Utils::Logger::Info("Window Scale ({},{})",widthScale,heightScale);
+
+            glViewport(0,0,width*widthScale,height*heightScale);
         }
         
     }
