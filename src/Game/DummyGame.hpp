@@ -12,6 +12,7 @@ namespace Game{
         ResourceLoader* resourceLoader;
         ShaderProgram* shaderProgram = nullptr;
         vector<Mesh> meshList;
+        vector<Texture> textures;
 
         float color=0.1f;
     public:
@@ -72,6 +73,12 @@ namespace Game{
 
 //        meshList.emplace_back(vertices,indices);
         meshList.push_back(Mesh::Sphere(36,18));
+
+        int len;
+        const unsigned char* buffer = resourceLoader->LoadTexture("earthmap1k.jpg",&len);
+        
+        auto tex = Texture(buffer,len);
+        textures.push_back(tex);
     }
 
     void DummyGame::Input(Window* window){
@@ -88,12 +95,16 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        renderer->Render(window,meshList,shaderProgram);
+        renderer->Render(window,meshList,textures,shaderProgram);
     }
 
     void DummyGame::Cleanup(){
         for(auto& mesh:meshList){
             mesh.Cleanup();
+        }
+
+        for(auto& tex:textures){
+            tex.Cleanup();
         }
 
         shaderProgram->Cleanup();

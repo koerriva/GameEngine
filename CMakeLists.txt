@@ -25,6 +25,7 @@ aux_source_directory(src DIR_SRCS)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 include_directories(ThirdLibrary/glad)
 include_directories(ThirdLibrary/glm)
+include_directories(ThirdLibrary/stb)
 
 # 添加库
 add_subdirectory(ThirdLibrary/glad)

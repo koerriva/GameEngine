@@ -16,7 +16,7 @@ namespace Engine::Utils{
     private:
         const char* root = "data";
         vector<path> files;
-        unordered_map<string,vector<char>> data;
+        unordered_map<string,vector<unsigned char>> data;
         void file_collector(const directory_entry& entry){
             if(entry.is_directory()){
                 Logger::Info("Dir {}",entry.path().string());
@@ -33,7 +33,8 @@ namespace Engine::Utils{
                     if(size>0){
                         buffer.resize(size);
                         file.seekg(0,ios::beg);
-                        file.read(buffer.data(),size);
+                        char* p = (char*)(buffer.data());
+                        file.read(p,size);
                     }
                     file.close();
                     Logger::Info("File {},{}",entry.path().string(),buffer.size());
@@ -68,9 +69,23 @@ namespace Engine::Utils{
             Logger::Info("Find Shader {}",dir.string());
 
             if(data.count(filepath)>0){
-                return data[filepath].data();
+                return (const char*)(data[filepath].data());
             }else{
                 Logger::Error("Can't Find Shader {}",dir.string());
+                return nullptr;
+            }
+        }
+
+        const unsigned char* LoadTexture(const char* name,int* len){
+            string filepath = string(root).append(FILE_SPLITER).append("textures").append(FILE_SPLITER).append(name);
+            path dir(filepath);
+            Logger::Info("Find Texture {}",dir.string());
+
+            if(data.count(filepath)>0){
+                *len = data[filepath].size();
+                return data[filepath].data();
+            }else{
+                Logger::Error("Can't Find Texture {}",dir.string());
                 return nullptr;
             }
         }
