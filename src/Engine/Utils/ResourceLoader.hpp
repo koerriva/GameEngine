@@ -26,7 +26,7 @@ namespace Engine::Utils{
                 }
             }else{
                 files.push_back(entry.path());
-                ifstream file(entry.path(),ios::ate|ios::binary);
+                ifstream file(entry.path(),ios::ate);
                 if(file.is_open()){
                     streampos size = file.tellg();
                     auto& buffer = data[entry.path().string()];

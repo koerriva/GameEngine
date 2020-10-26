@@ -32,6 +32,7 @@ add_subdirectory(ThirdLibrary/spdlog)
 
 # 复制数据
 file(COPY data DESTINATION .)
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/. ${CMAKE_BINARY_DIR}/ COPYONLY)
 
 # 指定生成目标
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})

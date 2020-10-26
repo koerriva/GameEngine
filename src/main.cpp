@@ -2,6 +2,9 @@
 #include <glad.h>
 #include <unordered_map>
 #include <vector>
+
+#define PI 3.14159265358979323846
+
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
 #include "Engine/Window.hpp"

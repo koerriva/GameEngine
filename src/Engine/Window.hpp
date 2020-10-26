@@ -34,7 +34,7 @@ namespace Engine{
         void Cleanup();
 
         //Input
-        bool GetKeyPressed(int key);
+        bool GetKeyPressed(int key) const;
 
         [[nodiscard]] int GetWidth() const {
             return width;
@@ -42,6 +42,10 @@ namespace Engine{
 
         [[nodiscard]] int GetHeight() const {
             return height;
+        }
+
+        [[nodiscard]] static double GetTimeInSecond() {
+            return glfwGetTime();
         }
     };
 
@@ -106,7 +110,7 @@ namespace Engine{
         glfwTerminate();
     }
 
-    bool Window::GetKeyPressed(int key){
+    bool Window::GetKeyPressed(int key) const{
         return glfwGetKey(glfwWindow,key)==GLFW_PRESS;
     }
 

@@ -11,7 +11,7 @@ namespace Game{
         Renderer* renderer;
         ResourceLoader* resourceLoader;
         ShaderProgram* shaderProgram = nullptr;
-        Mesh* mesh = nullptr;
+        vector<Mesh> meshList;
 
         float color=0.1f;
     public:
@@ -45,19 +45,33 @@ namespace Game{
         this->shaderProgram = new Graph::ShaderProgram(vertexSource,fragSource);
         shaderProgram->Init();
         vector<float> vertices;
-        //up
-        vertices.push_back(0.0f);
+        //up-left
+        vertices.push_back(-1.0f);
         vertices.push_back(1.0f);
         vertices.push_back(0.0f);
-        //right
+        //up-right
+        vertices.push_back(1.0f);
+        vertices.push_back(1.0f);
+        vertices.push_back(0.0f);
+        //bottom-right
         vertices.push_back(1.0f);
         vertices.push_back(-1.0f);
         vertices.push_back(0.0f);
-        //left
+        //bottom-left
         vertices.push_back(-1.0f);
         vertices.push_back(-1.0f);
         vertices.push_back(0.0f);
-        this->mesh = new Mesh(&vertices,nullptr,nullptr);
+        vector<unsigned int> indices;
+        indices.push_back(0);
+        indices.push_back(2);
+        indices.push_back(1);//逆时针为前,顺时针为后
+        indices.push_back(0);
+        indices.push_back(3);
+        indices.push_back(2);
+//        indices.push_back(3);
+
+//        meshList.emplace_back(vertices,indices);
+        meshList.push_back(Mesh::Sphere(36,18));
     }
 
     void DummyGame::Input(Window* window){
@@ -74,11 +88,14 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        renderer->Render(window,mesh,shaderProgram);
+        renderer->Render(window,meshList,shaderProgram);
     }
 
     void DummyGame::Cleanup(){
-        mesh->Cleanup();
+        for(auto& mesh:meshList){
+            mesh.Cleanup();
+        }
+
         shaderProgram->Cleanup();
         delete shaderProgram;
     }

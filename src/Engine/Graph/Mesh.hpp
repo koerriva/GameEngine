@@ -8,41 +8,65 @@ namespace Engine::Graph {
     class Mesh
     {
     private:
-        const vector<float>* vertices;
-        const vector<float>* texCoords;
-        const vector<int>* indices;
+        vector<float> vertices;
+        vector<unsigned int> indices;
+        vector<float> normals;
+        vector<float> texCoords;
+
         unsigned int vao=0;
         vector<unsigned int> vbos;
         unsigned int ebo=0;
 
     public:
-        Mesh(const vector<float>* vertices,const vector<float>* texCoords,const vector<int>* indices);
+        Mesh(vector<float>& vertices,vector<unsigned>& indices,vector<float> &normals,vector<float> &texCoords);
         ~Mesh();
 
         void Draw() const;
         void Cleanup() const;
+
+        static Mesh Sphere(int sectors,int stacks);
     };
 
-    Mesh::Mesh(const vector<float>* vertices,const vector<float>* texCoords,const vector<int>* indices)
-    {
+    Mesh::Mesh(vector<float> &vertices,vector<unsigned>& indices,vector<float> &normals,vector<float> &texCoords) {
         this->vertices = vertices;
-        this->texCoords = texCoords;
         this->indices = indices;
+        this->normals = normals;
+        this->texCoords = texCoords;
 
         glGenVertexArrays(1,&vao);
         glBindVertexArray(vao);
 
-        cout << "vertices :" << vertices->size() << endl;
-        unsigned int vbo;
-        glGenBuffers(1,&vbo);
-        glBindBuffer(GL_ARRAY_BUFFER,vbo);
-        glBufferData(GL_ARRAY_BUFFER,vertices->size()*sizeof(float),this->vertices->data(),GL_STATIC_DRAW);
+        cout << "vertices :" << vertices.size() << endl;
+        unsigned int vbo[3];
+
+        //vertices
+        glGenBuffers(3,vbo);
+        glBindBuffer(GL_ARRAY_BUFFER,vbo[0]);
+        glBufferData(GL_ARRAY_BUFFER,vertices.size()*sizeof(float),vertices.data(),GL_STATIC_DRAW);
         glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER,0);
+
+        //normals
+        glBindBuffer(GL_ARRAY_BUFFER,vbo[1]);
+        glBufferData(GL_ARRAY_BUFFER,normals.size()*sizeof(float),normals.data(),GL_STATIC_DRAW);
+        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
+        glEnableVertexAttribArray(1);
+
+        //texcoords
+        glBindBuffer(GL_ARRAY_BUFFER,vbo[2]);
+        glBufferData(GL_ARRAY_BUFFER,texCoords.size()*sizeof(float),texCoords.data(),GL_STATIC_DRAW);
+        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,2*sizeof(float),nullptr);
+        glEnableVertexAttribArray(2);
+
+        glGenBuffers(1,&ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER,indices.size()*sizeof(unsigned),indices.data(),GL_STATIC_DRAW);
+
         glBindVertexArray(0);
 
-        vbos.push_back(vbo);
+        for (unsigned int & i : vbo) {
+            vbos.push_back(i);
+        }
     }
 
     Mesh::~Mesh(){
@@ -51,7 +75,8 @@ namespace Engine::Graph {
 
     void Mesh::Draw() const {
         glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES,0,3);
+//        glDrawArrays(GL_TRIANGLES,0,3);
+        glDrawElements(GL_TRIANGLES,indices.size(),GL_UNSIGNED_INT,nullptr);
         glBindVertexArray(0);
     }
 
@@ -59,5 +84,63 @@ namespace Engine::Graph {
         cout << "Clean Mesh " << vao << endl;
         glDeleteVertexArrays(1,&vao);
         glDeleteBuffers(vbos.size(),vbos.data());
+    }
+
+    Mesh Mesh::Sphere(int sectors,int stacks) {
+        float r = 1.0;
+        vector<float> vertices;
+        vector<unsigned int> indices;
+        vector<float> normals;
+        vector<float> texCoords;
+
+        float sectorStep = 2.0*PI / sectors;//圆周等分
+        float stackStep = PI / stacks; //半圆等分
+        for (int i = 0; i <= stacks; ++i) {
+            double stackAngle = PI/2 - i*stackStep; //垂直角
+            float y = r*sin(stackAngle);
+            double xz = r*cos(stackAngle);
+
+            for (int j = 0; j <= sectors; ++j) {
+                double sectorAngle = j*sectorStep; //水平角
+                float x = xz*cos(sectorAngle);
+                float z = xz*sin(sectorAngle);
+
+                //顶点坐标
+                vertices.push_back(x);
+                vertices.push_back(y);
+                vertices.push_back(z);
+
+                //贴图坐标
+                float s = j/sectors;
+                float t = i/stacks;
+                texCoords.push_back(s);
+                texCoords.push_back(t);
+
+                //法线
+                float len = 1.0f/float(r);
+                normals.push_back(x*len);
+                normals.push_back(y*len);
+                normals.push_back(z*len);
+
+            }
+        }
+
+        for (int v = 0; v < stacks; ++v) {
+            int v0 = v*(sectors+1);//起点
+            int v1 = v0+sectors+1;//终点
+            for (int h = 0; h < sectors; ++h,++v0,++v1) {
+                if(v!=0){
+                    indices.push_back(v0);
+                    indices.push_back(v1);
+                    indices.push_back(v0+1);
+                }
+                if(v!=(stacks-1)){
+                    indices.push_back(v0+1);
+                    indices.push_back(v1);
+                    indices.push_back(v1+1);
+                }
+            }
+        }
+        return Mesh(vertices,indices,normals,texCoords);
     }
 }

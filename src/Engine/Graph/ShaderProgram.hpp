@@ -7,6 +7,8 @@ namespace Engine::Graph{
         const char* fragmentSource;
         unsigned int shaderProgram=0;
 
+        unordered_map<string,int> uniforms;
+
         unsigned int CreateShader(GLuint type){
             unsigned int shader = glCreateShader(type);
             if (type==GL_VERTEX_SHADER){
@@ -70,6 +72,17 @@ namespace Engine::Graph{
         void Cleanup() const{
             cout << "Clean Program " << shaderProgram << endl;
             glDeleteProgram(shaderProgram);
+        }
+
+        void SetFloat(string name,float value){
+            int location = 0;
+            if(uniforms.count(name)==0){
+                cout << "Find Uniform : " << name << endl;
+                location = glGetUniformLocation(shaderProgram,name.c_str());
+                cout << "Uniform[" << name << "] Location=" << location << endl;
+                uniforms[name]=location;
+            }
+            glUniform1f(location,value);
         }
     };
 

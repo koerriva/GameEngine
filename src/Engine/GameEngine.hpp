@@ -72,6 +72,5 @@ namespace Engine {
 
         //窗口必须最后清理，防止OpenGL Context关闭。
         window->Cleanup();
-        game->Cleanup();
     }
 }
