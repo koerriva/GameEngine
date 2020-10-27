@@ -74,7 +74,7 @@ namespace Game{
 //        indices.push_back(3);
 
 //        meshList.emplace_back(vertices,indices);
-        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,360,180));
+        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
 
         int len;
         const unsigned char* buffer = resourceLoader->LoadTexture("earthmap1k.jpg",&len);
