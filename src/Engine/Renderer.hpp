@@ -15,7 +15,7 @@ namespace Engine{
         ~Renderer();
 
         void Init();
-        void Render(const Window* window,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram);
+        void Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram);
     };
 
     Renderer::Renderer(/* args */)
@@ -31,7 +31,7 @@ namespace Engine{
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
     }
 
-    void Renderer::Render(const Window* window,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram){
+    void Renderer::Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram){
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         glClearColor(0.f,0.f,0.f,1.0f);
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
@@ -47,15 +47,19 @@ namespace Engine{
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
 
+        glActiveTexture(GL_TEXTURE0);
+        textures[0].Bind();
+
         shaderProgram->Bind();
         auto time = (float)Window::GetTimeInSecond();
         shaderProgram->SetFloat("time",time);
 
         float aspect = window->GetAspect();
-        glm::mat4 P,V,M;
-        P = glm::perspective(glm::radians(60.f),aspect,.1f,1000.f);
-        V = glm::translate(glm::mat4(1.0f),glm::vec3(0.0f,0.0f,sin(time)-1.0f));
-        M = glm::scale(glm::mat4(1.0f),glm::vec3(0.5f));
+        glm::mat4 P,V(1.0f),M(1.0f);
+        P = glm::perspective(glm::radians(60.f),aspect,.1f,10000.f);
+        V = camera->GetViewMatrix();
+        M = glm::rotate(M,time,glm::vec3(0,1,0));
+        M = glm::scale(M,glm::vec3(1.0f));
 
         shaderProgram->SetMat4("P", reinterpret_cast<float *>(&P));
         shaderProgram->SetMat4("V", reinterpret_cast<float *>(&V));
@@ -64,8 +68,6 @@ namespace Engine{
         for (size_t i = 0; i < meshList.size(); i++)
         {
             auto& mesh = meshList[i];
-            auto& tex = textures[i];
-            tex.Bind();
             mesh.Draw();
         }
         

@@ -24,7 +24,7 @@ namespace Engine::Graph {
         void Draw() const;
         void Cleanup() const;
 
-        static Mesh Sphere(int sectors,int stacks);
+        static Mesh Sphere(float r,int sectors,int stacks);
     };
 
     Mesh::Mesh(vector<float> &vertices,vector<unsigned>& indices,vector<float> &normals,vector<float> &texCoords) {
@@ -86,24 +86,23 @@ namespace Engine::Graph {
         glDeleteBuffers(vbos.size(),vbos.data());
     }
 
-    Mesh Mesh::Sphere(int sectors,int stacks) {
-        float r = 1.0;
+    Mesh Mesh::Sphere(float r,int sectors,int stacks) {
         vector<float> vertices;
         vector<unsigned int> indices;
         vector<float> normals;
         vector<float> texCoords;
 
-        float sectorStep = 2.0*PI / sectors;//圆周等分
+        float sectorStep = float(2.*PI) / float(sectors);//圆周等分
         float stackStep = PI / stacks; //半圆等分
         for (int i = 0; i <= stacks; ++i) {
-            double stackAngle = PI/2 - i*stackStep; //垂直角
-            float y = r*sin(stackAngle);
-            double xz = r*cos(stackAngle);
+            float stackAngle = PI/2 - float(i)*stackStep; //垂直角
+            float y = r*sinf(stackAngle);
+            float xz = r*cosf(stackAngle);
 
             for (int j = 0; j <= sectors; ++j) {
-                double sectorAngle = j*sectorStep; //水平角
-                float x = xz*cos(sectorAngle);
-                float z = xz*sin(sectorAngle);
+                float sectorAngle = float(j)*sectorStep; //水平角
+                float x = xz*cosf(sectorAngle);
+                float z = xz*sinf(sectorAngle);
 
                 //顶点坐标
                 vertices.push_back(x);
@@ -111,8 +110,8 @@ namespace Engine::Graph {
                 vertices.push_back(z);
 
                 //贴图坐标
-                float s = j/sectors;
-                float t = i/stacks;
+                float s = float(j)/float(sectors);
+                float t = float(i)/float(stacks);
                 texCoords.push_back(s);
                 texCoords.push_back(t);
 

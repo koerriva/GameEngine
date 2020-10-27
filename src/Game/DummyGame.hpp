@@ -4,6 +4,7 @@ namespace Game{
     using namespace Engine;
     using namespace Engine::Utils;
     using namespace Engine::Graph;
+    using namespace glm;
 
     class DummyGame:public IGameLogic
     {
@@ -11,10 +12,11 @@ namespace Game{
         Renderer* renderer;
         ResourceLoader* resourceLoader;
         ShaderProgram* shaderProgram = nullptr;
+        Camera* camera = nullptr;
         vector<Mesh> meshList;
         vector<Texture> textures;
 
-        float color=0.1f;
+        vec2 cameraState {0.f,0.f};
     public:
         DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader);
         ~DummyGame();
@@ -72,30 +74,45 @@ namespace Game{
 //        indices.push_back(3);
 
 //        meshList.emplace_back(vertices,indices);
-        meshList.push_back(Mesh::Sphere(36,18));
+        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,360,180));
 
         int len;
         const unsigned char* buffer = resourceLoader->LoadTexture("earthmap1k.jpg",&len);
         
         auto tex = Texture(buffer,len);
         textures.push_back(tex);
+
+        this->camera = new Camera(vec3{0,0,0});
     }
 
     void DummyGame::Input(Window* window){
         if(window->GetKeyPressed(KeyCode::ESC)){
             window->Close();
         }
-        if(window->GetKeyPressed(KeyCode::F12)){
-            if(color<1.0)color+=0.01f;
+
+        cameraState.x = 0.f;
+        cameraState.y = 0.f;
+        if(window->GetKeyPressed(KeyCode::W)){
+            cameraState.x = 1.f;
+        }
+        if(window->GetKeyPressed(KeyCode::S)){
+            cameraState.x = -1.f;
+        }
+        if(window->GetKeyPressed(KeyCode::D)){
+            cameraState.y = 1.f;
+        }
+        if(window->GetKeyPressed(KeyCode::A)){
+            cameraState.y = -1.f;
         }
     }
 
     void DummyGame::Update(float interval){
-
+        camera->MoveForward(cameraState.x*interval*1000);
+        camera->MoveRight(cameraState.y*interval*1000);
     }
 
     void DummyGame::Render(Window* window){
-        renderer->Render(window,meshList,textures,shaderProgram);
+        renderer->Render(window,camera,meshList,textures,shaderProgram);
     }
 
     void DummyGame::Cleanup(){
@@ -109,6 +126,8 @@ namespace Game{
 
         shaderProgram->Cleanup();
         delete shaderProgram;
+
+        delete camera;
     }
 }
 

@@ -4,6 +4,7 @@
 #include <vector>
 
 #define PI 3.14159265358979323846
+#define EARTH_RADIUS 6300
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -13,6 +14,7 @@
 
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
+#include "Engine/Camera.hpp"
 #include "Engine/Window.hpp"
 #include "Engine/GameEngine.hpp"
 #include "Game/DummyGame.hpp"

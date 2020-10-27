@@ -12,10 +12,14 @@ using namespace std;
 using namespace std::filesystem;
 
 namespace Engine::Utils{
+    struct FileInfo {
+        long long size=0;
+        string ext;
+    };
     class ResourceLoader{
     private:
         const char* root = "data";
-        vector<path> files;
+        unordered_map<string,FileInfo> info;
         unordered_map<string,vector<unsigned char>> data;
         void file_collector(const directory_entry& entry){
             if(entry.is_directory()){
@@ -25,11 +29,13 @@ namespace Engine::Utils{
                     file_collector(dir);
                 }
             }else{
-                files.push_back(entry.path());
-                ifstream file(entry.path(),ios::ate);
+                ifstream file(entry.path(),ios::ate|ios::binary);
                 if(file.is_open()){
+                    auto filename = entry.path().string();
+                    auto ext = filename.substr(filename.find_last_of('.')+1);
+
                     streampos size = file.tellg();
-                    auto& buffer = data[entry.path().string()];
+                    auto& buffer = data[filename];
                     if(size>0){
                         buffer.resize(size);
                         file.seekg(0,ios::beg);
@@ -37,7 +43,9 @@ namespace Engine::Utils{
                         file.read(p,size);
                     }
                     file.close();
-                    Logger::Info("File {},{}",entry.path().string(),buffer.size());
+                    info[filename].ext = ext;
+                    info[filename].size = buffer.size();
+                    Logger::Info("File {},{}",filename,buffer.size());
                 }
             }
         }
@@ -69,7 +77,12 @@ namespace Engine::Utils{
             Logger::Info("Find Shader {}",dir.string());
 
             if(data.count(filepath)>0){
-                return (const char*)(data[filepath].data());
+                auto& buffer = data[filepath];
+                if(buffer.size()==info[filepath].size){
+                    Logger::Info("Add Terminated Char {}",dir.string());
+                    buffer.push_back(0);
+                }
+                return (const char*)(buffer.data());
             }else{
                 Logger::Error("Can't Find Shader {}",dir.string());
                 return nullptr;
