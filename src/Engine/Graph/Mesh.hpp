@@ -87,6 +87,7 @@ namespace Engine::Graph {
     }
 
     Mesh Mesh::Sphere(float r,int sectors,int stacks) {
+        Utils::Random rand;
         vector<float> vertices;
         vector<unsigned int> indices;
         vector<float> normals;

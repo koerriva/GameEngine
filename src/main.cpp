@@ -4,7 +4,7 @@
 #include <vector>
 
 #define PI 3.14159265358979323846
-#define EARTH_RADIUS 6300
+#define EARTH_RADIUS 6300.f
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -12,6 +12,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
+#include "Engine/Utils/Random.hpp"
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
 #include "Engine/Camera.hpp"
