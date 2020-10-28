@@ -32,7 +32,7 @@ add_subdirectory(ThirdLibrary/glad)
 add_subdirectory(ThirdLibrary/glfw)
 add_subdirectory(ThirdLibrary/spdlog)
 add_subdirectory(ThirdLibrary/glm)
-
+add_subdirectory(ThirdLibrary/freetype)
 # 复制数据
 file(COPY data DESTINATION .)
 #configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/. ${CMAKE_BINARY_DIR}/ COPYONLY)
@@ -40,7 +40,7 @@ file(COPY data DESTINATION .)
 # 指定生成目标
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})
 
-target_link_libraries(GameEngine glad glfw glm spdlog)
+target_link_libraries(GameEngine glad glfw glm spdlog freetype)
 
 #设置编译链接选项
 if(MSVC)

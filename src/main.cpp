@@ -11,10 +11,15 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "Engine/Utils/Random.hpp"
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
+
+#include "Engine/Font.hpp"
+#include "Engine/Debug.hpp"
 #include "Engine/Camera.hpp"
 #include "Engine/Window.hpp"
 #include "Engine/GameEngine.hpp"
@@ -27,15 +32,17 @@ using namespace Game;
 
 int main(){
     Logger::Info("GameEngine Version 0.1");
-    ResourceLoader resourceLoader;
-    resourceLoader.Init();
 
     Window window("我的游戏引擎",800,600,true);
+    window.Init();
+    Font::Init();
+    ResourceLoader::Init();
+
     Renderer renderer;
-    DummyGame game(&renderer,&resourceLoader);
-    GameEngine engine(&window,&game,&resourceLoader);
+    DummyGame game(&renderer);
+    GameEngine engine(&window,&game);
     engine.Run();
 
-    resourceLoader.Cleanup();
+    ResourceLoader::Cleanup();
     return 0;
 }

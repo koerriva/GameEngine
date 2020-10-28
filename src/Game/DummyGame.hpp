@@ -10,7 +10,6 @@ namespace Game{
     {
     private:
         Renderer* renderer;
-        ResourceLoader* resourceLoader;
         ShaderProgram* shaderProgram = nullptr;
         Camera* camera = nullptr;
         vector<Mesh> meshList;
@@ -18,7 +17,7 @@ namespace Game{
 
         vec2 cameraState {0.f,0.f};
     public:
-        DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader);
+        DummyGame(Renderer* renderer);
         ~DummyGame();
 
         void Init() override;
@@ -28,9 +27,8 @@ namespace Game{
         void Cleanup() override;
     };
 
-    DummyGame::DummyGame(Renderer* renderer,Utils::ResourceLoader* resourceLoader){
+    DummyGame::DummyGame(Renderer* renderer){
         this->renderer = renderer;
-        this->resourceLoader = resourceLoader;
     }
 
     DummyGame::~DummyGame(){
@@ -40,13 +38,9 @@ namespace Game{
     void DummyGame::Init(){
         Logger::Info("DummyGame Init...");
         renderer->Init();
-        const char* vertexSource = resourceLoader->LoadShader("base",Graph::VERTEX_SHADER);
-        const char* fragSource = resourceLoader->LoadShader("base",Graph::FRAGMENT_SHADER);
-        Logger::Info(vertexSource);
-        Logger::Info(fragSource);
         
-        this->shaderProgram = new Graph::ShaderProgram(vertexSource,fragSource);
-        shaderProgram->Init();
+        this->shaderProgram = new Graph::ShaderProgram("base");
+
         vector<float> vertices;
         //up-left
         vertices.push_back(-1.0f);
@@ -77,7 +71,7 @@ namespace Game{
         meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
 
         int len;
-        const unsigned char* buffer = resourceLoader->LoadTexture("earthmap1k.jpg",&len);
+        const unsigned char* buffer = ResourceLoader::LoadTexture("earthmap1k.jpg",&len);
         
         auto tex = Texture(buffer,len);
         textures.push_back(tex);

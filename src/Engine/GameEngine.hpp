@@ -9,9 +9,8 @@ namespace Engine {
     private:
         Window* window;
         IGameLogic* game;
-        Utils::ResourceLoader* resourceLoader;
     public:
-        GameEngine(Window* window,IGameLogic* game,Utils::ResourceLoader* resourceLoader);
+        GameEngine(Window* window,IGameLogic* game);
         ~GameEngine();
 
         void Run();
@@ -24,11 +23,10 @@ namespace Engine {
         void Cleanup();
     };
 
-    GameEngine::GameEngine(Window* window,IGameLogic* game,Utils::ResourceLoader* resourceLoader)
+    GameEngine::GameEngine(Window* window,IGameLogic* game)
     {
         this->game = game;
         this->window = window;
-        this->resourceLoader = resourceLoader;
     }
 
     GameEngine::~GameEngine()
@@ -37,7 +35,6 @@ namespace Engine {
     }
 
     void GameEngine::Init(){
-        window->Init();
         game->Init();
     }
 

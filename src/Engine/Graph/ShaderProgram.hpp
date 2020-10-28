@@ -1,6 +1,10 @@
 #pragma once
 
 namespace Engine::Graph{
+    enum ShaderType{
+        VERTEX_SHADER=1,GEOMETRY_SHADER,FRAGMENT_SHADER
+    };
+
     class ShaderProgram{
     private:
         const char* vertexSource;
@@ -47,22 +51,24 @@ namespace Engine::Graph{
             }
             return program;
         }
-    public:
-        ShaderProgram(const char* vertexSource,const char* fragmentSource){
-            this->vertexSource = vertexSource;
-            this->fragmentSource = fragmentSource;
-        }
-        ~ShaderProgram() {
-            cout << "Drop ShaderProgram" << endl;
-        };
 
-        void Init(){
+        void Upload(){
             unsigned vertexShader = CreateShader(GL_VERTEX_SHADER);
             unsigned fragmentShader = CreateShader(GL_FRAGMENT_SHADER);
             shaderProgram = CreateProgram(vertexShader,fragmentShader);
             glDeleteShader(vertexShader);
             glDeleteShader(fragmentShader);
         };
+    public:
+        ShaderProgram(const char* name){
+            this->vertexSource = ResourceLoader::LoadShader(name,VERTEX_SHADER);
+            this->fragmentSource = ResourceLoader::LoadShader(name,FRAGMENT_SHADER);
+            Upload();
+        }
+        ~ShaderProgram() {
+            cout << "Drop ShaderProgram" << endl;
+        };
+
         void Bind() const{
             glUseProgram(shaderProgram);
         };
@@ -99,9 +105,18 @@ namespace Engine::Graph{
             }
             glUniformMatrix4fv(location,1,GL_FALSE,value);
         }
-    };
 
-    enum ShaderType{
-        VERTEX_SHADER=1,GEOMETRY_SHADER,FRAGMENT_SHADER
+        void SetVec3(string name,float* value){
+            int location = 0;
+            if(uniforms.count(name)==0){
+                cout << "Find Uniform : " << name << endl;
+                location = glGetUniformLocation(shaderProgram,name.c_str());
+                cout << "Uniform[" << name << "] Location=" << location << endl;
+                uniforms[name]=location;
+            }else{
+                location = uniforms[name];
+            }
+            glUniform3fv(location,1,value);
+        }
     };
 }

@@ -49,20 +49,16 @@ namespace Engine::Utils{
                 }
             }
         }
-    public:
-        ResourceLoader() = default;
-        ~ResourceLoader(){
-            cout << "Drop ResourceLoader" << endl;
-        };
+        ResourceLoader(){};
+        static ResourceLoader* _instance;
 
-        void Init(){
+        void init(){
             directory_iterator list(root);
             for (auto& entry:list){
                 file_collector(entry);
             }
         };
-
-        const char* LoadShader(const char* name,int type){
+        const char* loadShader(const char* name,int type){
             string file_ext;
             if(type==1){
                 file_ext = ".vert";
@@ -71,7 +67,7 @@ namespace Engine::Utils{
             }else if(type==2){
                 file_ext = ".geom";
             }
-            
+
             string filepath = string(root).append(FILE_SPLITER).append("shader").append(FILE_SPLITER).append(name).append(file_ext);
             path dir(filepath);
             Logger::Info("Find Shader {}",dir.string());
@@ -89,7 +85,7 @@ namespace Engine::Utils{
             }
         }
 
-        const unsigned char* LoadTexture(const char* name,int* len){
+        const unsigned char* loadTexture(const char* name,int* len){
             string filepath = string(root).append(FILE_SPLITER).append("textures").append(FILE_SPLITER).append(name);
             path dir(filepath);
             Logger::Info("Find Texture {}",dir.string());
@@ -103,8 +99,30 @@ namespace Engine::Utils{
             }
         }
 
-        void Cleanup(){
+        void cleanup(){
             data.clear();
         }
+    public:
+        ~ResourceLoader(){
+            cout << "Drop ResourceLoader" << endl;
+        };
+
+        static void Init(){
+            return _instance->init();
+        }
+
+        static const char* LoadShader(const char* name,int type){
+            return _instance->loadShader(name,type);
+        }
+
+        static const unsigned char* LoadTexture(const char* name,int* len){
+            return _instance->loadTexture(name,len);
+        }
+
+        static void Cleanup(){
+            _instance->cleanup();
+        }
     };
+
+    ResourceLoader* ResourceLoader::_instance = new ResourceLoader();
 }
