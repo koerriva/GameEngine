@@ -14,6 +14,7 @@ namespace Game{
         Camera* camera = nullptr;
         vector<Mesh> meshList;
         vector<Texture> textures;
+        Debug* debug;
 
         vec2 cameraState {0.f,0.f};
     public:
@@ -77,6 +78,8 @@ namespace Game{
         textures.push_back(tex);
 
         this->camera = new Camera(vec3{0,0,0});
+
+        debug = new Debug(vec2{25,25});
     }
 
     void DummyGame::Input(Window* window){
@@ -106,7 +109,8 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        renderer->Render(window,camera,meshList,textures,shaderProgram);
+        debug->Draw("c",vec3{0.9,.1,.1});
+//        renderer->Render(window,camera,meshList,textures,shaderProgram);
     }
 
     void DummyGame::Cleanup(){

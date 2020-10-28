@@ -7,6 +7,6 @@ uniform vec3 color;
 
 void main() {
     float r = texture(texture0,v_TexCoord).r;
-    samplerC = vec4(1.0,1.0,1.0,r);
-    gl_FragColor = vec4(color, 1.0)*samplerC;
+    vec4 samplerC = vec4(1.0,1.0,1.0,r);
+    gl_FragColor = vec4(color, 1.0);
 }
