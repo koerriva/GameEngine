@@ -79,7 +79,7 @@ namespace Game{
 
         this->camera = new Camera(vec3{0,0,0});
 
-        debug = new Debug(vec2{25,25});
+        debug = new Debug();
     }
 
     void DummyGame::Input(Window* window){
@@ -101,6 +101,10 @@ namespace Game{
         if(window->GetKeyPressed(KeyCode::A)){
             cameraState.y = -1.f;
         }
+
+        if(window->GetKeyPressed(F1)){
+            renderer->SetMode();
+        }
     }
 
     void DummyGame::Update(float interval){
@@ -109,8 +113,11 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        debug->Draw("c",vec3{0.9,.1,.1});
-//        renderer->Render(window,camera,meshList,textures,shaderProgram);
+        glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
+//        debug->Draw(vec2{25,25},"c",vec3{0.9,.1,.1});
+        renderer->Render(window,camera,meshList,textures,shaderProgram);
+        debug->Draw(vec2{25,25},L"abc你好世界",vec3{0.9,.1,.1});
+
     }
 
     void DummyGame::Cleanup(){

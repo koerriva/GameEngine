@@ -35,6 +35,7 @@ namespace Engine::Graph{
         }
 
         void Cleanup(){
+            cout << "Cleanup Texture" << endl;
             glDeleteTextures(1,&texture);
         }
     };

@@ -46,4 +46,5 @@ target_link_libraries(GameEngine glad glfw glm spdlog freetype)
 if(MSVC)
     # 取消Win32控制台
 #    set_property(TARGET GameEngine APPEND PROPERTY LINK_FLAGS "/DEBUG /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+#    set_property(TARGET GameEngine APPEND PROPERTY LINK_FLAGS "/source-charset:utf-8")
 endif()

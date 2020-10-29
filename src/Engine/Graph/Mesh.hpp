@@ -43,20 +43,20 @@ namespace Engine::Graph {
         glGenBuffers(3,vbo);
         glBindBuffer(GL_ARRAY_BUFFER,vbo[0]);
         glBufferData(GL_ARRAY_BUFFER,vertices.size()*sizeof(float),vertices.data(),GL_STATIC_DRAW);
-        glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
         glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
 
         //normals
         glBindBuffer(GL_ARRAY_BUFFER,vbo[1]);
         glBufferData(GL_ARRAY_BUFFER,normals.size()*sizeof(float),normals.data(),GL_STATIC_DRAW);
-        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
         glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3*sizeof(float),nullptr);
 
         //texcoords
         glBindBuffer(GL_ARRAY_BUFFER,vbo[2]);
         glBufferData(GL_ARRAY_BUFFER,texCoords.size()*sizeof(float),texCoords.data(),GL_STATIC_DRAW);
-        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,2*sizeof(float),nullptr);
         glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,2*sizeof(float),nullptr);
 
         glGenBuffers(1,&ebo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);

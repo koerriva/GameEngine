@@ -31,12 +31,11 @@ using namespace Engine::Utils;
 using namespace Game;
 
 int main(){
-    Logger::Info("GameEngine Version 0.1");
-
-    Window window("我的游戏引擎",800,600,true);
+    Logger::Info("我的游戏引擎 0.1");
+    Window window("我的游戏引擎 0.1",800,600,true);
     window.Init();
-    Font::Init();
     ResourceLoader::Init();
+    Font::Init();
 
     Renderer renderer;
     DummyGame game(&renderer);
@@ -44,5 +43,13 @@ int main(){
     engine.Run();
 
     ResourceLoader::Cleanup();
+    Font::Cleanup();
+
+//    string str = L"您好世界";
+//    wstring wstr(str.begin(),str.end());
+//    for (wstring::const_iterator it=wstr.begin();it!=wstr.end();++it){
+//        printf("%04hx\n",*it);
+//    }
+
     return 0;
 }
