@@ -14,7 +14,9 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "Engine/Utils/Random.hpp"
+#include "Engine/Common/Text.hpp"
+
+#include "Engine/Common/Random.hpp"
 #include "Engine/Utils/Logger.hpp"
 #include "Engine/Utils/ResourceLoader.hpp"
 
@@ -32,7 +34,7 @@ using namespace Game;
 
 int main(){
     Logger::Info("我的游戏引擎 0.1");
-    Window window("我的游戏引擎 0.1",800,600,true);
+    Window window("我的游戏引擎 0.1",800,600,false);
     window.Init();
     ResourceLoader::Init();
     Font::Init();

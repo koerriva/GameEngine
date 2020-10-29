@@ -7,6 +7,7 @@ namespace Engine{
     FT_Library ft;
     FT_Face fc;
     struct Character{
+        bool cached=false;
         GLuint texture;
         ivec2 size;
         ivec2 bearing;
@@ -28,7 +29,7 @@ namespace Engine{
             if(FT_New_Face(ft,fontpath,0,&fc)){
                 Logger::Error("Can't Load Font [{}]",fontpath);
             }
-            FT_Set_Pixel_Sizes(fc,0,24);
+            FT_Set_Pixel_Sizes(fc,0,18);
 
             glPixelStorei(GL_UNPACK_ALIGNMENT,1);//禁用字节对齐
             for (wchar_t c = 0; c < 128; ++c) {
@@ -38,17 +39,14 @@ namespace Engine{
                 }
                 _GenTexture(c);
             }
-            for (wchar_t c = 0x4e00; c < 0x9fa5; ++c) {
-                if(FT_Load_Char(fc,c,FT_LOAD_RENDER)){
-                    Logger::Error("Can't Load char");
-                    continue;
-                }
-                _GenTexture(c);
-            }
+//            for (wchar_t c = 0x4e00; c < 0x9fa5; ++c) {
+//                if(FT_Load_Char(fc,c,FT_LOAD_RENDER)){
+//                    Logger::Error("Can't Load char");
+//                    continue;
+//                }
+//                _GenTexture(c);
+//            }
             glBindTexture(GL_TEXTURE_2D,0);
-
-            FT_Done_Face(fc);
-            FT_Done_FreeType(ft);
         }
 
         void _GenTexture(wchar_t c){
@@ -64,7 +62,7 @@ namespace Engine{
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            Character character{texture
+            Character character{true,texture
                     ,ivec2{fc->glyph->bitmap.width,fc->glyph->bitmap.rows}
                     ,ivec2{fc->glyph->bitmap_left,fc->glyph->bitmap_top}
                     ,static_cast<GLuint>(fc->glyph->advance.x)};
@@ -79,10 +77,19 @@ namespace Engine{
             _instance->_init();
         }
         static Character GetChar(wchar_t c){
+            auto& ch = _instance->chars[c];
+            if(!ch.cached){
+                if(FT_Load_Char(fc,c,FT_LOAD_RENDER)){
+                    Logger::Error("Can't Load char");
+                }
+                _instance->_GenTexture(c);
+            }
             return _instance->chars[c];
         }
         static void Cleanup(){
             _instance->_cleanup();
+            FT_Done_Face(fc);
+            FT_Done_FreeType(ft);
         }
     };
 

@@ -8,7 +8,7 @@ namespace Engine::Graph {
     class Mesh
     {
     private:
-        vector<float> vertices;
+        vector<float> vertices;//顶点顺序，逆时针为前，顺时针为后
         vector<unsigned int> indices;
         vector<float> normals;
         vector<float> texCoords;

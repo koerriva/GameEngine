@@ -16,6 +16,8 @@ namespace Game{
         vector<Texture> textures;
         Debug* debug;
 
+        float frameRate;
+
         vec2 cameraState {0.f,0.f};
     public:
         DummyGame(Renderer* renderer);
@@ -41,34 +43,6 @@ namespace Game{
         renderer->Init();
         
         this->shaderProgram = new Graph::ShaderProgram("base");
-
-        vector<float> vertices;
-        //up-left
-        vertices.push_back(-1.0f);
-        vertices.push_back(1.0f);
-        vertices.push_back(0.0f);
-        //up-right
-        vertices.push_back(1.0f);
-        vertices.push_back(1.0f);
-        vertices.push_back(0.0f);
-        //bottom-right
-        vertices.push_back(1.0f);
-        vertices.push_back(-1.0f);
-        vertices.push_back(0.0f);
-        //bottom-left
-        vertices.push_back(-1.0f);
-        vertices.push_back(-1.0f);
-        vertices.push_back(0.0f);
-        vector<unsigned int> indices;
-        indices.push_back(0);
-        indices.push_back(2);
-        indices.push_back(1);//逆时针为前,顺时针为后
-        indices.push_back(0);
-        indices.push_back(3);
-        indices.push_back(2);
-//        indices.push_back(3);
-
-//        meshList.emplace_back(vertices,indices);
         meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
 
         int len;
@@ -103,21 +77,24 @@ namespace Game{
         }
 
         if(window->GetKeyPressed(F1)){
-            renderer->SetMode();
+            renderer->SetShaderMode();
+        }
+        if(window->GetKeyPressed(F2)){
+            renderer->SetWireframeMode();
         }
     }
 
     void DummyGame::Update(float interval){
         camera->MoveForward(cameraState.x*interval*1000);
         camera->MoveRight(cameraState.y*interval*1000);
+        frameRate = interval;
     }
 
     void DummyGame::Render(Window* window){
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
-//        debug->Draw(vec2{25,25},"c",vec3{0.9,.1,.1});
+        glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         renderer->Render(window,camera,meshList,textures,shaderProgram);
-        debug->Draw(vec2{25,25},L"abc你好世界",vec3{0.9,.1,.1});
-
+        debug->Draw(vec2{25,25},Text("帧率:"+to_string(frameRate)),vec3{0.2,.9,.1});
     }
 
     void DummyGame::Cleanup(){

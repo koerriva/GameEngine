@@ -5,6 +5,7 @@
 namespace Engine{
     using namespace Graph;
     using namespace glm;
+    using namespace Common;
     class Debug{
     private:
         ShaderProgram* shaderProgram;
@@ -29,7 +30,7 @@ namespace Engine{
             glBindVertexArray(0);
         }
 
-        void Draw(vec2 pos,const wstring& text,vec3 color){
+        void Draw(vec2 pos,const Text& text,vec3 color){
             glEnable(GL_CULL_FACE);
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -10,12 +10,14 @@ namespace Engine{
     {
     private:
         bool WIREFRAME_MODE = false;
+        bool SHADER_MODE = true;
     public:
         Renderer(/* args */);
         ~Renderer();
 
         void Init();
-        void SetMode();
+        void SetWireframeMode();
+        void SetShaderMode();
         void Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram);
     };
 
@@ -32,19 +34,25 @@ namespace Engine{
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
     }
 
-    void Renderer::SetMode(){
-        WIREFRAME_MODE = !WIREFRAME_MODE;
+    void Renderer::SetWireframeMode(){
+        WIREFRAME_MODE = true;
+        SHADER_MODE = false;
+    }
+
+    void Renderer::SetShaderMode() {
+        WIREFRAME_MODE = false;
+        SHADER_MODE = true;
     }
 
     void Renderer::Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram){
-        glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         glEnable(GL_DEPTH_TEST);
 
 //        glEnable(GL_CULL_FACE);
 //        glCullFace(GL_BACK);
         if(WIREFRAME_MODE){
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        }else{
+        }
+        if(SHADER_MODE){
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
 
