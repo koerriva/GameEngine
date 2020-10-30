@@ -29,7 +29,7 @@ namespace Engine{
             if(FT_New_Face(ft,fontpath,0,&fc)){
                 Logger::Error("Can't Load Font [{}]",fontpath);
             }
-            FT_Set_Pixel_Sizes(fc,0,18);
+            FT_Set_Pixel_Sizes(fc,0,PIXEL_SIZE);
 
             glPixelStorei(GL_UNPACK_ALIGNMENT,1);//禁用字节对齐
             for (wchar_t c = 0; c < 128; ++c) {
@@ -73,6 +73,7 @@ namespace Engine{
         }
         static Font* _instance;
     public:
+        static const int PIXEL_SIZE = 16;
         static void Init(){
             _instance->_init();
         }

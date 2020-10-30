@@ -37,31 +37,31 @@ namespace Engine{
 
             shaderProgram->Bind();
             shaderProgram->SetVec3("color", reinterpret_cast<float *>(&color));
-            mat4 P = ortho(0.f,800.f,0.f,600.f);
+            mat4 P = ortho(0.f,800.f,600.f,0.f);
             shaderProgram->SetMat4("P",reinterpret_cast<float *>(&P));
             glActiveTexture(GL_TEXTURE0);
             glBindVertexArray(VAO);
 
 
-            for (wstring::const_iterator it=text.begin();it!=text.end();++it) {
-                c = Font::GetChar(*it);
-                float x = pos.x+c.bearing.x*1.0f;
-                float y = pos.y-(c.size.y-c.bearing.y)*1.0f;
-                float w = c.size.x*1.f;
-                float h = c.size.y*1.f;
+            for (std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>::value_type it : text) {
+                c = Font::GetChar(it);
+                float x = pos.x+c.bearing.x;
+                float y = pos.y+Font::PIXEL_SIZE+(c.size.y-c.bearing.y);
+                float w = c.size.x;
+                float h = c.size.y;
 
                 //6个顶点
                 vertices ={
-                        x,y+h,0.0,0.0,
-                        x,y,0.0,1.0,
-                        x+w,y,1.0,1.0,
+                    x,y-h,0.0,0.0,
+                    x,y,0.0,1.0,
+                    x+w,y,1.0,1.0,
 
-                        x,y+h,0.0,0.0,
-                        x+w,y,1.0,1.0,
-                        x+w,y+h,1.0,0.0,
+                    x,y-h,0.0,0.0,
+                    x+w,y,1.0,1.0,
+                    x+w,y-h,1.0,0.0,
                 };
 
-                pos.x += (c.advance>>6)*1.0f;
+                pos.x += c.advance>>6;
 
                 glBindTexture(GL_TEXTURE_2D,c.texture);
                 glBindBuffer(GL_ARRAY_BUFFER,VBO);

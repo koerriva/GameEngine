@@ -100,7 +100,7 @@ namespace Game{
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         renderer->Render(window,camera,meshList,textures,shaderProgram);
-        debug->Draw(vec2{25,25},Text("帧率:"+to_string(int(1/frameRate))),vec3{0.2,.9,.1});
+        debug->Draw(vec2{5,5},Text("帧率:"+to_string(int(1/frameRate))),vec3{0.05f,.99f,0.05f});
     }
 
     void DummyGame::Cleanup(){
