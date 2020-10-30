@@ -12,15 +12,16 @@ namespace Game{
         Renderer* renderer;
         ShaderProgram* shaderProgram = nullptr;
         Camera* camera = nullptr;
+        Debug* debug = nullptr;
         vector<Mesh> meshList;
         vector<Texture> textures;
-        Debug* debug;
+        Timer* timer;
 
-        float frameRate;
-
+        float updateRate = 0.f;
+        float frameRate = 0.f;
         vec2 cameraState {0.f,0.f};
     public:
-        DummyGame(Renderer* renderer);
+        DummyGame();
         ~DummyGame();
 
         void Init() override;
@@ -30,8 +31,9 @@ namespace Game{
         void Cleanup() override;
     };
 
-    DummyGame::DummyGame(Renderer* renderer){
-        this->renderer = renderer;
+    DummyGame::DummyGame(){
+        this->renderer = new Renderer();
+        this->timer = new Timer();
     }
 
     DummyGame::~DummyGame(){
@@ -54,6 +56,8 @@ namespace Game{
         this->camera = new Camera(vec3{0,0,0});
 
         debug = new Debug();
+
+        timer->Init();
     }
 
     void DummyGame::Input(Window* window){
@@ -87,14 +91,16 @@ namespace Game{
     void DummyGame::Update(float interval){
         camera->MoveForward(cameraState.x*interval*1000);
         camera->MoveRight(cameraState.y*interval*1000);
-        frameRate = interval;
+        updateRate = interval;
     }
 
     void DummyGame::Render(Window* window){
+        frameRate = timer->GetElapsedTime();
+
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         renderer->Render(window,camera,meshList,textures,shaderProgram);
-        debug->Draw(vec2{25,25},Text("帧率:"+to_string(frameRate)),vec3{0.2,.9,.1});
+        debug->Draw(vec2{25,25},Text("帧率:"+to_string(int(1/frameRate))),vec3{0.2,.9,.1});
     }
 
     void DummyGame::Cleanup(){
@@ -110,6 +116,10 @@ namespace Game{
         delete shaderProgram;
 
         delete camera;
+
+        delete renderer;
+
+        delete timer;
     }
 }
 

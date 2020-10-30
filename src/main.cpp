@@ -34,19 +34,9 @@ using namespace Game;
 
 int main(){
     Logger::Info("我的游戏引擎 0.1");
-    Window window("我的游戏引擎 0.1",800,600,false);
-    window.Init();
-    ResourceLoader::Init();
-    Font::Init();
-
-    Renderer renderer;
-    DummyGame game(&renderer);
-    GameEngine engine(&window,&game);
+    DummyGame game;
+    GameEngine engine("我的游戏引擎 0.1",800,600,false,&game);
     engine.Run();
-
-    ResourceLoader::Cleanup();
-    Font::Cleanup();
-
 //    string str = L"您好世界";
 //    wstring wstr(str.begin(),str.end());
 //    for (wstring::const_iterator it=wstr.begin();it!=wstr.end();++it){

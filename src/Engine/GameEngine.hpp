@@ -14,17 +14,45 @@ namespace Engine {
         nanoseconds now;
         nanoseconds steps;
     };
+
+    class Timer {
+    private:
+        double lastLoopTime;
+    public:
+        ~Timer(){
+            cout << "Drop Timer" << endl;
+        }
+        void Init(){
+            lastLoopTime = GetTime();
+        }
+
+        double GetElapsedTime(){
+            double time = GetTime();
+            auto elapsedTime = time - lastLoopTime;
+            lastLoopTime = time;
+            return elapsedTime;
+        }
+
+        [[nodiscard]] double GetLastLoopTime() const{
+            return lastLoopTime;
+        }
+
+        static double GetTime(){
+            return duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch()).count()/1000000000.f;
+        }
+    };
+
     class GameEngine
     {
     private:
-        const float TARGET_FPS = 120;
+        const float TARGET_FPS = 144;
         const float TARGET_UPS = 60;
-        GameTime time{nanoseconds(0),nanoseconds(0)};
 
         Window* window;
         IGameLogic* game;
+        Timer* timer;
     public:
-        GameEngine(Window* window,IGameLogic* game);
+        GameEngine(const char* title,int width,int height,bool vsync,IGameLogic* game);
         ~GameEngine();
 
         void Run();
@@ -34,14 +62,14 @@ namespace Engine {
         void Input();
         void Update(float interval);
         void Render();
-        void Sync(nanoseconds current) const;
+        void Sync() const;
         void Cleanup();
     };
 
-    GameEngine::GameEngine(Window* window,IGameLogic* game)
-    {
+    GameEngine::GameEngine(const char *title, int width, int height, bool vsync, IGameLogic *game) {
         this->game = game;
-        this->window = window;
+        this->window = new Window(title,width,height,vsync);
+        this->timer = new Timer();
     }
 
     GameEngine::~GameEngine()
@@ -50,42 +78,44 @@ namespace Engine {
     }
 
     void GameEngine::Init(){
+        timer->Init();
+        //窗口先初始化
+        window->Init();
+        //加载资源
+        ResourceLoader::Init();
+        //加载字体
+        Font::Init();
+        //加载游戏
         game->Init();
     }
 
     void GameEngine::Run(){
         Init();
-
-        time.start = duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch());
-        time.now = duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch());
+        float elapsedTime;
+        float accumulator = 0.f;
+        float interval = 1.f / TARGET_UPS;
         while (!window->Closed())
         {
-            auto loopStartTime = duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch());
-            auto elapsed = loopStartTime-time.now;
-            time.now = loopStartTime;
-            time.steps += elapsed;
+            elapsedTime = float(timer->GetElapsedTime());
+            accumulator += elapsedTime;
 
             Input();
-            long nanoPerUpdate = long(1.f/TARGET_UPS*1000.f*1000000.f);
-            while (time.steps>=nanoseconds(nanoPerUpdate)){
-                Update(1.f/TARGET_UPS);
-                time.steps -=nanoseconds(nanoPerUpdate);
+            while (accumulator>=interval){
+                Update(interval);
+                accumulator -= elapsedTime;
             }
-
-//            Update(1.f/TARGET_UPS);
-
             Render();
-
-            Sync(loopStartTime);
+            if(!window->VSynced()){
+                Sync();
+            }
         }
         Cleanup();
     }
 
-    void GameEngine::Sync(nanoseconds current) const {
-        long nanoPerRender = long(1.f/TARGET_UPS*1000.f*1000000.f);
-        auto loopSlot = nanoseconds(nanoPerRender);
-        nanoseconds endTime = current+loopSlot;
-        while(duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch())<endTime){
+    void GameEngine::Sync() const {
+        auto loopSlot = 1.f/TARGET_FPS;
+        auto endTime = timer->GetLastLoopTime()+loopSlot;
+        while(Engine::Timer::GetTime()<endTime){
             this_thread::sleep_for(microseconds(1));
         }
     }
@@ -105,6 +135,9 @@ namespace Engine {
 
     void GameEngine::Cleanup(){
         game->Cleanup();
+
+        ResourceLoader::Cleanup();
+        Font::Cleanup();
 
         //窗口必须最后清理，防止OpenGL Context关闭。
         window->Cleanup();
