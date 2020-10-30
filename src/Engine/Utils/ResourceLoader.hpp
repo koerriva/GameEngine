@@ -37,7 +37,7 @@ namespace Engine::Utils{
                     streampos size = file.tellg();
                     auto& buffer = data[filename];
                     if(size>0){
-                        buffer.resize(size);
+                        buffer.resize(int(size));
                         file.seekg(0,ios::beg);
                         char* p = (char*)(buffer.data());
                         file.read(p,size);

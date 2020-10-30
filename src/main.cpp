@@ -37,11 +37,4 @@ int main(){
     DummyGame game;
     GameEngine engine("我的游戏引擎 0.1",800,600,false,&game);
     engine.Run();
-//    string str = L"您好世界";
-//    wstring wstr(str.begin(),str.end());
-//    for (wstring::const_iterator it=wstr.begin();it!=wstr.end();++it){
-//        printf("%04hx\n",*it);
-//    }
-
-    return 0;
 }

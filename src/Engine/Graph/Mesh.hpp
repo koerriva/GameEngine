@@ -94,9 +94,9 @@ namespace Engine::Graph {
         vector<float> texCoords;
 
         float sectorStep = float(2.*PI) / float(sectors);//圆周等分
-        float stackStep = PI / stacks; //半圆等分
+        auto stackStep = float(PI / stacks); //半圆等分
         for (int i = 0; i <= stacks; ++i) {
-            float stackAngle = PI/2 - float(i)*stackStep; //垂直角
+            auto stackAngle = float(PI/2 - float(i)*stackStep); //垂直角
             float y = r*sinf(stackAngle);
             float xz = r*cosf(stackAngle);
 

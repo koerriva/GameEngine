@@ -123,7 +123,7 @@ namespace Engine{
             glfwGetWindowContentScale(glfwWindow,&widthScale,&heightScale);
             Utils::Logger::Info("Window Scale ({},{})",widthScale,heightScale);
 
-            glViewport(0,0,width*widthScale,height*heightScale);
+            glViewport(0,0,width*int(widthScale),height*int(heightScale));
         }
         
     }

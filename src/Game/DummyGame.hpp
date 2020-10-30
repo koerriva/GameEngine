@@ -95,7 +95,7 @@ namespace Game{
     }
 
     void DummyGame::Render(Window* window){
-        frameRate = timer->GetElapsedTime();
+        frameRate = float(timer->GetElapsedTime());
 
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());

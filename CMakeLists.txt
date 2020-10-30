@@ -7,6 +7,9 @@ project (GameEngine)
 # 编译器配置
 set(CMAKE_CXX_STANDARD 17)
 
+# 编译版本
+#SET(CMAKE_BUILD_TYPE "Release")
+
 # 查找依赖库
 find_package(OpenGL REQUIRED)
 
@@ -22,10 +25,12 @@ set (PROJECT_SOURCE_DIR src)
 aux_source_directory(src DIR_SRCS)
 
 # 包含目录
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+include_directories(ThirdLibrary/glfw/include)
 include_directories(ThirdLibrary/glad)
 include_directories(ThirdLibrary/glm)
 include_directories(ThirdLibrary/stb)
+include_directories(ThirdLibrary/freetype/include)
+include_directories(ThirdLibrary/libnoise/include)
 
 # 添加库
 add_subdirectory(ThirdLibrary/glad)
@@ -33,6 +38,8 @@ add_subdirectory(ThirdLibrary/glfw)
 add_subdirectory(ThirdLibrary/spdlog)
 add_subdirectory(ThirdLibrary/glm)
 add_subdirectory(ThirdLibrary/freetype)
+link_directories(ThirdLibrary/libnoise/lib)
+
 # 复制数据
 file(COPY data DESTINATION .)
 #configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/. ${CMAKE_BINARY_DIR}/ COPYONLY)
@@ -40,7 +47,7 @@ file(COPY data DESTINATION .)
 # 指定生成目标
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})
 
-target_link_libraries(GameEngine glad glfw glm spdlog freetype)
+target_link_libraries(GameEngine glad glfw glm spdlog freetype noise)
 
 #设置编译链接选项
 if(MSVC)
