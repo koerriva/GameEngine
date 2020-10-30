@@ -23,7 +23,7 @@ namespace Engine::Utils{
         unordered_map<string,vector<unsigned char>> data;
         void file_collector(const directory_entry& entry){
             if(entry.is_directory()){
-                Logger::Info("Dir {}",entry.path().string());
+//                Logger::Info("Dir {}",entry.path().string());
                 directory_iterator list(entry.path());
                 for (auto& dir:list) {
                     file_collector(dir);
@@ -45,11 +45,11 @@ namespace Engine::Utils{
                     file.close();
                     info[filename].ext = ext;
                     info[filename].size = buffer.size();
-                    Logger::Info("File {},{}",filename,buffer.size());
+//                    Logger::Info("File {},{}",filename,buffer.size());
                 }
             }
         }
-        ResourceLoader(){};
+        ResourceLoader()= default;;
         static ResourceLoader* _instance;
 
         void init(){

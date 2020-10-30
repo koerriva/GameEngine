@@ -42,7 +42,7 @@ namespace Engine{
             return width;
         }
 
-        int GetFrameBufferWidth() const {
+        [[nodiscard]] int GetFrameBufferWidth() const {
             return width*int(widthScale);
         }
 
@@ -50,7 +50,7 @@ namespace Engine{
             return height;
         }
 
-        int GetFrameBufferHeight() const {
+        [[nodiscard]] int GetFrameBufferHeight() const {
             return height*int(heightScale);
         }
 
@@ -60,6 +60,10 @@ namespace Engine{
 
         [[nodiscard]] float GetAspect() const{
             return float(width)/float(height);
+        }
+
+        [[nodiscard]] bool VSynced() const {
+            return vsync;
         }
     };
 
