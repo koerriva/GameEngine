@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <thread>
 
 #include "IGameLogic.hpp"
 #include "Renderer.hpp"
