@@ -45,7 +45,7 @@ namespace Game{
         renderer->Init();
         
         this->shaderProgram = new Graph::ShaderProgram("base");
-        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
+        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,360,180));
 
         int len;
         const unsigned char* buffer = ResourceLoader::LoadTexture("earthmap1k.jpg",&len);

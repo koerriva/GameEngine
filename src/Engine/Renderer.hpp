@@ -67,7 +67,7 @@ namespace Engine{
         glm::mat4 P,V(1.0f),M(1.0f);
         P = glm::perspective(glm::radians(60.f),aspect,.1f,99999.f);
         V = camera->GetViewMatrix();
-        M = glm::rotate(M,time,glm::vec3(0,1,0));
+        M = glm::rotate(M,time*0.1f,glm::vec3(0,1,0));
         M = glm::scale(M,glm::vec3(1.0f));
 
         shaderProgram->SetMat4("P", reinterpret_cast<float *>(&P));

@@ -43,6 +43,7 @@ link_directories(ThirdLibrary/libnoise/lib)
 # 复制数据
 file(COPY data DESTINATION .)
 #configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/. ${CMAKE_BINARY_DIR}/ COPYONLY)
+file(COPY ThirdLibrary/libnoise/lib/noise.dll DESTINATION .)
 
 # 指定生成目标
 add_executable(GameEngine src/main.cpp ${PROJECT_SOURCE_DIR})
