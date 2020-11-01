@@ -23,10 +23,10 @@
 #include "Engine/Utils/ResourceLoader.hpp"
 
 #include "Engine/Font.hpp"
-#include "Engine/Debug.hpp"
 #include "Engine/Camera.hpp"
 #include "Engine/Window.hpp"
 #include "Engine/GameEngine.hpp"
+#include "Engine/Debug.hpp"
 #include "Game/DummyGame.hpp"
 
 using namespace std;

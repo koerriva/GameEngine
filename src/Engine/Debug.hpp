@@ -1,6 +1,4 @@
 #pragma once
-#include "Engine/Graph/ShaderProgram.hpp"
-#include "Engine/Graph/Mesh.hpp"
 
 namespace Engine{
     using namespace Graph;
@@ -43,8 +41,8 @@ namespace Engine{
             glBindVertexArray(VAO);
 
 
-            for (std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>::value_type it : text) {
-                c = Font::GetChar(it);
+            for (auto it=text.begin();it!=text.end();++it) {
+                c = Font::GetChar(*it);
                 float x = pos.x+c.bearing.x*1.0f;
                 float y = pos.y+Font::PIXEL_SIZE+float((c.size.y-c.bearing.y))*1.0f;
                 auto w = float(c.size.x);

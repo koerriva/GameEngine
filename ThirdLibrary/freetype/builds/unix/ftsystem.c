@@ -26,9 +26,9 @@
 #include <freetype/internal/ftstream.h>
 
   /* memory-mapping includes and definitions */
-#ifdef HAVE_UNISTD_H
+//#ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
+//#endif
 
 #include <sys/mman.h>
 #ifndef MAP_FILE
@@ -60,9 +60,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#ifdef HAVE_FCNTL_H
+//#ifdef HAVE_FCNTL_H
 #include <fcntl.h>
-#endif
+//#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -225,7 +225,6 @@
 
 
   /* documentation is in ftobjs.h */
-
   FT_BASE_DEF( FT_Error )
   FT_Stream_Open( FT_Stream    stream,
                   const char*  filepathname )
