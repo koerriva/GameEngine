@@ -46,7 +46,7 @@ namespace Engine {
     class GameEngine
     {
     private:
-        const float TARGET_FPS = 144;
+        const float TARGET_FPS = 60;
         const float TARGET_UPS = 60;
 
         Window* window;
@@ -61,8 +61,8 @@ namespace Engine {
     protected:
         void Init();
         void Input();
-        void Update(float interval);
-        void Render();
+        void Update(float elapsedTime);
+        void Render(float elapsedTime);
         void Sync() const;
         void Cleanup();
     };
@@ -93,19 +93,12 @@ namespace Engine {
     void GameEngine::Run(){
         Init();
         float elapsedTime;
-        float accumulator = 0.f;
-        float interval = 1.f / TARGET_UPS;
         while (!window->Closed())
         {
             elapsedTime = float(timer->GetElapsedTime());
-            accumulator += elapsedTime;
-
             Input();
-            while (accumulator>=interval){
-                Update(interval);
-                accumulator -= elapsedTime;
-            }
-            Render();
+            Update(elapsedTime);
+            Render(elapsedTime);
             if(!window->VSynced()){
                 Sync();
             }
@@ -125,13 +118,13 @@ namespace Engine {
         game->Input(window);
     }
 
-    void GameEngine::Update(float interval){
+    void GameEngine::Update(float elapsedTime){
         window->Update();
-        game->Update(interval);
+        game->Update(elapsedTime);
     }
 
-    void GameEngine::Render(){
-        game->Render(window);
+    void GameEngine::Render(float elapsedTime){
+        game->Render(window,elapsedTime);
     }
 
     void GameEngine::Cleanup(){

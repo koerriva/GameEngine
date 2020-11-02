@@ -18,7 +18,9 @@ namespace Game{
         Timer* timer;
 
         float updateRate = 0.f;
-        float frameRate = 0.f;
+        float frameTime = 0.f;
+        int frameCount = 0;
+        int frameRate = 0;
         vec2 cameraState {0.f,0.f};
     public:
         DummyGame();
@@ -26,8 +28,8 @@ namespace Game{
 
         void Init() override;
         void Input(Window* window) override;
-        void Update(float interval) override;
-        void Render(Window* window) override;
+        void Update(float elapsedTime) override;
+        void Render(Window* window,float elapsedTime) override;
         void Cleanup() override;
     };
 
@@ -45,7 +47,7 @@ namespace Game{
         renderer->Init();
         
         this->shaderProgram = new Graph::ShaderProgram("base");
-        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,360,180));
+        meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
 
         int len;
         const unsigned char* buffer = ResourceLoader::LoadTexture("earthmap1k.jpg",&len);
@@ -88,19 +90,28 @@ namespace Game{
         }
     }
 
-    void DummyGame::Update(float interval){
-        camera->MoveForward(cameraState.x*interval*1000);
-        camera->MoveRight(cameraState.y*interval*1000);
-        updateRate = interval;
+    void DummyGame::Update(float elapsedTime){
+        camera->MoveForward(cameraState.x*elapsedTime*1000);
+        camera->MoveRight(cameraState.y*elapsedTime*1000);
+        updateRate = elapsedTime;
     }
 
-    void DummyGame::Render(Window* window){
-        frameRate = float(timer->GetElapsedTime());
+    void DummyGame::Render(Window* window,float elapsedTime){
+        frameTime += float(timer->GetElapsedTime());
+        frameCount += 1;
+        if(frameRate==0&&frameTime>0){
+            frameRate = int(frameCount/frameTime);
+        }
 
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         renderer->Render(window,camera,meshList,textures,shaderProgram);
-        debug->Draw(vec2{5,5},Text("帧率:"+to_string(int(1/frameRate))),vec3{0.05f,.99f,0.05f});
+        debug->Draw(vec2{5,5},Text("帧率:"+to_string(frameRate)+","+to_string(int(1/elapsedTime))),vec3{0.05f,.99f,0.05f});
+        if(frameTime>1.0){
+            frameRate = int(frameCount/frameTime);
+            frameTime=0;
+            frameCount=0;
+        }
     }
 
     void DummyGame::Cleanup(){

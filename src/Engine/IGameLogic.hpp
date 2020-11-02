@@ -7,8 +7,8 @@ namespace Engine {
     public:
         virtual void Init() = 0;
         virtual void Input(Window* window) = 0;
-        virtual void Update(float interval) = 0;
-        virtual void Render(Window* window) = 0;
+        virtual void Update(float elapsedTime) = 0;
+        virtual void Render(Window* window,float elapsedTime) = 0;
         virtual void Cleanup() = 0;
     };
 }

@@ -10,6 +10,5 @@ uniform sampler2D texture0;
 
 void main(){
     float r = abs(sin(time));
-//    FragColor = texture(texture0,v_TexCoord);
-    FragColor = vec4(v_Color,1.0);
+    FragColor = texture(texture0,v_TexCoord);
 }

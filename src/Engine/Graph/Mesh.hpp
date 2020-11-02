@@ -1,10 +1,8 @@
 #pragma once
 #include <vector>
 #include <glad.h>
-#include <noise.h>
 
 using namespace std;
-using namespace noise;
 
 namespace Engine::Graph {
     enum TerrainFaceType{
@@ -41,6 +39,25 @@ namespace Engine::Graph {
         void Cleanup() const;
 
         static Mesh Sphere(float r,int sectors,int stacks);
+
+        static void DumpPNGFile(int width,int height,vector<float>& colors){
+            int pos=0,comps=3;
+            vector<unsigned char> buffer;
+            buffer.resize(width*height*comps);
+
+            for (int i = 0; i < height; ++i) {
+                for (int j = 0; j < width; ++j) {
+                    buffer[pos] = static_cast<int>(colors[pos]*255.99);
+                    pos++;
+                    buffer[pos] = static_cast<int>(colors[pos]*255.99);
+                    pos++;
+                    buffer[pos] = static_cast<int>(colors[pos]*255.99);
+                    pos++;
+                }
+            }
+
+            stbi_write_png("terrain.png",width,height,comps,buffer.data(),0);
+        }
     };
 
     Mesh::Mesh(vector<float> &vertices,vector<unsigned>& indices,vector<float> &normals,vector<float> &texCoords,vector<float>& colors) {
@@ -114,15 +131,6 @@ namespace Engine::Graph {
     }
 
     Mesh Mesh::Sphere(float r,int sectors,int stacks) {
-        Utils::Random rand;
-        module::Perlin perlin_noise;
-        perlin_noise.SetFrequency(2);
-        perlin_noise.SetSeed(1234);
-        perlin_noise.SetPersistence(0.0);
-        perlin_noise.SetLacunarity(3.5);
-        perlin_noise.SetOctaveCount(2);
-        perlin_noise.SetNoiseQuality(NoiseQuality::QUALITY_BEST);
-
         vector<float> vertices;
         vector<float> colors;
         vector<unsigned int> indices;
@@ -132,6 +140,8 @@ namespace Engine::Graph {
         float sectorStep = float(2.*PI) / float(sectors);//圆周等分
         auto stackStep = float(PI / stacks); //半圆等分
         float len = 1.0f/float(r);
+
+        ofstream file("log.txt");
         for (int i = 0; i <= stacks; ++i) {
             auto stackAngle = float(PI/2 - float(i)*stackStep); //垂直角
             float y = r*sinf(stackAngle);
@@ -143,25 +153,11 @@ namespace Engine::Graph {
                 float z = xz*sinf(sectorAngle);
 
                 //顶点坐标
-                float offset = perlin_noise.GetValue(x,y,z);
-                vertices.push_back(x+x*len*offset*100);
-                vertices.push_back(y+y*len*offset*100);
-                vertices.push_back(z+z*len*offset*100);
+                vertices.push_back(x);
+                vertices.push_back(y);
+                vertices.push_back(z);
 
-                vec3 color;
-                for (int k = 0; k < 8; ++k) {
-                    if(k<7){
-                        auto [maxH,maxC] = TerrainFaceColor[k];
-                        auto [minH,minC] = TerrainFaceColor[k+1];
-                        if(offset>minH&&offset<=maxH){
-                            color = lerp(minC,maxC,offset);
-                            break;
-                        }
-                    }else{
-                        auto [maxH,maxC] = TerrainFaceColor[k];
-                        color = maxC;
-                    }
-                }
+                vec3 color(1.0,1.0,1.0);
                 colors.push_back(color.r);
                 colors.push_back(color.g);
                 colors.push_back(color.b);
@@ -176,7 +172,6 @@ namespace Engine::Graph {
                 normals.push_back(x*len);
                 normals.push_back(y*len);
                 normals.push_back(z*len);
-
             }
         }
 
@@ -196,6 +191,7 @@ namespace Engine::Graph {
                 }
             }
         }
+
         return Mesh(vertices,indices,normals,texCoords,colors);
     }
 }
