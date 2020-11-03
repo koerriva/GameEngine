@@ -39,7 +39,7 @@ namespace Engine {
         }
 
         static double GetTime(){
-            return duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch()).count()/1000000000.f;
+            return duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count()/1000000000.0;
         }
     };
 
@@ -47,7 +47,7 @@ namespace Engine {
     {
     private:
         const float TARGET_FPS = 60;
-        const float TARGET_UPS = 60;
+        const float TARGET_UPS = 30;
 
         Window* window;
         IGameLogic* game;
@@ -63,7 +63,7 @@ namespace Engine {
         void Input();
         void Update(float elapsedTime);
         void Render(float elapsedTime);
-        void Sync() const;
+        void Sync();
         void Cleanup();
     };
 
@@ -93,11 +93,22 @@ namespace Engine {
     void GameEngine::Run(){
         Init();
         float elapsedTime;
+        float acc = 0.f;
+        float interval = 1.f/TARGET_UPS;
         while (!window->Closed())
         {
             elapsedTime = float(timer->GetElapsedTime());
+            acc += elapsedTime;
             Input();
-            Update(elapsedTime);
+            if(!window->VSynced()){
+                while (acc >= interval){
+                    Update(interval);
+                    acc -= interval;
+                }
+            }else{
+                Update(elapsedTime);
+            }
+
             Render(elapsedTime);
             if(!window->VSynced()){
                 Sync();
@@ -106,11 +117,13 @@ namespace Engine {
         Cleanup();
     }
 
-    void GameEngine::Sync() const {
+    void GameEngine::Sync() {
         auto loopSlot = 1.f/TARGET_FPS;
         auto endTime = timer->GetLastLoopTime()+loopSlot;
-        while(Engine::Timer::GetTime()<endTime){
-            this_thread::sleep_for(microseconds(1));
+        auto now = Engine::Timer::GetTime();
+        while(now<endTime){
+            this_thread::sleep_for(milliseconds(1));
+            now = Engine::Timer::GetTime();
         }
     }
 

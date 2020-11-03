@@ -50,7 +50,7 @@ namespace Game{
         meshList.push_back(Mesh::Sphere(EARTH_RADIUS,72,36));
 
         int len;
-        const unsigned char* buffer = ResourceLoader::LoadTexture("earthmap1k.jpg",&len);
+        const unsigned char* buffer = ResourceLoader::LoadTexture("earthmap4k.jpg",&len);
         
         auto tex = Texture(buffer,len);
         textures.push_back(tex);
@@ -90,10 +90,10 @@ namespace Game{
         }
     }
 
-    void DummyGame::Update(float elapsedTime){
-        camera->MoveForward(cameraState.x*elapsedTime*1000);
-        camera->MoveRight(cameraState.y*elapsedTime*1000);
-        updateRate = elapsedTime;
+    void DummyGame::Update(float interval){
+        camera->MoveForward(cameraState.x*interval*1000);
+        camera->MoveRight(cameraState.y*interval*1000);
+        updateRate = interval;
     }
 
     void DummyGame::Render(Window* window,float elapsedTime){
@@ -107,6 +107,7 @@ namespace Game{
         glViewport(0,0,window->GetFrameBufferWidth(),window->GetFrameBufferHeight());
         renderer->Render(window,camera,meshList,textures,shaderProgram);
         debug->Draw(vec2{5,5},Text("帧率:"+to_string(frameRate)+","+to_string(int(1/elapsedTime))),vec3{0.05f,.99f,0.05f});
+
         if(frameTime>1.0){
             frameRate = int(frameCount/frameTime);
             frameTime=0;
