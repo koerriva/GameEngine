@@ -1,0 +1,1635 @@
+# depslib dependency file v1.0
+1193991322 source:c:\users\alfons\documents\skola\tnm084\project\skies\main.cpp
+	<GL/glfw.h>
+
+1180083395 c:\program files (x86)\codeblocks\mingw\include\gl\glfw.h
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1277580583 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\skiesmain.cpp
+	"Application/Application.h"
+
+1277682514 c:\users\alfons\documents\skola\tnm084\project\skies\source\application\application.h
+	<iostream>
+	<sstream>
+	<math.h>
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	"../Math/VectorMath.h"
+	"../Math/Noise/noise1234.h"
+	"Camera.h"
+	"FpsCounter.h"
+	"LightSource.h"
+	"../Geometry/SailDome.h"
+	"../Geometry/SphereDome.h"
+	"../Geometry/TexturedSphere.h"
+	"../Geometry/Terrain.h"
+	"../Shaders/ShaderHandler.h"
+
+1198769020 c:\program files (x86)\codeblocks\mingw\include\math.h
+	<_mingw.h>
+
+1250308674 c:\program files (x86)\codeblocks\mingw\include\_mingw.h
+
+1234043153 c:\users\alfons\documents\skola\tnm084\project\skies\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\windows.h
+	<winresrc.h>
+	<stdarg.h>
+	<windef.h>
+	<wincon.h>
+	<winbase.h>
+	<wingdi.h>
+	<winuser.h>
+	<winnls.h>
+	<winver.h>
+	<winnetwk.h>
+	<winreg.h>
+	<winsvc.h>
+	<cderr.h>
+	<dde.h>
+	<ddeml.h>
+	<dlgs.h>
+	<imm.h>
+	<lzexpand.h>
+	<mmsystem.h>
+	<nb30.h>
+	<rpc.h>
+	<shellapi.h>
+	<winperf.h>
+	<commdlg.h>
+	<winspool.h>
+	<winsock2.h>
+	<winsock.h>
+	<ole2.h>
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winresrc.h
+	<winuser.h>
+	<winnt.h>
+	<winver.h>
+	<dde.h>
+	<dlgs.h>
+	<commctrl.h>
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\winuser.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winnt.h
+	<winerror.h>
+	<string.h>
+	<basetsd.h>
+	<pshpack4.h>
+	<poppack.h>
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winerror.h
+
+1250308680 c:\program files (x86)\codeblocks\mingw\include\string.h
+	<_mingw.h>
+	<stddef.h>
+
+1228534312 c:\program files (x86)\codeblocks\mingw\include\basetsd.h
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\pshpack4.h
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\poppack.h
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\winver.h
+
+1228534314 c:\program files (x86)\codeblocks\mingw\include\dde.h
+
+1228534314 c:\program files (x86)\codeblocks\mingw\include\dlgs.h
+
+1228534314 c:\program files (x86)\codeblocks\mingw\include\commctrl.h
+	<prsht.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\prsht.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\windef.h
+	<winnt.h>
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\wincon.h
+
+1228534330 c:\program files (x86)\codeblocks\mingw\include\winbase.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\wingdi.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winnls.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winnetwk.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winreg.h
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\winsvc.h
+
+1228534312 c:\program files (x86)\codeblocks\mingw\include\cderr.h
+
+1228534314 c:\program files (x86)\codeblocks\mingw\include\ddeml.h
+
+1228534316 c:\program files (x86)\codeblocks\mingw\include\imm.h
+
+1228534320 c:\program files (x86)\codeblocks\mingw\include\lzexpand.h
+
+1228534322 c:\program files (x86)\codeblocks\mingw\include\mmsystem.h
+
+1228534322 c:\program files (x86)\codeblocks\mingw\include\nb30.h
+
+1228534326 c:\program files (x86)\codeblocks\mingw\include\rpc.h
+	<windows.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcnterr.h>
+	<winerror.h>
+	<excpt.h>
+
+1228534326 c:\program files (x86)\codeblocks\mingw\include\rpcdce.h
+	<basetyps.h>
+	<rpcdcep.h>
+
+1228534312 c:\program files (x86)\codeblocks\mingw\include\basetyps.h
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\rpcdcep.h
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\rpcnsi.h
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\rpcnterr.h
+
+1250308676 c:\program files (x86)\codeblocks\mingw\include\excpt.h
+	<_mingw.h>
+	<windef.h>
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\shellapi.h
+	<pshpack2.h>
+	<poppack.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\pshpack2.h
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winperf.h
+
+1228534314 c:\program files (x86)\codeblocks\mingw\include\commdlg.h
+	<unknwn.h>
+	<prsht.h>
+
+1228534330 c:\program files (x86)\codeblocks\mingw\include\unknwn.h
+	<windows.h>
+	<objfwd.h>
+	<wtypes.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\objfwd.h
+	<basetyps.h>
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\wtypes.h
+	<rpc.h>
+	<rpcndr.h>
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\rpcndr.h
+	<rpcnsip.h>
+	<objfwd.h>
+
+1228534328 c:\program files (x86)\codeblocks\mingw\include\rpcnsip.h
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\winspool.h
+
+1228534334 c:\program files (x86)\codeblocks\mingw\include\winsock2.h
+	<windows.h>
+
+1228534332 c:\program files (x86)\codeblocks\mingw\include\winsock.h
+	<windows.h>
+	<mswsock.h>
+
+1228534322 c:\program files (x86)\codeblocks\mingw\include\mswsock.h
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\ole2.h
+	<winerror.h>
+	<objbase.h>
+	<olectlid.h>
+	<oleauto.h>
+	<oleidl.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\objbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<stdlib.h>
+	<basetyps.h>
+	<wtypes.h>
+	<unknwn.h>
+	<objidl.h>
+	<cguid.h>
+
+1250308680 c:\program files (x86)\codeblocks\mingw\include\stdlib.h
+	<_mingw.h>
+	<stddef.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\objidl.h
+	<objfwd.h>
+
+1228534312 c:\program files (x86)\codeblocks\mingw\include\cguid.h
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\olectlid.h
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\oleauto.h
+	<oaidl.h>
+
+1228534322 c:\program files (x86)\codeblocks\mingw\include\oaidl.h
+	<windows.h>
+	<ole2.h>
+
+1228534324 c:\program files (x86)\codeblocks\mingw\include\oleidl.h
+	<objfwd.h>
+
+1277580453 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1255808299 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\vector2.h
+
+1258054023 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\vector3.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\vector4.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\matrix2x2.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\matrix3x3.h
+
+1259202682 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\vectormath\matrix4x4.h
+
+1277603586 c:\users\alfons\documents\skola\tnm084\project\skies\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1248328276 c:\users\alfons\documents\skola\tnm084\project\skies\source\application\fpscounter.h
+
+1277603252 c:\users\alfons\documents\skola\tnm084\project\skies\source\application\lightsource.h
+	"../Math/VectorMath.h"
+
+1265263333 c:\users\alfons\documents\skola\tnm084\project\skies\source\shaders\shaderhandler.h
+	"GlslShaderProgram.h"
+
+1260062425 c:\users\alfons\documents\skola\tnm084\project\skies\source\shaders\glslshaderprogram.h
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+
+1234043153 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1250308680 c:\program files (x86)\codeblocks\mingw\include\stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1250308682 c:\program files (x86)\codeblocks\mingw\include\sys\types.h
+	<_mingw.h>
+	<stddef.h>
+
+1277580429 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\texturedsphere.h
+
+1277584989 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\saildome.h
+	<algorithm>
+	<vector>
+	"Geometry.h"
+
+1268357210 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\skydome.h
+	<algorithm>
+	<vector>
+
+1277585009 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\spheredome.h
+	<vector>
+	"Geometry.h"
+
+1277584913 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\geometry.h
+
+1277597389 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\grid.h
+	"Geometry.h"
+
+1277681383 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\terrain.h
+	"Grid.h"
+
+1269991497 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\simplex.cpp
+	<math.h>
+	"Simplex.h"
+
+1269397473 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\simplex.h
+
+1270508739 c:\users\alfons\documents\skola\tnm084\project\skies\source\shaders\texturegenerator.h
+	"../Math/Noise/noise1234.h"
+
+1269815929 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\perlin.c
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	"perlin.h"
+
+1269814298 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\perlin.h
+
+1133121760 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\simplexnoise1234.c
+	"simplexnoise1234.h"
+
+1160387292 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\simplexnoise1234.h
+
+1160387292 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\simplexnoise1234.cpp
+	"simplexnoise1234.h"
+
+1160387292 source:c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\noise1234.cpp
+	"noise1234.h"
+
+1160387292 c:\users\alfons\documents\skola\tnm084\project\skies\source\math\noise\noise1234.h
+
+1277679590 c:\users\alfons\documents\skola\tnm084\project\skies\source\geometry\bintritreeterrain.h
+
+1160387292 source:c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\noise\noise1234.cpp
+	"noise1234.h"
+
+1160387292 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\noise\noise1234.h
+
+1234043153 source:c:\users\alfons\documents\skola\tnm084\project\procedurius\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1234043153 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1277580583 source:c:\users\alfons\documents\skola\tnm084\project\procedurius\source\proceduriusmain.cpp
+	"Application/Application.h"
+
+1277839635 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\application\application.h
+	<iostream>
+	<sstream>
+	<math.h>
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	"../Math/VectorMath.h"
+	"../Math/Noise/noise1234.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1277580453 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1255808299 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\vector2.h
+
+1258054023 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\vector3.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\vector4.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\matrix2x2.h
+
+1255808321 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\matrix3x3.h
+
+1259202682 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\math\vectormath\matrix4x4.h
+
+1277603586 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1248328276 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\application\fpscounter.h
+
+1277603252 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\application\lightsource.h
+	"../Math/VectorMath.h"
+
+1277584989 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\saildome.h
+	<algorithm>
+	<vector>
+	"Geometry.h"
+
+1277584913 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\geometry.h
+
+1277585009 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\spheredome.h
+	<vector>
+	"Geometry.h"
+
+1277580429 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\texturedsphere.h
+
+1277681383 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\terrain.h
+	"Grid.h"
+
+1277597389 c:\users\alfons\documents\skola\tnm084\project\procedurius\source\geometry\grid.h
+	"Geometry.h"
+
+1288141428 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\noise\noise1234.cpp
+	"noise1234.h"
+
+1288128422 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\noise\noise1234.h
+
+1295231808 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\procedurusmain.cpp
+	<iostream>
+	"Application/Application.h"
+
+1295316542 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\application\application.h
+	"../Shaders/ShaderManager.h"
+	"../Geometry/QuadtreeTerrain/Planet.h"
+	"../Geometry/Starfield.h"
+	"TextTool.h"
+	"../Math/VectorMath.h"
+	"../Math/PerlinNoise.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1284679529 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1278626879 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1284491956 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\vector2.h
+
+1284491978 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\vector3.h
+	<cmath>
+
+1284491998 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\vector4.h
+
+1255804721 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\matrix2x2.h
+
+1255804721 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\matrix3x3.h
+
+1277996330 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\vectormath\matrix4x4.h
+	<algorithm>
+
+1277599986 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1278457878 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\application\fpscounter.h
+
+1234028782 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1277943965 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\lodsphere.h
+	"../Math/VectorMath.h"
+
+1285283997 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain.h
+	"Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1285283997 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1285284820 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"Frustum.h"
+
+1285990892 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1286022693 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<algorithm>
+
+1286022667 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrainpatch.h
+	<vector>
+	"../GL/GLee.h"
+	<GL/gl.h>
+	"../Math/VectorMath.h"
+
+1284238469 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\application\texttool.h
+	<cstring>
+	<GL/gl.h>
+
+1295306534 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\frustum.cpp
+	"Frustum.h"
+	<GL/gl.h>
+
+1295306534 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\frustum.h
+	<vector>
+	"../Math/VectorMath.h"
+
+1286149735 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\sphericalquadtreeterrain.cpp
+	"SphericalQuadtreeTerrain.h"
+	"Planet.h"
+
+1286149733 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\sphericalquadtreeterrain.h
+	"QuadtreeTerrain/QuadtreeTerrain.h"
+
+1286167463 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\planet.cpp
+	"Planet.h"
+	"../Math/Noise/noise1234.h"
+	<sstream>
+
+1286149740 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\planet.h
+	<string>
+	"../Shaders/ShaderHandler.h"
+	"SphericalQuadtreeTerrain.h"
+
+1295292162 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\geometry.cpp
+	"Geometry.h"
+	<GL/glu.h>
+
+1295292165 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\geometry.h
+	"../Math/VectorMath.h"
+
+1292482915 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shaderhandler.h
+	"GlslShaderProgram.h"
+	<vector>
+
+1292284681 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glslshaderprogram.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+
+1292375060 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\application\texttool.cpp
+	"TextTool.h"
+
+1234043153 c:\program files (x86)\codeblocks\mingw\include\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1291347756 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glslshaderprogram.cpp
+	"GlslShaderProgram.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1291347438 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shaderhandler.cpp
+	"ShaderHandler.h"
+
+1293049712 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\starfield.cpp
+	"Starfield.h"
+	"../Math/VectorMath.h"
+	<algorithm>
+	<vector>
+
+1293049806 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\starfield.h
+	"../Math/PerlinNoise.h"
+
+1283850108 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1198765418 c:\program files (x86)\codeblocks\mingw\include\inttypes.h
+	<_mingw.h>
+	<stdint.h>
+	<stddef.h>
+
+1198765420 c:\program files (x86)\codeblocks\mingw\include\stdint.h
+	<stddef.h>
+
+1295292176 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1295293446 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.h
+	"../Geometry.h"
+	"QuadtreeTerrainFace.h"
+
+1295236048 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"../Frustum.h"
+
+1295320250 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.h
+	"QuadtreeTerrainPatchTopology.h"
+
+1295236034 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1295320478 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+	"../../Shaders/ShaderManager.h"
+	"../../Math/PerlinNoise.h"
+
+1295237146 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.cpp
+	"QuadtreeTerrainPatchTopology.h"
+	<algorithm>
+
+1295236980 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.h
+	<vector>
+	"../../GL/GLee.h"
+	<GL/gl.h>
+	"../../Math/VectorMath.h"
+
+1292561466 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\sphericalquadtreeterrain.h
+	"QuadtreeTerrain.h"
+
+1295291171 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\sphericalquadtreeterrain.cpp
+	"SphericalQuadtreeTerrain.h"
+
+1295292158 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.h
+	"../Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1295235707 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.cpp
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+
+1295317331 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\planet.cpp
+	"Planet.h"
+	"../CloudLayer.h"
+	"../../Math/PerlinNoise.h"
+	<sstream>
+
+1295306444 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\quadtreeterrain\planet.h
+	<string>
+	"../../Shaders/ShaderManager.h"
+	"QuadtreeTerrain.h"
+
+1288129658 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\noise\perlinnoise.cpp
+	"PerlinNoise.h"
+
+1288221312 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\noise\perlinnoise.h
+
+1295293061 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\math\perlinnoise.h
+	<GL/gl.h>
+
+1289527658 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\planetx.cpp
+	"PlanetX.h"
+	"../GL/GLee.h"
+	<vector>
+
+1289524852 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\planetx.h
+	"../Math/VectorMath.h"
+
+1198786210 c:\program files (x86)\codeblocks\mingw\include\gl\glew.h
+	<stddef.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1292902138 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glsl\planet.vert
+
+1295316655 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shadermanager.cpp
+	"ShaderManager.h"
+	<map>
+	"GLSL/ShaderSources.cpp"
+
+1295316713 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shadermanager.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+	"GLSL/ShaderSources.h"
+
+1292986586 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glsl\planet.cpp
+
+1292986586 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shadersource.cpp
+
+1292989909 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shadersources.cpp
+
+1292990099 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\shadersources.h
+
+1295235110 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glsl\shadersources.h
+
+1295235110 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\shaders\glsl\shadersources.cpp
+
+1295316915 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\subdivisionsphere.h
+	"../GL/GLee.h"
+	"../Math/VectorMath.h"
+	<vector>
+
+1295315815 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\subdivisionsphere.cpp
+	"SubdivisionSphere.h"
+
+1295320064 source:c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\cloudlayer.cpp
+	"CloudLayer.h"
+
+1295318045 c:\users\alfons\documents\skola\tnm084\project\procedurus\source\geometry\cloudlayer.h
+	"SubdivisionSphere.h"
+
+1292375060 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\application\texttool.cpp
+	"TextTool.h"
+
+1295707965 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\application\texttool.h
+	<cstring>
+	<GL/gl.h>
+
+1234028782 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1284679529 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1295707763 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\cloudlayer.cpp
+	"CloudLayer.h"
+	"../Shaders/ShaderManager.h"
+	"../Math/PerlinNoise.h"
+	"SimpleSphere.h"
+
+1295589428 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\cloudlayer.h
+	"SimpleSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\subdivisionsphere.h
+	"../GL/GLee.h"
+	"../Math/VectorMath.h"
+	<vector>
+
+1278626879 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1284491956 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\vector2.h
+
+1284491978 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\vector3.h
+	<cmath>
+
+1284491998 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\vector4.h
+
+1255804721 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\matrix2x2.h
+
+1255804721 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\matrix3x3.h
+
+1277996330 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\vectormath\matrix4x4.h
+	<algorithm>
+
+1295708010 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\frustum.cpp
+	"Frustum.h"
+	<GL/gl.h>
+
+1295306534 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\frustum.h
+	<vector>
+	"../Math/VectorMath.h"
+
+1295292162 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\geometry.cpp
+	"Geometry.h"
+	<GL/glu.h>
+
+1295292165 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\geometry.h
+	"../Math/VectorMath.h"
+
+1295778746 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\planet.cpp
+	"Planet.h"
+	"../CloudLayer.h"
+	"../../Math/PerlinNoise.h"
+	<sstream>
+
+1295710993 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\planet.h
+	<string>
+	"../../Shaders/ShaderManager.h"
+	"QuadtreeTerrain.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\shaders\shadermanager.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+	"GLSL/ShaderSources.h"
+
+1295599404 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\shaders\glsl\shadersources.h
+
+1295711061 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.h
+	"../Geometry.h"
+	"QuadtreeTerrainFace.h"
+
+1295292158 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.h
+	"../Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1295710542 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"../Frustum.h"
+
+1295385727 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.h
+	"QuadtreeTerrainPatchTopology.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.h
+	<vector>
+	"../../GL/GLee.h"
+	<GL/gl.h>
+	"../../Math/VectorMath.h"
+
+1295293061 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\math\perlinnoise.h
+	<GL/gl.h>
+
+1295711049 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1295235707 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.cpp
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+
+1295780004 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1295731481 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+	"../../Shaders/ShaderManager.h"
+	"../../Math/PerlinNoise.h"
+
+1295731384 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.cpp
+	"QuadtreeTerrainPatchTopology.h"
+	<algorithm>
+
+1295777616 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\starfield.cpp
+	"Starfield.h"
+	"../Math/VectorMath.h"
+	<algorithm>
+	<vector>
+
+1295339880 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\starfield.h
+	"../Math/PerlinNoise.h"
+
+1295423250 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\subdivisionsphere.cpp
+	"SubdivisionSphere.h"
+
+1295778131 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\procedurusmain.cpp
+	<iostream>
+	"Application/Application.h"
+
+1295779962 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\application\application.h
+	"../Shaders/ShaderManager.h"
+	"../Geometry/QuadtreeTerrain/Planet.h"
+	"../Geometry/Starfield.h"
+	"TextTool.h"
+	"../Math/VectorMath.h"
+	"../Math/PerlinNoise.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1295597590 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1278457878 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\application\fpscounter.h
+
+1295316655 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\shaders\shadermanager.cpp
+	"ShaderManager.h"
+	<map>
+	"GLSL/ShaderSources.cpp"
+
+1295599404 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\shaders\glsl\shadersources.cpp
+
+1072758497 c:\program files (x86)\codeblocks\mingw\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1072758497 c:\program files (x86)\codeblocks\mingw\include\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1072758497 c:\program files (x86)\codeblocks\mingw\include\gl\freeglut_ext.h
+
+1295591398 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\simplesphere.cpp
+	"SimpleSphere.h"
+	<cmath>
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella metoder för bilder\project\procedurus\source\geometry\simplesphere.h
+	"../GL/GLee.h"
+
+1295707731 c:\program files (x86)\codeblocks\mingw\include\gl\gl3.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1292375060 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.cpp
+	"TextTool.h"
+
+1295707965 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.h
+	<cstring>
+	<GL/gl.h>
+
+1234028782 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1284679529 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1295707763 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.cpp
+	"CloudLayer.h"
+	"../Shaders/ShaderManager.h"
+	"../Math/PerlinNoise.h"
+	"SimpleSphere.h"
+
+1295589428 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.h
+	"SimpleSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.h
+	"../GL/GLee.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+	"GLSL/ShaderSources.h"
+
+1295599404 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.h
+
+1295293061 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\perlinnoise.h
+	<GL/gl.h>
+
+1295708010 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.cpp
+	"Frustum.h"
+	<GL/gl.h>
+
+1295306534 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.h
+	<vector>
+	"../Math/VectorMath.h"
+
+1278626879 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1284491956 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector2.h
+
+1284491978 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector3.h
+	<cmath>
+
+1284491998 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector4.h
+
+1255804721 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix2x2.h
+
+1255804721 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix3x3.h
+
+1277996330 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix4x4.h
+	<algorithm>
+
+1295292162 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.cpp
+	"Geometry.h"
+	<GL/glu.h>
+
+1295292165 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.h
+	"../Math/VectorMath.h"
+
+1295778746 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.cpp
+	"Planet.h"
+	"../CloudLayer.h"
+	"../../Math/PerlinNoise.h"
+	<sstream>
+
+1295710993 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.h
+	<string>
+	"../../Shaders/ShaderManager.h"
+	"QuadtreeTerrain.h"
+
+1295711061 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.h
+	"../Geometry.h"
+	"QuadtreeTerrainFace.h"
+
+1295292158 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.h
+	"../Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1295710542 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"../Frustum.h"
+
+1295385727 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.h
+	"QuadtreeTerrainPatchTopology.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.h
+	<vector>
+	"../../GL/GLee.h"
+	<GL/gl.h>
+	"../../Math/VectorMath.h"
+
+1295711049 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1295235707 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.cpp
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+
+1295780004 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1295731481 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+	"../../Shaders/ShaderManager.h"
+	"../../Math/PerlinNoise.h"
+
+1295731384 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.cpp
+	"QuadtreeTerrainPatchTopology.h"
+	<algorithm>
+
+1295591398 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.cpp
+	"SimpleSphere.h"
+	<cmath>
+
+1295777616 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.cpp
+	"Starfield.h"
+	"../Math/VectorMath.h"
+	<algorithm>
+	<vector>
+
+1295339880 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.h
+	"../Math/PerlinNoise.h"
+
+1295423250 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.cpp
+	"SubdivisionSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.h
+	"../GL/GLee.h"
+	"../Math/VectorMath.h"
+	<vector>
+
+1295778131 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\procedurusmain.cpp
+	<iostream>
+	"Application/Application.h"
+
+1295779962 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\application.h
+	"../Shaders/ShaderManager.h"
+	"../Geometry/QuadtreeTerrain/Planet.h"
+	"../Geometry/Starfield.h"
+	"TextTool.h"
+	"../Math/VectorMath.h"
+	"../Math/PerlinNoise.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1295597590 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1278457878 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\fpscounter.h
+
+1295316655 source:c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.cpp
+	"ShaderManager.h"
+	<map>
+	"GLSL/ShaderSources.cpp"
+
+1295599404 c:\users\alfons\documents\skola\högskolan (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.cpp
+
+1292375060 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.cpp
+	"TextTool.h"
+
+1295707965 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.h
+	<cstring>
+	<GL/gl.h>
+
+1234028782 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1284679529 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1295787288 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.cpp
+	"CloudLayer.h"
+	"../Shaders/ShaderManager.h"
+	"../Math/PerlinNoise.h"
+
+1295589428 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.h
+	"SimpleSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.h
+	"../GL/GLee.h"
+
+1295708366 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+	"GLSL/ShaderSources.h"
+
+1295791177 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.h
+
+1295293061 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\perlinnoise.h
+	<GL/gl.h>
+
+1295708010 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.cpp
+	"Frustum.h"
+	<GL/gl.h>
+
+1295306534 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.h
+	<vector>
+	"../Math/VectorMath.h"
+
+1278626879 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1284491956 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector2.h
+
+1284491978 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector3.h
+	<cmath>
+
+1284491998 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector4.h
+
+1255804721 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix2x2.h
+
+1255804721 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix3x3.h
+
+1277996330 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix4x4.h
+	<algorithm>
+
+1295292162 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.cpp
+	"Geometry.h"
+	<GL/glu.h>
+
+1295292165 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.h
+	"../Math/VectorMath.h"
+
+1295778746 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.cpp
+	"Planet.h"
+	"../CloudLayer.h"
+	"../../Math/PerlinNoise.h"
+	<sstream>
+
+1295710993 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.h
+	<string>
+	"../../Shaders/ShaderManager.h"
+	"QuadtreeTerrain.h"
+
+1295711061 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.h
+	"../Geometry.h"
+	"QuadtreeTerrainFace.h"
+
+1295292158 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.h
+	"../Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1295710542 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"../Frustum.h"
+
+1295385727 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.h
+	"QuadtreeTerrainPatchTopology.h"
+
+1295708366 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.h
+	<vector>
+	"../../GL/GLee.h"
+	<GL/gl.h>
+	"../../Math/VectorMath.h"
+
+1295711049 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1295235707 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.cpp
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+
+1295780004 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1295731481 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+	"../../Shaders/ShaderManager.h"
+	"../../Math/PerlinNoise.h"
+
+1295731384 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.cpp
+	"QuadtreeTerrainPatchTopology.h"
+	<algorithm>
+
+1295591398 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.cpp
+	"SimpleSphere.h"
+	<cmath>
+
+1295785955 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.cpp
+	"Starfield.h"
+	"../Math/VectorMath.h"
+	<algorithm>
+	<vector>
+
+1295339880 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.h
+	"../Math/PerlinNoise.h"
+
+1295423250 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.cpp
+	"SubdivisionSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.h
+	"../GL/GLee.h"
+	"../Math/VectorMath.h"
+	<vector>
+
+1295778131 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\procedurusmain.cpp
+	<iostream>
+	"Application/Application.h"
+
+1295786088 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\application.h
+	"../Shaders/ShaderManager.h"
+	"../Geometry/Skybox.h"
+	"../Geometry/QuadtreeTerrain/Planet.h"
+	"../Geometry/Starfield.h"
+	"TextTool.h"
+	"../Math/VectorMath.h"
+	"../Math/PerlinNoise.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1295597590 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1278457878 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\fpscounter.h
+
+1295316655 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.cpp
+	"ShaderManager.h"
+	<map>
+	"GLSL/ShaderSources.cpp"
+
+1295791177 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.cpp
+
+1295788195 source:c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\skybox.cpp
+	"Skybox.h"
+	"../Math/VectorMath.h"
+	"../Shaders/ShaderManager.h"
+	"../Math/PerlinNoise.h"
+
+1295786921 c:\users\alfons\documents\skola\liu (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\skybox.h
+	"../Shaders/ShaderManager.h"
+
+1297539815 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.cpp
+	"TextTool.h"
+	<cstdio>
+
+1297539803 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\texttool.h
+	<cstring>
+	<GL/gl.h>
+
+1234032382 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1284683129 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\gl\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1298021612 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.cpp
+	"CloudLayer.h"
+	"Planet.h"
+	"../Math/PerlinNoise.h"
+	<algorithm>
+
+1298021285 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\cloudlayer.h
+	"SimpleSphere.h"
+
+1297629385 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.h
+	"../GL/GLee.h"
+
+1297929865 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.h
+	"../GL/GLee.h"
+	<GL/glfw.h>
+	<string>
+	"GLSL/ShaderSources.h"
+
+1299157434 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.h
+
+1297909685 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\perlinnoise.h
+	<GL/gl.h>
+
+1297705476 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.cpp
+	"Frustum.h"
+	<GL/gl.h>
+
+1297999441 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\frustum.h
+	<vector>
+	"../Math/VectorMath.h"
+
+1278630479 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath.h
+	"VectorMath/Vector2.h"
+	"VectorMath/Vector3.h"
+	"VectorMath/Vector4.h"
+	"VectorMath/Matrix2x2.h"
+	"VectorMath/Matrix3x3.h"
+	"VectorMath/Matrix4x4.h"
+
+1297728389 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector2.h
+
+1297728297 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector3.h
+	<cmath>
+
+1297728388 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\vector4.h
+
+1255808321 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix2x2.h
+
+1255808321 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix3x3.h
+
+1297706242 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\vectormath\matrix4x4.h
+	<algorithm>
+
+1297399947 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.cpp
+	"Geometry.h"
+	<GL/glu.h>
+
+1297399587 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\geometry.h
+	"../Math/VectorMath.h"
+
+1297361211 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.cpp
+	"Planet.h"
+	"../../Math/PerlinNoise.h"
+	<sstream>
+
+1297361204 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\planet.h
+	<string>
+	"../AstronomicalObject.h"
+	"RidgedMultifractalSphericalQuadtreeTerrain.h"
+	"../Atmosphere.h"
+	"../CloudLayer.h"
+
+1298012051 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.h
+	"../Geometry.h"
+	"QuadtreeTerrainFace.h"
+
+1297998721 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.h
+	"../Geometry.h"
+	"QuadtreeTerrainNode.h"
+
+1298012161 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.h
+	"QuadtreeTerrainPatch.h"
+	"../Frustum.h"
+
+1297998166 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.h
+	"QuadtreeTerrainPatchTopology.h"
+
+1297997942 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.h
+	<vector>
+	"../../GL/GLee.h"
+	<GL/gl.h>
+	"../../Math/VectorMath.h"
+
+1297920478 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrain.cpp
+	"QuadtreeTerrain.h"
+
+1297977865 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainface.cpp
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+
+1297998878 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainnode.cpp
+	"QuadtreeTerrainNode.h"
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrain.h"
+	<GL/gl.h>
+
+1297997448 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatch.cpp
+	"QuadtreeTerrainPatch.h"
+	"QuadtreeTerrainFace.h"
+	"QuadtreeTerrain.h"
+	"../../Shaders/ShaderManager.h"
+	"../../Math/PerlinNoise.h"
+
+1295734984 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\quadtreeterrainpatchtopology.cpp
+	"QuadtreeTerrainPatchTopology.h"
+	<algorithm>
+
+1297629386 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplesphere.cpp
+	"SimpleSphere.h"
+	<cmath>
+
+1297394566 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\skybox.cpp
+	"Skybox.h"
+	"../Math/VectorMath.h"
+	"../Shaders/ShaderManager.h"
+	"../Math/PerlinNoise.h"
+
+1295790521 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\skybox.h
+	"../Shaders/ShaderManager.h"
+
+1297986369 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.cpp
+	"Starfield.h"
+	"../Math/Randomizer.h"
+	"../Math/VectorMath.h"
+
+1297999560 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\starfield.h
+	"Star.h"
+
+1295423250 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.cpp
+	"SubdivisionSphere.h"
+
+1295708366 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\subdivisionsphere.h
+	"../GL/GLee.h"
+	"../Math/VectorMath.h"
+	<vector>
+
+1297978086 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\procedurusmain.cpp
+	<iostream>
+	"Application/Application.h"
+
+1298022110 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\application.h
+	"../Shaders/ShaderManager.h"
+	"../Geometry/Skybox.h"
+	"../Geometry/Planet.h"
+	"../Geometry/Star.h"
+	"../Geometry/Starfield.h"
+	"../Geometry/Particle2D.h"
+	"TextTool.h"
+	"../Math/VectorMath.h"
+	"../Math/PerlinNoise.h"
+	"../Math/Randomizer.h"
+	"Camera.h"
+	"FpsCounter.h"
+
+1298011720 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\camera.h
+	"../Math/VectorMath.h"
+
+1278461478 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\application\fpscounter.h
+
+1297929880 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\shadermanager.cpp
+	"ShaderManager.h"
+	<map>
+	"GLSL/ShaderSources.cpp"
+
+1299157434 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\shaders\glsl\shadersources.cpp
+
+1297986564 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\randomizer.h
+	<cmath>
+
+1297929482 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\sphericalquadtreeterrain.cpp
+	"SphericalQuadtreeTerrain.h"
+
+1297999036 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\sphericalquadtreeterrain.h
+	"../../Shaders/ShaderManager.h"
+	"QuadtreeTerrain.h"
+
+1297963497 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\atmosphere.cpp
+	"Atmosphere.h"
+	"Planet.h"
+	"../Shaders/ShaderManager.h"
+	<algorithm>
+
+1297999411 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\atmosphere.h
+	"SimpleSphere.h"
+	"../Math/VectorMath.h"
+
+1297991197 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\star.cpp
+	"Star.h"
+
+1297738203 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\star.h
+	"AstronomicalObject.h"
+	"../Shaders/ShaderManager.h"
+
+1297830489 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\astronomicalobject.cpp
+	"AstronomicalObject.h"
+
+1297826749 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\astronomicalobject.h
+	"Geometry.h"
+	<string>
+	<vector>
+
+1297997374 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\ridgedmultifractalsphericalquadtreeterrain.cpp
+	"RidgedMultifractalSphericalQuadtreeTerrain.h"
+	"../../Math/PerlinNoise.h"
+
+1297999332 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\quadtreeterrain\ridgedmultifractalsphericalquadtreeterrain.h
+	"SphericalQuadtreeTerrain.h"
+
+1298021288 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\planet.h
+	"AstronomicalObject.h"
+	"QuadtreeTerrain/RidgedMultifractalSphericalQuadtreeTerrain.h"
+	"Atmosphere.h"
+	"CloudLayer.h"
+	"PlanetRing.h"
+	"SimpleCylinder.h"
+	"SimpleCircle.h"
+
+1298021269 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\planet.cpp
+	"Planet.h"
+	"../Math/PerlinNoise.h"
+	<sstream>
+
+1297735815 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simpledisk.cpp
+	"SimpleDisk.h"
+	<cmath>
+
+1297636075 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simpledisk.h
+	"../GL/GLee.h"
+
+1297650893 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplecylinder.cpp
+	"SimpleCylinder.h"
+	<cmath>
+
+1297650326 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplecylinder.h
+	"../GL/GLee.h"
+
+1297913752 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\planetring.cpp
+	"PlanetRing.h"
+	"Planet.h"
+	"../Math/PerlinNoise.h"
+
+1297999475 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\planetring.h
+	"SimpleDisk.h"
+	"../Math/VectorMath.h"
+
+1297916751 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplecircle.cpp
+	"SimpleCircle.h"
+	<cmath>
+
+1297916195 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\simplecircle.h
+	"../GL/GLee.h"
+
+1297993151 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\particle2d.cpp
+	"Particle2D.h"
+	<GL/gl.h>
+
+1297991840 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\particle2d.h
+	"../Math/VectorMath.h"
+
+1297986564 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\math\randomizer.cpp
+	"Randomizer.h"
+
+1297985777 source:c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\explosion.cpp
+	"Explosion.h"
+	"../Math/Randomizer.h"
+
+1297985680 c:\users\alfons\documents\skola\universitetet (2005-2011)\tnm084 - procedurella bilder\project\procedurus\source\geometry\explosion.h
+	"AstronomicalObject.h"
+	"Particle2D.h"
+	"../Shaders/ShaderManager.h"
+	<vector>
+

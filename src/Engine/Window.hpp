@@ -18,6 +18,9 @@ namespace Engine{
         GLFWwindow* glfwWindow = nullptr;
 
         float widthScale=1.0f,heightScale=1.0f;
+
+        double mLastX = width/2,mLastY = height/2,mXOffset,mYOffset;
+
     public:
         Window(string title,int width,int height,bool vsync);
         ~Window();
@@ -64,6 +67,19 @@ namespace Engine{
 
         [[nodiscard]] bool VSynced() const {
             return vsync;
+        }
+
+        [[nodiscard]] double GetMouseXOffset() const{
+            return mXOffset;
+        }
+
+        [[nodiscard]] double GetMouseYOffset() const{
+            return mYOffset;
+        }
+
+        [[nodiscard]] bool GetMouseButtonPressed(int btn) const{
+            int state = glfwGetMouseButton(glfwWindow,btn);
+            return state==GLFW_PRESS;
         }
     };
 
@@ -131,6 +147,16 @@ namespace Engine{
     void Window::Update(){
         closed = glfwWindowShouldClose(glfwWindow)==1;
         glfwGetWindowSize(glfwWindow,&width,&height);
+        double mX,mY;
+        glfwGetCursorPos(glfwWindow,&mX,&mY);
+        mXOffset = mX - mLastX;
+        mYOffset = mLastY - mY;
+        mLastX = mX;
+        mLastY = mY;
+        float sensitivity = 0.05f;
+        mXOffset *= sensitivity;
+        mYOffset *= sensitivity;
+
         glfwSwapBuffers(glfwWindow);
         glfwPollEvents();
     }
@@ -150,5 +176,11 @@ namespace Engine{
         F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,
         Num0 = GLFW_KEY_0,Num1,Num2,Num3,Num4,Num5,Num6,Num7,Num8,Num9,
         A=GLFW_KEY_A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
+    };
+
+    enum MouseCode {
+        M_LEFT = GLFW_MOUSE_BUTTON_LEFT,
+        M_MID = GLFW_MOUSE_BUTTON_MIDDLE,
+        M_RIGHT = GLFW_MOUSE_BUTTON_RIGHT
     };
 }

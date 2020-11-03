@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Procedurus" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\Procedurus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".\.." />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Procedurus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".\.." />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="C:\Program Files (x86)\CodeBlocks\MinGW\include" />
+		</Compiler>
+		<Linker>
+			<Add library="glfw" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add library="gdi32" />
+			<Add directory="C:\Program Files (x86)\CodeBlocks\MinGW\lib" />
+		</Linker>
+		<Unit filename="Application\Application.h" />
+		<Unit filename="Application\Camera.h" />
+		<Unit filename="Application\FpsCounter.h" />
+		<Unit filename="Application\TextTool.cpp" />
+		<Unit filename="Application\TextTool.h" />
+		<Unit filename="GL\GLee.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="GL\GLee.h" />
+		<Unit filename="Geometry\AstronomicalObject.cpp" />
+		<Unit filename="Geometry\AstronomicalObject.h" />
+		<Unit filename="Geometry\Atmosphere.cpp" />
+		<Unit filename="Geometry\Atmosphere.h" />
+		<Unit filename="Geometry\CloudLayer.cpp" />
+		<Unit filename="Geometry\CloudLayer.h" />
+		<Unit filename="Geometry\Frustum.cpp" />
+		<Unit filename="Geometry\Frustum.h" />
+		<Unit filename="Geometry\Geometry.cpp" />
+		<Unit filename="Geometry\Geometry.h" />
+		<Unit filename="Geometry\Particle2D.cpp" />
+		<Unit filename="Geometry\Particle2D.h" />
+		<Unit filename="Geometry\Planet.cpp" />
+		<Unit filename="Geometry\Planet.h" />
+		<Unit filename="Geometry\PlanetRing.cpp" />
+		<Unit filename="Geometry\PlanetRing.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrain.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrain.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainFace.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainFace.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainNode.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainNode.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainPatch.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainPatch.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainPatchTopology.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\QuadtreeTerrainPatchTopology.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\RidgedMultifractalSphericalQuadtreeTerrain.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\RidgedMultifractalSphericalQuadtreeTerrain.h" />
+		<Unit filename="Geometry\QuadtreeTerrain\SphericalQuadtreeTerrain.cpp" />
+		<Unit filename="Geometry\QuadtreeTerrain\SphericalQuadtreeTerrain.h" />
+		<Unit filename="Geometry\SimpleCircle.cpp" />
+		<Unit filename="Geometry\SimpleCircle.h" />
+		<Unit filename="Geometry\SimpleCylinder.cpp" />
+		<Unit filename="Geometry\SimpleCylinder.h" />
+		<Unit filename="Geometry\SimpleDisk.cpp" />
+		<Unit filename="Geometry\SimpleDisk.h" />
+		<Unit filename="Geometry\SimpleSphere.cpp" />
+		<Unit filename="Geometry\SimpleSphere.h" />
+		<Unit filename="Geometry\Skybox.cpp" />
+		<Unit filename="Geometry\Skybox.h" />
+		<Unit filename="Geometry\Star.cpp" />
+		<Unit filename="Geometry\Star.h" />
+		<Unit filename="Geometry\Starfield.cpp" />
+		<Unit filename="Geometry\Starfield.h" />
+		<Unit filename="Math\PerlinNoise.h" />
+		<Unit filename="Math\Randomizer.cpp" />
+		<Unit filename="Math\Randomizer.h" />
+		<Unit filename="Math\VectorMath.h" />
+		<Unit filename="Math\VectorMath\Matrix2x2.h" />
+		<Unit filename="Math\VectorMath\Matrix3x3.h" />
+		<Unit filename="Math\VectorMath\Matrix4x4.h" />
+		<Unit filename="Math\VectorMath\Vector2.h" />
+		<Unit filename="Math\VectorMath\Vector3.h" />
+		<Unit filename="Math\VectorMath\Vector4.h" />
+		<Unit filename="ProcedurusMain.cpp" />
+		<Unit filename="Shaders\ShaderManager.cpp" />
+		<Unit filename="Shaders\ShaderManager.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

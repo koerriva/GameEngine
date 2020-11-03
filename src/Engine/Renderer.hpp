@@ -3,6 +3,7 @@
 #include "Graph/ShaderProgram.hpp"
 #include "Graph/Mesh.hpp"
 #include "Graph/Texture.hpp"
+#include "Graph/Terrian.hpp"
 
 namespace Engine{
     using namespace Graph;
@@ -19,6 +20,7 @@ namespace Engine{
         void SetWireframeMode();
         void SetShaderMode();
         void Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram);
+        void Render(const Window* window,const Camera* camera,Terrain* terrain,ShaderProgram* shaderProgram);
     };
 
     Renderer::Renderer(/* args */)
@@ -80,6 +82,33 @@ namespace Engine{
             mesh.Draw();
         }
         
+        Engine::Graph::ShaderProgram::Unbind();
+
+        glDisable(GL_DEPTH_TEST);
+    }
+
+    void Renderer::Render(const Window* window,const Camera* camera,Terrain* terrain,ShaderProgram* shaderProgram){
+        glEnable(GL_DEPTH_TEST);
+        if(WIREFRAME_MODE){
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+        if(SHADER_MODE){
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+
+        float aspect = window->GetAspect();
+        glm::mat4 P,V(1.0f),M(1.0f);
+        P = glm::perspective(glm::radians(60.f),aspect,.1f,1000.f);
+        V = camera->GetViewMatrix();
+        M = glm::scale(M,glm::vec3(1.0f));
+
+        shaderProgram->Bind();
+        shaderProgram->SetMat4("P", reinterpret_cast<float *>(&P));
+        shaderProgram->SetMat4("V", reinterpret_cast<float *>(&V));
+        shaderProgram->SetMat4("M", reinterpret_cast<float *>(&M));
+
+        terrain->Draw();
+
         Engine::Graph::ShaderProgram::Unbind();
 
         glDisable(GL_DEPTH_TEST);
