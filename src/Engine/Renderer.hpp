@@ -48,7 +48,6 @@ namespace Engine{
 
     void Renderer::Render(const Window* window,const Camera* camera,const vector<Mesh>& meshList,const vector<Texture>& textures,ShaderProgram* shaderProgram){
         glEnable(GL_DEPTH_TEST);
-
 //        glEnable(GL_CULL_FACE);
 //        glCullFace(GL_BACK);
         if(WIREFRAME_MODE){
@@ -89,6 +88,8 @@ namespace Engine{
 
     void Renderer::Render(const Window* window,const Camera* camera,Terrain* terrain,ShaderProgram* shaderProgram){
         glEnable(GL_DEPTH_TEST);
+//        glEnable(GL_CULL_FACE);
+//        glCullFace(GL_BACK);
         if(WIREFRAME_MODE){
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }

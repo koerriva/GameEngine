@@ -11,6 +11,7 @@ namespace Engine{
     private:
         int width = 640;
         int height = 480;
+        float aspect = 4.0/3.0;
         bool vsync = true;
         string title;
         bool closed = false;
@@ -62,7 +63,7 @@ namespace Engine{
         }
 
         [[nodiscard]] float GetAspect() const{
-            return float(width)/float(height);
+            return aspect;
         }
 
         [[nodiscard]] bool VSynced() const {
@@ -97,6 +98,7 @@ namespace Engine{
         if(glfwInit()){
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+            glfwWindowHint(GLFW_SAMPLES,4);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
             #ifdef __APPLE__

@@ -57,6 +57,13 @@ int main(){
 //        now = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 //        Logger::Info("now {}",now);
 //    }
+//    vector<int> arr={1,2,3,4};
+//    for(auto it=arr.begin();it!=arr.end();it++){
+//        cout << *it << endl;
+//        if(*it==2){
+//            arr.push_back(6);
+//        }
+//    }
 
 
     Logger::Info("我的游戏引擎 0.1");
