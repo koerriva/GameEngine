@@ -29,9 +29,13 @@ namespace Engine::Common{
 
         explicit Text(wstring data):data(std::move(data)){}
         explicit Text(const string& data){
-//            auto ws = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(data);
+            #ifdef __APPLE__
+            auto ws = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(data);
+            this->data = std::move(ws);
+            #else
             auto ws = s2ws(data);
-            this->data = move(ws);
+            this->data = std::move(ws);
+            #endif
         }
 
         wstring& value() {
@@ -47,7 +51,10 @@ namespace Engine::Common{
             const char* source=s.c_str();
             size_t charNum=sizeof(char)*s.size()+1;
             wchar_t* dest=new wchar_t[charNum];
+
+            #ifndef __APPLE__
             mbstowcs_s(&convertedChars,dest,charNum,source,_TRUNCATE);
+            #endif
 
             wstring result=dest;
 //            wcout << result << endl;

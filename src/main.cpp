@@ -40,12 +40,13 @@ using namespace Game;
 #include <noise.h>
 using namespace noise;
 
+#ifndef __APPLE__
 // N卡使用独显运行
 extern "C" __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 
 // A显卡使用独显运行
 //extern "C" __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 0x00000001;
-
+#endif
 int main(){
 //    auto frameStart = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 //    Logger::Info("frameStart {}",frameStart);
