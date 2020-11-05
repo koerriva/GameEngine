@@ -143,6 +143,8 @@ namespace Game{
         int chunks = terrain->GetChunkSize();
         debug->Draw(vec2{5,105},Text("块数:"+to_string(chunks)),vec3{0.05f,.99f,0.05f});
 
+//        debug->Draw(vec2{5,125},Text("窗前明月光，疑似地上霜，举头望明月，低头思故乡。"),vec3{0.05f,.99f,0.05f});
+
         if(frameTime>1.0){
             frameRate = int(frameCount/frameTime);
             frameTime=0;
