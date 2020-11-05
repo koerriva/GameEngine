@@ -9,7 +9,7 @@ namespace Engine{
         vec3 up{0.f,1.f,0.f};
         vec3 right{1.f,0.f,0.f};
         float pitch=0;
-        float yaw = 0;
+        float yaw = -90;
     public:
         explicit Camera(vec3 pos){
             this->position = pos;
@@ -30,8 +30,8 @@ namespace Engine{
         }
 
         void Rotate(float xoffset,float yoffset){
-            yaw += xoffset;
-            pitch += yoffset;
+            yaw -= xoffset;
+            pitch -= yoffset;
             pitch = glm::clamp(pitch,-89.0f,89.f);
             glm::vec3 _front;
             _front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
@@ -42,6 +42,10 @@ namespace Engine{
 
         vec3 Position(){
             return this->position;
+        }
+
+        vec3 Rotation(){
+            return vec3{yaw,pitch,0};
         }
     };
 }

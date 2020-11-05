@@ -24,6 +24,8 @@ namespace Game{
         int frameRate = 0;
         vec2 cameraState {0.f,0.f};
         vec2 cameraDirection{0.f,0.f};
+        float cameraLen = 0;
+        int LOD = 1;
     public:
         DummyGame();
         ~DummyGame();
@@ -56,9 +58,12 @@ namespace Game{
 //        auto tex = Texture(buffer,len);
 //        textures.push_back(tex);
         this->terrain = new Terrain();
+        this->terrain->Init();
         this->terrainShader = new ShaderProgram("terrain");
 
-        this->camera = new Camera(vec3{0,0,0});
+        this->camera = new Camera(vec3{0,25,10});
+        this->camera->Rotate(0,70);
+        cameraLen = length(camera->Position());
 
         debug = new Debug();
 
@@ -101,10 +106,17 @@ namespace Game{
     }
 
     void DummyGame::Update(float interval){
-        camera->MoveForward(cameraState.x*interval*10.f);
-        camera->MoveRight(cameraState.y*interval*10.f);
+        camera->MoveForward(cameraState.x*interval*2.f);
+        camera->MoveRight(cameraState.y*interval*2.f);
         camera->Rotate(cameraDirection.x,cameraDirection.y);
         updateRate = interval;
+        cameraLen = length(camera->Position());
+        if(cameraLen<25){
+            LOD = static_cast<int>(glm::clamp(25.f/cameraLen,1.f,5.f));
+        }else{
+            LOD = 1;
+        }
+        terrain->Update(LOD);
     }
 
     void DummyGame::Render(Window* window,float elapsedTime){
@@ -121,6 +133,15 @@ namespace Game{
 
         vec3 camPos = camera->Position();
         debug->Draw(vec2{5,25},Text("相机坐标:"+to_string(camPos.x)+","+to_string(camPos.y)+","+to_string(camPos.z)),vec3{0.05f,.99f,0.05f});
+        vec3 camRot = camera->Rotation();
+        debug->Draw(vec2{5,45},Text("相机角度:"+to_string(camRot.x)+","+to_string(camRot.y)+","+to_string(camRot.z)),vec3{0.05f,.99f,0.05f});
+
+        debug->Draw(vec2{5,65},Text("视距:"+to_string(cameraLen)),vec3{0.05f,.99f,0.05f});
+
+        debug->Draw(vec2{5,85},Text("LOD:"+to_string(LOD)),vec3{0.05f,.99f,0.05f});
+
+        int chunks = terrain->GetChunkSize();
+        debug->Draw(vec2{5,105},Text("块数:"+to_string(chunks)),vec3{0.05f,.99f,0.05f});
 
         if(frameTime>1.0){
             frameRate = int(frameCount/frameTime);

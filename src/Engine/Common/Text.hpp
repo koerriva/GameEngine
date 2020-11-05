@@ -15,6 +15,10 @@ namespace Engine::Common{
             return Text(wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(text));
         }
 
+        static wstring s_2_w(const string& text){
+            return wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(text);
+        }
+
         [[nodiscard]] wstring::const_iterator begin() const {
             return data.begin();
         }
@@ -25,8 +29,32 @@ namespace Engine::Common{
 
         explicit Text(wstring data):data(std::move(data)){}
         explicit Text(const string& data){
-            auto ws = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(data);
+//            auto ws = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(data);
+            auto ws = s2ws(data);
             this->data = move(ws);
+        }
+
+        wstring& value() {
+            return data;
+        }
+
+        static wstring s2ws(const string& s){
+            size_t convertedChars=0;
+            string curLocale=setlocale(LC_ALL,nullptr);   //curLocale="C"
+            setlocale(LC_ALL,"chs");
+            setlocale(LC_CTYPE, "zh_CN.UTF-8");
+
+            const char* source=s.c_str();
+            size_t charNum=sizeof(char)*s.size()+1;
+            wchar_t* dest=new wchar_t[charNum];
+            mbstowcs_s(&convertedChars,dest,charNum,source,_TRUNCATE);
+
+            wstring result=dest;
+//            wcout << result << endl;
+
+            delete[] dest;
+            setlocale(LC_ALL,curLocale.c_str());
+            return result;
         }
     };
 }

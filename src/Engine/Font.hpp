@@ -37,7 +37,7 @@ namespace Engine{
                     Logger::Error("Can't Load char");
                     continue;
                 }
-                _GenTexture(c);
+                GenTexture(c);
             }
 //            for (wchar_t c = 0x4e00; c < 0x9fa5; ++c) {
 //                if(FT_Load_Char(fc,c,FT_LOAD_RENDER)){
@@ -49,7 +49,7 @@ namespace Engine{
             glBindTexture(GL_TEXTURE_2D,0);
         }
 
-        void _GenTexture(wchar_t c){
+        void GenTexture(wchar_t c){
             GLuint texture;
             glGenTextures(1,&texture);
             glBindTexture(GL_TEXTURE_2D,texture);
@@ -83,7 +83,7 @@ namespace Engine{
                 if(FT_Load_Char(fc,c,FT_LOAD_RENDER)){
                     Logger::Error("Can't Load char");
                 }
-                _instance->_GenTexture(c);
+                _instance->GenTexture(c);
             }
             return _instance->chars[c];
         }

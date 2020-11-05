@@ -7,14 +7,11 @@ namespace Engine{
     class Debug{
     private:
         ShaderProgram* shaderProgram;
-        Character c;
         vector<float> vertices;
-        GLuint VAO,VBO;
+        GLuint VAO{},VBO{};
     public:
         Debug(){
             shaderProgram = new ShaderProgram("font");
-            c = Font::GetChar('c');
-            // Configure VAO/VBO for texture quads
             glGenVertexArrays(1, &VAO);
             glBindVertexArray(VAO);
 
@@ -41,9 +38,8 @@ namespace Engine{
             glActiveTexture(GL_TEXTURE0);
             glBindVertexArray(VAO);
 
-
             for (auto it=text.begin();it!=text.end();++it) {
-                c = Font::GetChar(*it);
+                Character c = Font::GetChar(*it);
                 float x = pos.x+c.bearing.x*1.0f;
                 float y = pos.y+Font::PIXEL_SIZE+float((c.size.y-c.bearing.y))*1.0f;
                 auto w = float(c.size.x);
