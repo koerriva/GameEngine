@@ -100,8 +100,8 @@ namespace Game{
         cameraDirection.x = 0;
         cameraDirection.y = 0;
         if(window->GetMouseButtonPressed(M_RIGHT)){
-            cameraDirection.x = window->GetMouseXOffset();
-            cameraDirection.y = window->GetMouseYOffset();
+            cameraDirection.x = static_cast<float>(window->GetMouseXOffset());
+            cameraDirection.y = static_cast<float>(window->GetMouseYOffset());
         }
     }
 
@@ -141,9 +141,7 @@ namespace Game{
         debug->Draw(vec2{5,85},Text("LOD:"+to_string(LOD)),vec3{0.05f,.99f,0.05f});
 
         int chunks = terrain->GetChunkSize();
-        debug->Draw(vec2{5,105},Text("块数量:"+to_string(chunks)),vec3{0.05f,.99f,0.05f});
-
-       debug->Draw(vec2{5,125},Text("窗前明月光，疑似地上霜，举头望明月，低头思故乡。"),vec3{0.05f,.99f,0.05f});
+        debug->Draw(vec2{5,105},Text("块数:"+to_string(chunks)),vec3{0.05f,.99f,0.05f});
 
         if(frameTime>1.0){
             frameRate = int(frameCount/frameTime);

@@ -106,6 +106,18 @@ namespace Engine::Graph {
             parent->children_count=4;
         }
 
+        void SplitChunk(QuadTreeNode* parent,int depth){
+            if(parent->depth<depth){
+                if(parent->children_count==0){
+                    SplitChunk(parent);
+                }else{
+                    for (int i = 0; i < parent->children_count; ++i) {
+                        SplitChunk(parent->children[i],depth);
+                    }
+                }
+            }
+        }
+
         QuadTreeNode* target_chunk;
         int target_depth=1;
     public:
@@ -138,13 +150,14 @@ namespace Engine::Graph {
 
         void Update(int depth){
             target_depth = depth;
-            const size_t size = next_id;
-            for (size_t i = 0; i < size; ++i) {
-                auto& chunk = chunks[i];
-                if(chunk.depth<target_depth&&chunk.children_count==0){
-                    SplitChunk(&chunk);
-                }
-            }
+            SplitChunk(target_chunk,target_depth);
+//            const size_t size = next_id;
+//            for (size_t i = 0; i < size; ++i) {
+//                auto& chunk = chunks[i];
+//                if(chunk.depth<target_depth&&chunk.children_count==0){
+//                    SplitChunk(&chunk);
+//                }
+//            }
         }
 
         void Draw(){
@@ -158,7 +171,6 @@ namespace Engine::Graph {
         }
 
         void Cleanup(){
-//            free(chunks);
             delete chunks;
         }
 
