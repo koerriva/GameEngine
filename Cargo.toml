@@ -1,0 +1,13 @@
+[package]
+name = "GameEngine"
+version = "0.1.0"
+authors = ["杨玉印 <504097978@qq.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+freetype-rs = "0.26.0"
+glfw = "0.40.0"
+nalgebra = "0.23.0"
+gl = "0.14.0"

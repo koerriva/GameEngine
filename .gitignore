@@ -1,6 +1,13 @@
-.idea/
-.vscode/
-build/
-cmake-build-debug/
-cmake-build-release/
-.DS_Store
+/.idea/
+/.vscode/
+/build/
+/cmake-build-debug/
+/cmake-build-release/
+/.DS_Store
+
+
+# Added by cargo
+
+/target
+/Cargo.lock
+/src/main.rs
