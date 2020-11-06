@@ -30,7 +30,7 @@ namespace Engine::Common{
         explicit Text(wstring data):data(std::move(data)){}
         explicit Text(const string& data){
             #ifdef __APPLE__
-            auto ws = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(data);
+            auto ws = wstring_convert<codecvt_utf8_utf16<wchar_t>>().from_bytes(data);
             this->data = std::move(ws);
             #else
             auto ws = s2ws(data);

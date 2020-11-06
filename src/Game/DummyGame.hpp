@@ -140,7 +140,7 @@ namespace Game{
 
         debug->Draw(vec2{5,85},Text("LOD:"+to_string(LOD)),vec3{0.05f,.99f,0.05f});
 
-        int chunks = terrain->GetChunkSize();
+        size_t chunks = terrain->GetChunkSize();
         debug->Draw(vec2{5,105},Text("块数:"+to_string(chunks)),vec3{0.05f,.99f,0.05f});
 
         if(frameTime>1.0){
@@ -172,4 +172,3 @@ namespace Game{
         delete timer;
     }
 }
-

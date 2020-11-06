@@ -48,6 +48,7 @@ extern "C" __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 //extern "C" __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 0x00000001;
 #endif
 int main(){
+    // system("chcp 65001");
 //    auto frameStart = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 //    Logger::Info("frameStart {}",frameStart);
 //    auto frameEnd = frameStart+1000000000;
