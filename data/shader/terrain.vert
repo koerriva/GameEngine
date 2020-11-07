@@ -1,5 +1,5 @@
 #version 330
-
+//中文测试
 layout (location = 0) in vec3 position;
 
 uniform mat4 P;
