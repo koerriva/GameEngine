@@ -7,32 +7,95 @@ pub mod opengl{
         Vertex,
         Fragment
     }
+    #[derive(Eq,PartialEq,Copy,Clone)]
+    pub enum DrawType{
+        Static,Dynamic
+    }
 
     use std::os::raw::c_void;
     use crate::engine::device::opengl::ShaderType::Vertex;
     use std::ffi::CString;
+    use std::mem::size_of;
+    use crate::engine::device::opengl::DrawType::Static;
 
-    pub fn viewport(x:i32, y:i32, width:i32, height:i32){
+    pub fn gl_viewport(x:i32, y:i32, width:i32, height:i32){
         unsafe {
             gl::Viewport(x,y,width,height)
         }
     }
 
-    pub fn clear_color(r:f32,g:f32,b:f32){
+    pub fn gl_clear_color(r:f32,g:f32,b:f32){
         unsafe {
             gl::ClearColor(r,g,b,1.0)
         }
     }
 
-    pub fn clear(){
+    pub fn gl_clear(){
         unsafe {
             gl::Clear(gl::DEPTH_BUFFER_BIT|gl::COLOR_BUFFER_BIT)
         }
     }
 
     //禁用字节对齐
-    pub fn pixel_unpack(size:usize){
+    pub fn gl_pixel_unpack(size:usize){
         unsafe {gl::PixelStorei(gl::UNPACK_ALIGNMENT,size as i32)}
+    }
+    pub fn gl_gen_vao()->u32{
+        let mut vao=0;
+        unsafe {gl::GenVertexArrays(1,&mut vao)}
+        vao
+    }
+    pub fn gl_bind_vao(vao:u32){
+        unsafe {gl::BindVertexArray(vao)}
+    }
+    pub fn gl_unbind_vao(){
+        unsafe {gl::BindVertexArray(0)}
+    }
+    pub fn gl_gen_vbo()->u32{
+        let mut vbo=0;
+        unsafe {gl::GenBuffers(1,&mut vbo)}
+        vbo
+    }
+    pub fn gl_bind_vbo(vbo:u32){
+        unsafe {gl::BindBuffer(gl::ARRAY_BUFFER,vbo)}
+    }
+    pub fn gl_unbind_vbo(){
+        unsafe {gl::BindBuffer(gl::ARRAY_BUFFER,0)}
+    }
+    pub fn gl_upload_vbo(data:&[f32],draw_type:DrawType){
+        let buffer_size:isize = (data.len() * size_of::<f32>()) as isize;
+        match draw_type {
+            Static => unsafe {gl::BufferData(gl::ARRAY_BUFFER,buffer_size, data.as_ptr() as *const c_void,gl::STATIC_DRAW)},
+            _ => unsafe {gl::BufferData(gl::ARRAY_BUFFER, buffer_size, std::ptr::null(), gl::DYNAMIC_DRAW)}
+        }
+    }
+
+    pub fn gl_bind_program(program:u32){
+        unsafe {gl::UseProgram(program)}
+    }
+
+    pub fn gl_unbind_program(){
+        unsafe {gl::UseProgram(0)}
+    }
+
+    pub fn gen_font_mesh()->(u32,u32){
+        let mut vao = 0;
+        let mut vbo =0;
+        unsafe {
+            gl::GenVertexArrays(1, &mut vao);
+            gl::BindVertexArray(vao);
+            gl::GenBuffers(1, &mut vbo);
+            gl::BindBuffer(gl::ARRAY_BUFFER, vbo);
+            let buffer_size = 24 * size_of::<f32>();
+            gl::BufferData(gl::ARRAY_BUFFER, buffer_size as isize, std::ptr::null(), gl::DYNAMIC_DRAW);
+            gl::EnableVertexAttribArray(0);
+            let pointer_size = 4 * size_of::<f32>();
+            gl::VertexAttribPointer(0,4,gl::FLOAT,gl::FALSE,pointer_size as i32,std::ptr::null());
+
+            gl::BindBuffer(gl::ARRAY_BUFFER, 0);
+            gl::BindVertexArray(0);
+        }
+        (vao,vbo)
     }
 
     pub fn gen_font_texture(w:i32,h:i32,data:&[u8])->u32{
@@ -87,6 +150,8 @@ pub mod opengl{
         }
 
         Ok(id)
+
+
     }
 
     pub fn gen_program(vertex:u32,fragment:u32)->Result<u32,String>{
@@ -104,6 +169,7 @@ pub mod opengl{
                 let mut len:i32 = 0;
                 gl::GetProgramiv(id, gl::INFO_LOG_LENGTH, &mut len);
                 // allocate buffer of correct size
+
                 let mut buffer: Vec<u8> = Vec::with_capacity(len as usize + 1);
                 // fill it with len spaces
                 buffer.extend([b' '].iter().cycle().take(len as usize));

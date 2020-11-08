@@ -3,18 +3,20 @@ use std::collections::HashMap;
 use freetype::face::LoadFlag;
 use std::ops::Add;
 use std::path::PathBuf;
+use crate::engine::device::opengl::gen_font_texture;
 
 #[derive(Debug)]
 pub struct Character{
-    texture:Option<u32>,
-    size:(i32,i32),
-    bearing:(i32,i32),
-    advance:(i32,i32),
-    buffer:Vec<u8>
+    pub texture:Option<u32>,
+    pub size:(i32,i32),
+    pub bearing:(i32,i32),
+    pub advance:(i32,i32),
+    pub buffer:Vec<u8>
 }
 
 pub struct Font{
     face:Face,
+    pub height:u32,
     chars:HashMap<usize,Character>
 }
 
@@ -42,10 +44,10 @@ impl Font{
     /**
         https://blog.csdn.net/chivalrousli/article/details/77412329
     **/
-    pub fn new(name:&str)->Font{
+    pub fn new(name:&str,height:u32)->Font{
         let filepath = String::from("data/font/").add(name);
         let face = Library::init().unwrap().new_face(PathBuf::from(filepath),0).unwrap();
-        face.set_pixel_sizes(0,16);
+        face.set_pixel_sizes(0,height);
         let mut chars = HashMap::new();
 
         //基本字母
@@ -72,7 +74,14 @@ impl Font{
             let c = Font::load_char(&face,code);
             chars.insert(code,c.unwrap());
         }
-        Font{face,chars}
+        Font{face,chars,height}
+    }
+
+    pub fn init(&mut self){
+        for (code, mut c) in &mut self.chars {
+            let texture = gen_font_texture(c.size.0,c.size.1,c.buffer.as_slice());
+            c.texture = Some(texture)
+        }
     }
 
     pub fn read_mut(&mut self,char:usize)->Option<&Character>{
