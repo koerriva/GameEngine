@@ -2,9 +2,13 @@ use crate::engine::font::{Font, Character};
 use crate::engine::graph::shader::ShaderProgram;
 use crate::engine::device::opengl::*;
 use nalgebra::Vector3;
-use nalgebra_glm::{vec3, ortho, TMat4};
+use nalgebra_glm::{vec3, ortho, TMat4, perspective, look_at, scale};
 use std::mem::size_of;
 use std::os::raw::c_void;
+use std::borrow::Borrow;
+use crate::engine::graph::mesh::Mesh;
+use crate::engine::camera::Camera;
+use crate::engine::graph::model::Model;
 
 pub struct Renderer{
     font_vao:Option<u32>,
@@ -31,7 +35,40 @@ impl Renderer {
         gl_clear();
     }
 
-    pub fn render(&self,pos:(f32,f32),color:(f32,f32,f32),text:String,font:&Font,shader:&ShaderProgram){
+    pub fn render_model(&mut self,camera:&Camera,models:&Vec<Model>){
+        unsafe {
+            gl::Enable(gl::DEPTH_TEST);
+            gl::PolygonMode(gl::FRONT_AND_BACK, gl::FILL);
+        }
+
+        for model in models {
+            model.draw(camera)
+        }
+    }
+
+    pub fn render_mesh(&mut self,camera:&Camera,meshes:&Vec<Mesh>,shader:&ShaderProgram){
+        unsafe {
+            gl::Enable(gl::DEPTH_TEST);
+            gl::PolygonMode(gl::FRONT_AND_BACK, gl::FILL);
+        }
+
+        shader.bind();
+        let p:TMat4<f32> = camera.projection_matrix();
+        shader.set_mat4("P",p);
+        let v:TMat4<f32> = camera.view_matrix();
+        shader.set_mat4("V",v);
+        let mut m:TMat4<f32> = TMat4::default();
+        m.fill_with_identity();
+        shader.set_mat4("M",m);
+
+        for mesh in meshes {
+            mesh.draw()
+        }
+
+        shader.unbind()
+    }
+
+    pub fn render_text(&mut self,pos:(f32,f32),color:(f32,f32,f32),text:String,font:&mut Font,shader:&ShaderProgram){
         unsafe {
             gl::Enable(gl::CULL_FACE);
             gl::Enable(gl::BLEND);
@@ -50,13 +87,14 @@ impl Renderer {
         }
 
         let mut pos_x = pos.0;
-        let mut pos_y = pos.1;
+        let pos_y = pos.1;
         for char in text.chars() {
-            let mut r = font.read(char as usize);
+            let font_height = font.height;
+            let r = font.read_mut(char as usize);
             if r.is_some() {
                 let c = r.unwrap();
                 let x = pos_x + c.bearing.0 as f32;
-                let y = pos_y + (font.height as i32 +c.size.1-c.bearing.1) as f32;
+                let y = pos_y + (font_height as i32 +c.size.1-c.bearing.1) as f32;
                 let w = c.size.0 as f32;
                 let h = c.size.1 as f32;
 
@@ -74,7 +112,8 @@ impl Renderer {
                 pos_x += (c.advance.0>>6) as f32;
 
                 unsafe {
-                    gl::BindTexture(gl::TEXTURE_2D,c.texture.unwrap());
+                    let texture = c.texture.as_ref().unwrap();
+                    gl::BindTexture(gl::TEXTURE_2D,texture.id);
                     gl::BindBuffer(gl::ARRAY_BUFFER,self.font_vbo.unwrap());
                     let buffer_size = vertices.len()*size_of::<f32>();
                     gl::BufferSubData(gl::ARRAY_BUFFER,0,buffer_size as isize,vertices.as_ptr() as *const c_void);

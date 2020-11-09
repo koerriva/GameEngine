@@ -3,7 +3,7 @@ use std::sync::Arc;
 use std::fs;
 use std::fs::DirEntry;
 use std::path::{Path, PathBuf};
-use std::ops::Add;
+use std::ops::{Add};
 use std::str::from_utf8;
 
 pub struct ResourceLoader{
@@ -23,6 +23,13 @@ impl ResourceLoader {
         r.and_then(|a|{
             from_utf8(a).ok()
         })
+    }
+
+    pub fn load_gltf(name:&str) -> Option<&[u8]>{
+        let filepath = String::new();
+        let filepath = filepath.add("data/model/").add(name);
+        ResourceLoader::get_instance().buffer.get(PathBuf::from(filepath).as_path())
+            .and_then(|r|{Some(r.as_slice())})
     }
 
     fn read_all_file(collector:&mut HashMap<PathBuf,Vec<u8>>,dir:DirEntry){

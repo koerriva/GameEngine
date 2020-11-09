@@ -3,11 +3,12 @@ use std::collections::HashMap;
 use freetype::face::LoadFlag;
 use std::ops::Add;
 use std::path::PathBuf;
-use crate::engine::device::opengl::gen_font_texture;
+use crate::engine::graph::texture::Texture;
+use std::any::Any;
 
 #[derive(Debug)]
 pub struct Character{
-    pub texture:Option<u32>,
+    pub texture:Option<Texture>,
     pub size:(i32,i32),
     pub bearing:(i32,i32),
     pub advance:(i32,i32),
@@ -79,7 +80,7 @@ impl Font{
 
     pub fn init(&mut self){
         for (code, mut c) in &mut self.chars {
-            let texture = gen_font_texture(c.size.0,c.size.1,c.buffer.as_slice());
+            let texture = Texture::from_font(c.size.0, c.size.1, c.buffer.as_slice());
             c.texture = Some(texture)
         }
     }
@@ -89,7 +90,19 @@ impl Font{
         if r.is_none() {
             let r = Font::load_char(&self.face,char);
             if r.is_some() {
-                self.chars.insert(char,r.unwrap());
+                let mut r = r.unwrap();
+                let texture = Texture::from_font(r.size.0,r.size.1,r.buffer.as_slice());
+                r.texture = Some(texture);
+                self.chars.insert(char,r);
+            }
+        }else {
+            let r = self.chars.get_mut(&char);
+            if r.is_some() {
+                let mut r = r.unwrap();
+                if r.texture.is_none() {
+                    let texture = Texture::from_font(r.size.0,r.size.1,r.buffer.as_slice());
+                    r.texture = Some(texture);
+                }
             }
         }
         self.chars.get(&char)

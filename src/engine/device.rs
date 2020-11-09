@@ -36,10 +36,6 @@ pub mod opengl{
         }
     }
 
-    //禁用字节对齐
-    pub fn gl_pixel_unpack(size:usize){
-        unsafe {gl::PixelStorei(gl::UNPACK_ALIGNMENT,size as i32)}
-    }
     pub fn gl_gen_vao()->u32{
         let mut vao=0;
         unsafe {gl::GenVertexArrays(1,&mut vao)}
@@ -96,22 +92,6 @@ pub mod opengl{
             gl::BindVertexArray(0);
         }
         (vao,vbo)
-    }
-
-    pub fn gen_font_texture(w:i32,h:i32,data:&[u8])->u32{
-        let mut texture:u32 = 0;
-        unsafe {
-            gl::PixelStorei(gl::UNPACK_ALIGNMENT,1);
-            gl::GenTextures(1,&mut texture);
-            gl::BindTexture(gl::TEXTURE_2D,texture);
-            gl::TexImage2D(gl::TEXTURE_2D,0,gl::RED as i32,w,h,0,gl::RED,gl::UNSIGNED_BYTE,data.as_ptr() as *const c_void);
-            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, gl::CLAMP_TO_EDGE as i32);
-            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_T, gl::CLAMP_TO_EDGE as i32);
-            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, gl::LINEAR as i32);
-            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::LINEAR as i32);
-            gl::BindTexture(gl::TEXTURE_2D,0);
-        }
-        texture
     }
 
     pub fn gen_shader(code:&str,shader_type:ShaderType)->Result<u32,String>{

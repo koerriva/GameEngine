@@ -6,3 +6,4 @@ pub mod device;
 pub mod resource;
 pub mod font;
 pub mod graph;
+pub mod camera;
