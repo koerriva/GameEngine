@@ -69,9 +69,8 @@ impl Window {
         let now = self.glfw.get_time();
         let elapsed = now-self.last_frame_time;
         self.last_frame_time = now;
-        let fps = (1.0/elapsed) as i32;
-        self.fps = (fps+self.fps)*10/20;
-        self.canvas.set_title(format!("{},FPS:{}",self.title,fps).as_str())
+        self.fps = (1.0/elapsed) as i32;
+        self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str())
     }
 
     fn input(&mut self){
