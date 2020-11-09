@@ -2,8 +2,8 @@ use crate::engine::window::Window;
 use crate::engine::logic::IGameLogic;
 
 pub struct GameEngine{
+    game: Box<dyn IGameLogic>,
     window:Window,
-    game: Box<dyn IGameLogic>
 }
 
 impl GameEngine {
@@ -42,6 +42,6 @@ impl GameEngine {
 
 impl Drop for GameEngine {
     fn drop(&mut self) {
-        println!("Drop GameEngine")
+        println!("Drop GameEngine");
     }
 }

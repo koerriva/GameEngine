@@ -63,9 +63,3 @@ impl ResourceLoader {
         }
     }
 }
-
-impl Drop for ResourceLoader{
-    fn drop(&mut self) {
-        println!("Drop ResourceLoader")
-    }
-}

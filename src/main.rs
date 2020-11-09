@@ -14,7 +14,7 @@ mod game;
 
 fn main(){
     ResourceLoader::init();
-    let game = Box::new(DummyGame::new());
+    let game = Box::new(ModelGame::new());
     let mut engine = GameEngine::new(1280,720,game);
     engine.run();
 }

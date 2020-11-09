@@ -71,3 +71,9 @@ impl IGameLogic for ModelGame {
         self.renderer.render_text((5.0,690.0),font_color,String::from("Powered By Rust\u{00A9}"),font_noto,font_shader)
     }
 }
+
+impl Drop for ModelGame {
+    fn drop(&mut self) {
+        println!("Drop ModelGame")
+    }
+}
