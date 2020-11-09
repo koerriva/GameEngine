@@ -45,7 +45,7 @@ impl IGameLogic for DummyGame {
     }
 
     fn render(&mut self, window: &Window) {
-        self.renderer.viewport(window.width, window.height);
+        self.renderer.viewport(window.frame_buffer_size.0, window.frame_buffer_size.1);
         self.renderer.clear_color(162.0/255.0,155.0/255.0,124.0/255.0);
 
         let font_maocao = &mut self.fonts[0];

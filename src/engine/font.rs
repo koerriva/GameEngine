@@ -34,7 +34,7 @@ impl Font{
                 texture:None,
                 size:(bitmap.width(),bitmap.rows()),
                 bearing:(glyph.bitmap_left(),glyph.bitmap_top()),
-                advance:(advance.x,advance.y),buffer
+                advance:(advance.x as i32, advance.y as i32),buffer
             };
             Some(char)
         }else {

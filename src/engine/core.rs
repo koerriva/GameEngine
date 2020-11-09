@@ -8,7 +8,7 @@ pub struct GameEngine{
 
 impl GameEngine {
     pub fn new(width:u32, height:u32, game: Box<dyn IGameLogic>) -> Box<GameEngine> {
-        let window = Window::new(width,height);
+        let window = Window::new(width,height,"Tech Demo");
         Box::new(GameEngine{window,game})
     }
 

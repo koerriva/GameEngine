@@ -24,7 +24,7 @@ impl ModelGame{
         fonts.push(font);
 
         let meshes = Vec::new();
-        let camera = Camera::new();
+        let camera = Camera::new(4.0/3.0);
         ModelGame{renderer,shaders,fonts,meshes,camera}
     }
 }
@@ -60,7 +60,6 @@ impl IGameLogic for ModelGame {
     }
 
     fn render(&mut self, window: &Window) {
-        self.renderer.viewport(window.width, window.height);
         self.renderer.clear_color(162.0/255.0,155.0/255.0,124.0/255.0);
 
         let base_shader = &self.shaders[0];

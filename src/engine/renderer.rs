@@ -26,8 +26,8 @@ impl Renderer {
         self.font_vbo = Some(vbo)
     }
 
-    pub fn viewport(&self,width:u32,height:u32){
-        gl_viewport(0, 0, width as i32, height as i32);
+    pub fn viewport(&self,width:i32,height:i32){
+        unsafe {gl::Viewport(0,0,width,height)}
     }
 
     pub fn clear_color(&self,r:f32,g:f32,b:f32){
