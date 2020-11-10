@@ -5,6 +5,7 @@ use std::ops::Add;
 use std::path::PathBuf;
 use crate::engine::graph::texture::Texture;
 use std::any::Any;
+use crate::engine::graph::shader::ShaderProgram;
 
 #[derive(Debug)]
 pub struct Character{
@@ -18,6 +19,7 @@ pub struct Character{
 pub struct Font{
     face:Face,
     pub height:u32,
+    pub shader:Option<ShaderProgram>,
     chars:HashMap<usize,Character>
 }
 
@@ -75,7 +77,7 @@ impl Font{
             let c = Font::load_char(&face,code);
             chars.insert(code,c.unwrap());
         }
-        Font{face,chars,height}
+        Font{face,chars,height, shader: None }
     }
 
     pub fn init(&mut self){

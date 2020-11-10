@@ -4,8 +4,8 @@ use std::sync::mpsc::Receiver;
 use glfw::ffi::glfwGetTime;
 
 pub struct Window{
-    pub width:u32,
-    pub height:u32,
+    pub width:i32,
+    pub height:i32,
     pub aspect:f32,
     pub closed:bool,
     pub glfw:Glfw,
@@ -50,7 +50,8 @@ impl Window {
         let frame_buffer_size = window.get_framebuffer_size();
         let last_frame_time = glfw.get_time();
         let aspect = width as f32/height as f32;
-        Window{width,height,aspect,closed:false,glfw
+        Window{width:width as i32,height:height as i32
+            ,aspect,closed:false,glfw
             ,mouse_offset:(0.0,0.0,0.0,0.0)
             ,frame_buffer_size
             ,canvas:window
@@ -93,6 +94,8 @@ impl Window {
                     self.mouse_offset = (x as f32,y as f32,x1*sensitivity,y1*sensitivity);
                 },
                 glfw::WindowEvent::Size(w,h)=>{
+                    self.width = w;
+                    self.height = h;
                     self.aspect =  w as f32/h as f32
                 },
                 glfw::WindowEvent::FramebufferSize(w,h)=>{

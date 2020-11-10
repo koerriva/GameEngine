@@ -5,6 +5,7 @@ use std::ops::Add;
 use std::ffi::CString;
 use nalgebra_glm::{TVec3, TMat4};
 
+#[derive(Copy, Clone)]
 pub struct ShaderProgram {
     program:u32,
 }
@@ -32,7 +33,7 @@ impl ShaderProgram {
         ShaderProgram{program:program.unwrap()}
     }
 
-    pub fn set_vec3(&self,name:&str,vec3:TVec3<f32>){
+    pub fn set_vec3(&self,name:&str,vec3:&TVec3<f32>){
         unsafe {
             let c_name = CString::from_vec_unchecked(name.as_bytes().to_vec());
             let location = gl::GetUniformLocation(self.program,c_name.as_ptr());
@@ -40,7 +41,7 @@ impl ShaderProgram {
         }
     }
 
-    pub fn set_mat4(&self,name:&str,mat4:TMat4<f32>){
+    pub fn set_mat4(&self,name:&str,mat4:&TMat4<f32>){
         unsafe {
             let c_name = CString::from_vec_unchecked(name.as_bytes().to_vec());
             let location = gl::GetUniformLocation(self.program,c_name.as_ptr());
