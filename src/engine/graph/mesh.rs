@@ -1,83 +1,73 @@
 use std::mem::size_of;
 use std::os::raw::c_void;
-use std::fmt::Error;
 
-#[repr(C)]
-#[derive(Debug,Copy,Clone)]
-pub struct Vertex{
-    position:[f32;3],
-    normal:[f32;3],
-    tex_coord:[f32;2],
-    color:[f32;3],
+pub struct VertexAttr{
+    pub position:Vec<f32>,
+    pub normal:Vec<f32>,
+    pub tex_coord:Vec<f32>,
+    pub color:Vec<f32>,
 }
 
 pub struct Mesh{
     vao:u32,
-    vbo:u32,
+    vbos:[u32;4],
     ebo:u32,
-    vertex_count:usize
+    vertex_count:usize,
+    vertex_attr:VertexAttr
 }
 
 impl Mesh {
-
-    pub fn from_data(vertices:&[f32],indices:&[u16])->Mesh {
-        let mut vertex_list = Vec::new();
-        for row in 0..vertices.len() / 11 {
-            let mut start = row*11;
-            let mut position:[f32;3] = [0.0;3];
-            position.copy_from_slice(&vertices[start..start+3]);
-
-            start += 3;
-            let mut normal:[f32;3] = [0.0;3];
-            normal.copy_from_slice(&vertices[start..start+3]);
-
-            start += 3;
-            let mut tex_coord:[f32;2] = [0.0;2];
-            tex_coord.copy_from_slice(&vertices[start..start+2]);
-
-            start += 2;
-            let mut color:[f32;3] = [0.0;3];
-            color.copy_from_slice(&vertices[start..start+3]);
-
-            let vertex = Vertex{position,normal,tex_coord,color};
-            println!("vertex {:?}",vertex);
-            vertex_list.push(vertex)
-        }
-        let index_list = indices.to_vec();
-        println!("indices {:?}",indices);
-        Mesh::new(vertex_list, index_list)
-    }
-
-    pub fn new(vertices:Vec<Vertex>,indices:Vec<u16>)->Mesh{
+    pub fn new(vertex_attr:VertexAttr,indices:Vec<u16>)->Mesh{
         let mut vao=0;
-        let mut vbo = 0;
+        let mut vbos = [0;4];
         let mut ebo = 0;
         unsafe {
             gl::GenVertexArrays(1,&mut vao);
             gl::BindVertexArray(vao);
 
+            //position
+            let mut vbo = 0u32;
             gl::GenBuffers(1,&mut vbo);
             gl::BindBuffer(gl::ARRAY_BUFFER,vbo);
-            let buffer_size = vertices.len()*size_of::<Vertex>();
-            gl::BufferData(gl::ARRAY_BUFFER,buffer_size as isize,vertices.as_ptr() as *const c_void ,gl::STATIC_DRAW);
-
-            let mut offset = 0;
-            let stride = (11*size_of::<f32>()) as i32;
-            //position
+            let buffer_size = vertex_attr.position.len() * size_of::<f32>();
+            println!("position bytes {},count {}",buffer_size,vertex_attr.position.len());
+            gl::BufferData(gl::ARRAY_BUFFER,buffer_size as isize,vertex_attr.position.as_ptr() as *const c_void ,gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(0);
-            gl::VertexAttribPointer(0,3,gl::FLOAT,gl::FALSE,stride,offset as *const c_void);
+            gl::VertexAttribPointer(0,3,gl::FLOAT,gl::FALSE,0,0 as *const c_void);
+            vbos[0]=vbo;
+
             //normal
-            offset += 3*size_of::<f32>();
+            let mut vbo = 0u32;
+            gl::GenBuffers(1,&mut vbo);
+            gl::BindBuffer(gl::ARRAY_BUFFER,vbo);
+            let buffer_size = vertex_attr.normal.len() * size_of::<f32>();
+            println!("normal bytes {},count {}",buffer_size,vertex_attr.normal.len());
+            gl::BufferData(gl::ARRAY_BUFFER,buffer_size as isize,vertex_attr.normal.as_ptr() as *const c_void ,gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(1);
-            gl::VertexAttribPointer(1,3,gl::FLOAT,gl::FALSE,stride,offset as *const c_void);
+            gl::VertexAttribPointer(1,3,gl::FLOAT,gl::FALSE,0,0 as *const c_void);
+            vbos[1]=vbo;
+
             //text_coord
-            offset += 3*size_of::<f32>();
+            let mut vbo = 0u32;
+            gl::GenBuffers(1,&mut vbo);
+            gl::BindBuffer(gl::ARRAY_BUFFER,vbo);
+            let buffer_size = vertex_attr.tex_coord.len() * size_of::<f32>();
+            println!("tex_coord bytes {},count {}",buffer_size,vertex_attr.tex_coord.len());
+            gl::BufferData(gl::ARRAY_BUFFER,buffer_size as isize,vertex_attr.tex_coord.as_ptr() as *const c_void ,gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(2);
-            gl::VertexAttribPointer(2,2,gl::FLOAT,gl::FALSE,stride,offset as *const c_void);
+            gl::VertexAttribPointer(2,2,gl::FLOAT,gl::FALSE,0,0 as *const c_void);
+            vbos[2]=vbo;
+
             //color
-            offset += 2*size_of::<f32>();
+            let mut vbo = 0u32;
+            gl::GenBuffers(1,&mut vbo);
+            gl::BindBuffer(gl::ARRAY_BUFFER,vbo);
+            let buffer_size = vertex_attr.color.len() * size_of::<f32>();
+            println!("color bytes {},count {}",buffer_size,vertex_attr.color.len());
+            gl::BufferData(gl::ARRAY_BUFFER,buffer_size as isize,vertex_attr.color.as_ptr() as *const c_void ,gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(3);
-            gl::VertexAttribPointer(3,3,gl::FLOAT,gl::FALSE,stride,offset as *const c_void);
+            gl::VertexAttribPointer(3,3,gl::FLOAT,gl::FALSE,0,0 as *const c_void);
+            vbos[3]=vbo;
 
             //indices
             gl::GenBuffers(1,&mut ebo);
@@ -88,7 +78,7 @@ impl Mesh {
             gl::BindVertexArray(0);
         }
 
-        Mesh{vao,vbo,ebo,vertex_count:indices.len()}
+        Mesh{vao,vbos,ebo,vertex_count:indices.len(),vertex_attr}
     }
 
     pub fn draw(&self){

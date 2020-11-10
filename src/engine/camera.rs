@@ -32,4 +32,8 @@ impl Camera{
     pub fn set_aspect(&mut self,aspect:f32){
         self.aspect = aspect
     }
+
+    pub fn move_forward(&mut self,factor:f32){
+        self.position += factor*&self.front
+    }
 }

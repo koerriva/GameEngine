@@ -6,16 +6,18 @@ use crate::engine::font::{Font};
 use crate::engine::graph::mesh::Mesh;
 use gltf::json::accessor::Type::Vec2;
 use crate::engine::camera::Camera;
-use nalgebra_glm::{vec3, TMat4, TVec3};
-use crate::engine::graph::model::Model;
+use nalgebra_glm::{vec3, TMat4, TVec3, sin, Mat4};
+use crate::engine::graph::model::{Model, Scene};
 use crate::engine::graph::material::Material;
 use std::thread::sleep;
+use nalgebra::clamp;
+use glfw::Key::*;
 
 pub struct ModelGame{
     renderer:Renderer,
     fonts:Vec<Font>,
-    camera:Camera,
-    scene:Vec<Model>,
+    scene:Option<Scene>,
+    camera_state:(f32,f32)
 }
 
 impl ModelGame{
@@ -25,9 +27,7 @@ impl ModelGame{
         let font = Font::new("NotoSansSC-Regular.otf",18);
         fonts.push(font);
 
-        let scene = Vec::new();
-        let camera = Camera::new(4.0/3.0);
-        ModelGame{renderer,fonts,camera,scene}
+        ModelGame{renderer,fonts,scene:None,camera_state:(0.0,0.0)}
     }
 }
 
@@ -40,45 +40,45 @@ impl IGameLogic for ModelGame {
             font.shader = Some(font_shader);
         }
 
-        let data:[f32;44] = [
-            -1.0,1.0,-1.0  ,0.0,0.0,1.0  ,0.0,0.0  ,1.0,0.0,0.0,//左上角
-            1.0,1.0,-1.0   ,0.0,0.0,1.0  ,1.0,0.0  ,0.0,1.0,0.0,//右上角
-            -1.0,-1.0,-1.0 ,0.0,0.0,1.0  ,0.0,1.0  ,0.5,0.5,0.5,//左下角
-            1.0,-1.0,-1.0  ,0.0,0.0,1.0  ,1.0,1.0  ,0.0,0.0,1.0,//右下角
-        ];
-
-        let indices:[u16;6] = [0,2,3,0,3,1];
-
-        let mesh = Mesh::from_data(&data,&indices);
-        let mut meshes = Vec::new();
-        meshes.push(mesh);
-
-        let base_shader = ShaderProgram::new("base");
-        let textures = Vec::new();
-
-        let mut material = Material::new(textures,base_shader);
-
-        let mut transform = TMat4::default();
-        transform.fill_with_identity();
-        let model = Model::new(meshes,material,transform);
-
-        self.scene.push(model)
+        let scene = Scene::from_gltf("data/model/Scene.gltf");
+        self.scene = Some(scene)
     }
 
     fn input(&mut self,window:&Window) {
-
+        if window.is_key_pressed(W){
+            self.camera_state.1 = 1.0
+        }
+        if window.is_key_pressed(S){
+            self.camera_state.1 = -1.0
+        }
+        if window.is_key_pressed(A){
+            self.camera_state.0 = -1.0
+        }
+        if window.is_key_pressed(D){
+            self.camera_state.0 = 1.0
+        }
     }
 
     fn update(&mut self, window: &Window, interval: f32) {
+        let scene = self.scene.as_mut().unwrap();
+        for model in &mut scene.models {
+            model.rotate(interval*10.0,&vec3(0.0,1.0,0.0));
+        }
+
+        let camera = &mut scene.camera;
+        camera.move_forward(self.camera_state.1*interval);
+
+        self.camera_state = (0.0,0.0);
     }
 
     fn render(&mut self, window: &Window) {
         self.renderer.set_view_size(window.width as i32, window.height as i32);
         self.renderer.clear_color(162.0/255.0,155.0/255.0,124.0/255.0);
 
-        for model in &self.scene {
-            model.draw(&self.camera)
-        }
+        let scene = self.scene.as_mut().unwrap();
+        let camera = &scene.camera;
+        let models = &scene.models;
+        self.renderer.render_model(camera,models);
 
         let font_noto = &mut self.fonts[0];
         let font_color:TVec3<f32> = vec3(179.0/255.0,0.0,0.0);

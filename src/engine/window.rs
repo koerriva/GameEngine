@@ -74,9 +74,14 @@ impl Window {
         self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str())
     }
 
+    pub fn is_key_pressed(&self,key:Key)->bool{
+        let action = self.canvas.get_key(key);
+        action == Action::Press
+    }
+
     fn input(&mut self){
         for (_, event) in glfw::flush_messages(&self.events) {
-            println!("{:?}", event);
+            // println!("{:?}", event);
             match event {
                 glfw::WindowEvent::Key(Key::Escape, _, Action::Press, _) => {
                     self.closed = true;
