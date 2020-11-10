@@ -1,13 +1,14 @@
 use crate::engine::graph::mesh::{Mesh, VertexAttr};
 use crate::engine::graph::material::Material;
 use crate::engine::camera::Camera;
-use nalgebra_glm::{TMat4, TVec3, rotate, radians, TVec1, scale, vec3};
+use nalgebra_glm::{TMat4, TVec3, rotate, radians, TVec1, scale, vec3, quat_euler_angles, quat};
 use std::f32::consts::PI;
 use std::path::Path;
 use crate::engine::graph::light::Light;
 use gltf::Semantic;
 use crate::engine::graph::shader::ShaderProgram;
 use gltf::json::accessor::Type;
+use gltf::camera::Projection::Orthographic;
 
 pub struct Model{
     meshes:Vec<Mesh>,
@@ -50,7 +51,7 @@ impl Model{
 impl Scene {
     pub fn from_gltf(path:&str)->Scene{
         let mut models = Vec::new();
-        let camera = Camera::new(4.0/3.0);
+        let mut camera = Camera::new(4.0/3.0);
         let base_shader = ShaderProgram::new("base");
 
         let (document,buffers,images) = gltf::import(path)
@@ -145,6 +146,20 @@ impl Scene {
                     transform.fill_with_identity();
                     let model = Model::new(meshes,material,transform);
                     models.push(model)
+                }
+                //提取相机
+                if node.name()==Some("Camera") {
+                    let ([px,py,pz],[rx,ry,rz,rw],scale) = node.transform().decomposed();
+                    camera.set_position(px,py,pz);
+                    let rotation = quat(rx,ry,rz,rw);
+                    let angle = quat_euler_angles(&rotation);
+
+                    let yaw = angle.y*180.0/PI;
+                    let pitch = angle.x*180.0/PI;
+                    let roll = 0.0f32;
+                    println!("camera angle {},{},{}",angle.x,angle.y*180.0/PI,angle.z*180.0/PI);
+
+                    camera.set_rotation(yaw,pitch,roll)
                 }
             }
         }

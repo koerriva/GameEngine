@@ -17,7 +17,7 @@ pub struct ModelGame{
     renderer:Renderer,
     fonts:Vec<Font>,
     scene:Option<Scene>,
-    camera_state:(f32,f32)
+    camera_state:(f32,f32,f32,f32)
 }
 
 impl ModelGame{
@@ -27,7 +27,7 @@ impl ModelGame{
         let font = Font::new("NotoSansSC-Regular.otf",18);
         fonts.push(font);
 
-        ModelGame{renderer,fonts,scene:None,camera_state:(0.0,0.0)}
+        ModelGame{renderer,fonts,scene:None,camera_state:(0.0,0.0,0.0,0.0)}
     }
 }
 
@@ -57,6 +57,10 @@ impl IGameLogic for ModelGame {
         if window.is_key_pressed(D){
             self.camera_state.0 = 1.0
         }
+
+        let (_,_,x0,y0) = window.mouse_offset;
+        self.camera_state.2 = x0;
+        self.camera_state.3 = y0
     }
 
     fn update(&mut self, window: &Window, interval: f32) {
@@ -66,9 +70,12 @@ impl IGameLogic for ModelGame {
         }
 
         let camera = &mut scene.camera;
-        camera.move_forward(self.camera_state.1*interval);
+        camera.move_forward(self.camera_state.1*interval*10.0);
+        camera.move_right(self.camera_state.0*interval*10.0);
 
-        self.camera_state = (0.0,0.0);
+        camera.rotation(self.camera_state.2,self.camera_state.3);
+
+        self.camera_state = (0.0,0.0,0.0,0.0);
     }
 
     fn render(&mut self, window: &Window) {
