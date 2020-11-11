@@ -52,7 +52,7 @@ impl IGameLogic for ModelGame {
             for x in 0..size {
                 let val = &noise.get([x as f64,y as f64]);
                 println!("value {}",val);
-                heightmap[y*size+x] = val*0.05;
+                heightmap[y*size+x] = val*0.01;
             }
         }
         let mesh = Mesh::from_heightmap(size as i32, size as i32, &heightmap);
@@ -65,6 +65,7 @@ impl IGameLogic for ModelGame {
         let mut scene = Scene::empty();
         scene.models.push(terrain);
 
+        // let mut scene = Scene::from_gltf("data/model/Scene.gltf");
         self.scene = Some(scene);
 
         let camera = &mut self.scene.as_mut().unwrap().camera;
@@ -100,9 +101,9 @@ impl IGameLogic for ModelGame {
 
     fn update(&mut self, window: &Window, interval: f32) {
         let scene = self.scene.as_mut().unwrap();
-        // for model in &mut scene.models {
-        //     model.rotate(interval*10.0,&vec3(0.0,1.0,0.0));
-        // }
+        for model in &mut scene.models {
+            model.rotate(interval*10.0,&vec3(1.0,0.0,0.0));
+        }
 
         let camera = &mut scene.camera;
         camera.move_forward(self.camera_state.1*interval);

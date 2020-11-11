@@ -1,6 +1,7 @@
 use std::mem::size_of;
 use std::os::raw::c_void;
 use std::process::id;
+use nalgebra_glm::{vec3, TVec3, normalize};
 
 pub struct VertexAttr{
     pub position:Vec<f32>,
@@ -72,11 +73,21 @@ impl Mesh {
             }
         }
 
-        // for row in 0..height - 1 {
-        //     for col in 0..width - 1 {
-        //
-        //     }
-        // }
+        for row in 1..height-1 {
+            for col in 1..width - 1 {
+                let mut n:TVec3<f32> = vec3(0.0,0.0,0.0);
+
+                n.x = position[((row+1)*width+col+1) as usize] - position[((row-1)*width+col+1) as usize];
+                n.y = -1.0;
+                n.z = position[(row*width+col+1+1) as usize] - position[(row*width+col-1+1) as usize];
+
+                let n:TVec3<f32> = normalize(&n)*1.0f32;
+
+                normal[(row*width+col) as usize] = n.x;
+                normal[(row*width+col+1) as usize] = n.y;
+                normal[(row*width+col+2) as usize] = n.z;
+            }
+        }
 
         let vertex_attr = VertexAttr{position,normal,tex_coord,color};
         Mesh::new(vertex_attr,indices)
