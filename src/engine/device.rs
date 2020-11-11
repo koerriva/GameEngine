@@ -36,6 +36,22 @@ pub mod opengl{
         }
     }
 
+    pub fn gl_enable_depth_test(){
+        unsafe {gl::Enable(gl::DEPTH_TEST)}
+    }
+
+    pub fn gl_disable_depth_test(){
+        unsafe {gl::Disable(gl::DEPTH_TEST)}
+    }
+
+    pub fn gl_wireframe_mode(){
+        unsafe {gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE)}
+    }
+
+    pub fn gl_shader_mode(){
+        unsafe {gl::PolygonMode(gl::FRONT_AND_BACK, gl::FILL)}
+    }
+
     pub fn gl_gen_vao()->u32{
         let mut vao=0;
         unsafe {gl::GenVertexArrays(1,&mut vao)}

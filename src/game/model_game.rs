@@ -82,7 +82,10 @@ impl IGameLogic for ModelGame {
 
         let font_noto = &mut self.fonts[0];
         let font_color:TVec3<f32> = vec3(179.0/255.0,0.0,0.0);
-        self.renderer.render_text((5.0,690.0),&font_color,String::from("Powered By Rust\u{00A9}"),font_noto)
+
+        let pos = (&camera.position.x,&camera.position.y,&camera.position.z);
+        self.renderer.render_text((5.0,5.0),&vec3(0.1,0.9,0.2),format!("相机位置{:?}",pos).as_str(),font_noto);
+        self.renderer.render_text((5.0,690.0),&font_color,"Powered By Rust\u{00A9}",font_noto)
     }
 }
 

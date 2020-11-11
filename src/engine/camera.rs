@@ -22,7 +22,8 @@ impl Camera{
     }
 
     pub fn view_matrix(&self)->TMat4<f32>{
-        look_at(&self.position,&self.front,&self.up)
+        let dir = self.position.clone() + self.front.clone();
+        look_at(&self.position,&dir,&self.up)
     }
 
     pub fn projection_matrix(&self)->TMat4<f32>{

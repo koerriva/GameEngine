@@ -8,6 +8,8 @@ use crate::engine::graph::light::Light;
 use gltf::Semantic;
 use crate::engine::graph::shader::ShaderProgram;
 use gltf::json::accessor::Type;
+use crate::engine::graph::texture::Texture;
+use gltf::image::Format;
 
 pub struct Model{
     meshes:Vec<Mesh>,
@@ -50,7 +52,8 @@ impl Model{
 impl Scene {
     pub fn from_gltf(path:&str)->Scene{
         let mut models = Vec::new();
-        let camera = Camera::new(4.0/3.0);
+        let mut camera = Camera::new(4.0/3.0);
+        camera.move_forward(-5.0);
         let base_shader = ShaderProgram::new("base");
 
         let (document,buffers,images) = gltf::import(path)
@@ -62,7 +65,7 @@ impl Scene {
                     let mesh_node = node.mesh().unwrap();
                     println!("mesh {:?}",mesh_node);
                     let mut meshes = Vec::new();
-                    let textures = Vec::new();
+                    let mut textures = Vec::new();
 
                     for primitive in mesh_node.primitives() {
                         let mut indices = Vec::new();
@@ -86,6 +89,61 @@ impl Scene {
                             tex_coord:Vec::new(),
                             color:Vec::new()
                         };
+
+                        let mat = primitive.material();
+                        let pbr_desc = mat.pbr_metallic_roughness();
+                        let [r,g,b,a] = pbr_desc.base_color_factor();
+                        let base_color_texture = pbr_desc.base_color_texture();
+                        if base_color_texture.is_none(){
+                            println!("生成漫反射贴图...");
+                            let r = (r*255.99) as u8;
+                            let g = (g*255.99) as u8;
+                            let b = (b*255.99) as u8;
+                            let a = (a*255.99) as u8;
+                            let texture = Texture::new(1,1,4,&[r,g,b,a]);
+                            textures.push(texture);
+                        }else {
+                            let gltf_texture = base_color_texture.unwrap().texture();
+                            let buffer_idx = gltf_texture.index();
+                            let buffer = images.get(buffer_idx).unwrap();
+
+                            let components = match buffer.format {
+                                Format::R8=> 1,
+                                Format::R8G8=> 2,
+                                Format::R8G8B8 => 3,
+                                Format::R8G8B8A8 => 4,
+                                _=>panic!("无法识别的像素格式")
+                            };
+                            println!("生成漫反射贴图... {},{},{:?}",buffer.width,buffer.height,buffer.format);
+                            let texture = Texture::new(buffer.width as i32, buffer.height as i32, components, buffer.pixels.as_slice());
+                            textures.push(texture);
+                        }
+
+                        let metallic_factor= pbr_desc.metallic_factor();
+                        let roughness_factor = pbr_desc.roughness_factor();
+                        let metallic_roughness_texture = pbr_desc.metallic_roughness_texture();
+                        if metallic_roughness_texture.is_none(){
+                            println!("生成表面粗糙度贴图...");
+                            let factor = metallic_factor+roughness_factor;
+                            let r = (factor*255.99) as u8;
+                            let texture = Texture::new(1,1,3,&[r,r,r]);
+                            textures.push(texture);
+                        }else{
+                            let gltf_texture = metallic_roughness_texture.unwrap().texture();
+                            let buffer_idx = gltf_texture.index();
+                            let buffer = images.get(buffer_idx).unwrap();
+
+                            let components = match buffer.format {
+                                Format::R8=> 1,
+                                Format::R8G8=> 2,
+                                Format::R8G8B8 => 3,
+                                Format::R8G8B8A8 => 4,
+                                _=>panic!("无法识别的像素格式")
+                            };
+                            println!("生成表面粗糙度贴图... {},{},{:?}",buffer.width,buffer.height,buffer.format);
+                            let texture = Texture::new(buffer.width as i32, buffer.height as i32, components, buffer.pixels.as_slice());
+                            textures.push(texture);
+                        }
 
                         for (semantic,accessor) in primitive.attributes() {
                             let view = accessor.view().unwrap();

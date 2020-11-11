@@ -46,10 +46,7 @@ impl Renderer {
     }
 
     pub fn render_model(&mut self,camera:&Camera,models:&Vec<Model>){
-        unsafe {
-            gl::Enable(gl::DEPTH_TEST);
-            gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);
-        }
+        gl_enable_depth_test();
 
         for model in models {
             model.draw(camera)
@@ -57,10 +54,7 @@ impl Renderer {
     }
 
     pub fn render_mesh(&mut self,camera:&Camera,meshes:&Vec<Mesh>,shader:&ShaderProgram){
-        unsafe {
-            gl::Enable(gl::DEPTH_TEST);
-            gl::PolygonMode(gl::FRONT_AND_BACK, gl::FILL);
-        }
+        gl_enable_depth_test();
 
         shader.bind();
         let p:TMat4<f32> = camera.projection_matrix();
@@ -78,7 +72,7 @@ impl Renderer {
         shader.unbind()
     }
 
-    pub fn render_text(&mut self,pos:(f32,f32),color:&TVec3<f32>,text:String,font:&mut Font){
+    pub fn render_text(&mut self,pos:(f32,f32),color:&TVec3<f32>,text:&str,font:&mut Font){
         unsafe {
             gl::Enable(gl::CULL_FACE);
             gl::Enable(gl::BLEND);
