@@ -1,14 +1,15 @@
 use crate::engine::graph::mesh::{Mesh, VertexAttr};
 use crate::engine::graph::material::Material;
 use crate::engine::camera::Camera;
-use nalgebra_glm::{TMat4, TVec3, rotate, radians, TVec1, scale, vec3, quat_euler_angles, quat};
+use nalgebra_glm::{TMat4, TVec3, rotate, radians, TVec1, scale, vec3};
 use std::f32::consts::PI;
 use std::path::Path;
 use crate::engine::graph::light::Light;
 use gltf::Semantic;
 use crate::engine::graph::shader::ShaderProgram;
 use gltf::json::accessor::Type;
-use gltf::camera::Projection::Orthographic;
+use crate::engine::graph::texture::Texture;
+use gltf::image::Format;
 
 pub struct Model{
     meshes:Vec<Mesh>,
@@ -22,12 +23,10 @@ pub struct Scene{
 }
 
 impl Model{
-    pub fn new(meshes:Vec<Mesh>,material:Material,transform:TMat4<f32>)->Self{
+    pub fn new(meshes:Vec<Mesh>,material:Material)->Self{
+        let mut transform:TMat4<f32> = TMat4::default();
+        transform.fill_with_identity();
         Model{meshes,material,transform}
-    }
-
-    pub fn attach_mesh(&mut self,mesh:Mesh){
-        self.meshes.push(mesh)
     }
 
     pub fn draw(&self,camera:&Camera){
@@ -49,9 +48,21 @@ impl Model{
 }
 
 impl Scene {
+    pub fn add_model(&mut self,model:Model){
+        self.models.push(model)
+    }
+
+    pub fn empty()->Scene{
+        let mut models = Vec::new();
+        let mut camera = Camera::new(4.0/3.0);
+        camera.move_forward(-5.0);
+        Scene{camera,models}
+    }
+
     pub fn from_gltf(path:&str)->Scene{
         let mut models = Vec::new();
         let mut camera = Camera::new(4.0/3.0);
+        camera.move_forward(-5.0);
         let base_shader = ShaderProgram::new("base");
 
         let (document,buffers,images) = gltf::import(path)
@@ -63,7 +74,7 @@ impl Scene {
                     let mesh_node = node.mesh().unwrap();
                     println!("mesh {:?}",mesh_node);
                     let mut meshes = Vec::new();
-                    let textures = Vec::new();
+                    let mut textures = Vec::new();
 
                     for primitive in mesh_node.primitives() {
                         let mut indices = Vec::new();
@@ -87,6 +98,61 @@ impl Scene {
                             tex_coord:Vec::new(),
                             color:Vec::new()
                         };
+
+                        let mat = primitive.material();
+                        let pbr_desc = mat.pbr_metallic_roughness();
+                        let [r,g,b,a] = pbr_desc.base_color_factor();
+                        let base_color_texture = pbr_desc.base_color_texture();
+                        if base_color_texture.is_none(){
+                            println!("生成漫反射贴图...");
+                            let r = (r*255.99) as u8;
+                            let g = (g*255.99) as u8;
+                            let b = (b*255.99) as u8;
+                            let a = (a*255.99) as u8;
+                            let texture = Texture::new(1,1,4,&[r,g,b,a]);
+                            textures.push(texture);
+                        }else {
+                            let gltf_texture = base_color_texture.unwrap().texture();
+                            let buffer_idx = gltf_texture.index();
+                            let buffer = images.get(buffer_idx).unwrap();
+
+                            let components = match buffer.format {
+                                Format::R8=> 1,
+                                Format::R8G8=> 2,
+                                Format::R8G8B8 => 3,
+                                Format::R8G8B8A8 => 4,
+                                _=>panic!("无法识别的像素格式")
+                            };
+                            println!("生成漫反射贴图... {},{},{:?}",buffer.width,buffer.height,buffer.format);
+                            let texture = Texture::new(buffer.width as i32, buffer.height as i32, components, buffer.pixels.as_slice());
+                            textures.push(texture);
+                        }
+
+                        let metallic_factor= pbr_desc.metallic_factor();
+                        let roughness_factor = pbr_desc.roughness_factor();
+                        let metallic_roughness_texture = pbr_desc.metallic_roughness_texture();
+                        if metallic_roughness_texture.is_none(){
+                            println!("生成表面粗糙度贴图...");
+                            let factor = metallic_factor+roughness_factor;
+                            let r = (factor*255.99) as u8;
+                            let texture = Texture::new(1,1,3,&[r,r,r]);
+                            textures.push(texture);
+                        }else{
+                            let gltf_texture = metallic_roughness_texture.unwrap().texture();
+                            let buffer_idx = gltf_texture.index();
+                            let buffer = images.get(buffer_idx).unwrap();
+
+                            let components = match buffer.format {
+                                Format::R8=> 1,
+                                Format::R8G8=> 2,
+                                Format::R8G8B8 => 3,
+                                Format::R8G8B8A8 => 4,
+                                _=>panic!("无法识别的像素格式")
+                            };
+                            println!("生成表面粗糙度贴图... {},{},{:?}",buffer.width,buffer.height,buffer.format);
+                            let texture = Texture::new(buffer.width as i32, buffer.height as i32, components, buffer.pixels.as_slice());
+                            textures.push(texture);
+                        }
 
                         for (semantic,accessor) in primitive.attributes() {
                             let view = accessor.view().unwrap();
@@ -142,24 +208,8 @@ impl Scene {
                     }
 
                     let mut material = Material::new(textures,base_shader);
-                    let mut transform = TMat4::default();
-                    transform.fill_with_identity();
-                    let model = Model::new(meshes,material,transform);
+                    let model = Model::new(meshes,material);
                     models.push(model)
-                }
-                //提取相机
-                if node.name()==Some("Camera") {
-                    let ([px,py,pz],[rx,ry,rz,rw],scale) = node.transform().decomposed();
-                    camera.set_position(px,py,pz);
-                    let rotation = quat(rx,ry,rz,rw);
-                    let angle = quat_euler_angles(&rotation);
-
-                    let yaw = angle.y*180.0/PI;
-                    let pitch = angle.x*180.0/PI;
-                    let roll = 0.0f32;
-                    println!("camera angle {},{},{}",angle.x,angle.y*180.0/PI,angle.z*180.0/PI);
-
-                    camera.set_rotation(yaw,pitch,roll)
                 }
             }
         }

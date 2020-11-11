@@ -50,20 +50,20 @@ impl IGameLogic for DummyGame {
         let font_color = vec3(80.0/255.0,97.0/255.0,109.0/255.0);
 
         let mut line = 72.0;
-        self.renderer.render_text((500.0,line),&font_color,String::from("夏日绝句"),font_maocao);
+        self.renderer.render_text((500.0,line),&font_color,"夏日绝句",font_maocao);
         line += font_maocao.height as f32+18.0;
-        self.renderer.render_text((670.0,line),&font_color,String::from("宋 李清照"),font_maocao);
+        self.renderer.render_text((670.0,line),&font_color,"宋 李清照",font_maocao);
         line += font_maocao.height as f32+36.0;
-        self.renderer.render_text((460.0,line),&font_color,String::from("生当做人杰"),font_maocao);
+        self.renderer.render_text((460.0,line),&font_color,"生当做人杰",font_maocao);
         line += font_maocao.height as f32+18.0;
-        self.renderer.render_text((460.0,line),&font_color,String::from("死亦为鬼雄"),font_maocao);
+        self.renderer.render_text((460.0,line),&font_color,"死亦为鬼雄",font_maocao);
         line += font_maocao.height as f32+18.0;
-        self.renderer.render_text((460.0,line),&font_color,String::from("至今思项羽"),font_maocao);
+        self.renderer.render_text((460.0,line),&font_color,"至今思项羽",font_maocao);
         line += font_maocao.height as f32+18.0;
-        self.renderer.render_text((460.0,line),&font_color,String::from("不肯过江东"),font_maocao);
+        self.renderer.render_text((460.0,line),&font_color,"不肯过江东",font_maocao);
 
         let font_noto = &mut self.fonts[1];
         let font_color = vec3(179.0/255.0,0.0,0.0);
-        self.renderer.render_text((5.0,690.0),&font_color,String::from("Powered By Rust\u{00A9}"),font_noto)
+        self.renderer.render_text((5.0,690.0),&font_color,"Powered By Rust\u{00A9}",font_noto)
     }
 }

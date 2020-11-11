@@ -6,12 +6,15 @@ use crate::engine::font::{Font};
 use crate::engine::graph::mesh::Mesh;
 use gltf::json::accessor::Type::Vec2;
 use crate::engine::camera::Camera;
-use nalgebra_glm::{vec3, TMat4, TVec3, sin, Mat4};
+use nalgebra_glm::{vec3, TMat4, TVec3, sin, Mat4, vec1};
 use crate::engine::graph::model::{Model, Scene};
 use crate::engine::graph::material::Material;
 use std::thread::sleep;
 use nalgebra::clamp;
 use glfw::Key::*;
+use crate::engine::graph::texture::Texture;
+use glfw::MouseButton::Button2;
+use noise::{Worley, NoiseFn, Perlin, Fbm, MultiFractal, Seedable};
 
 pub struct ModelGame{
     renderer:Renderer,
@@ -40,11 +43,39 @@ impl IGameLogic for ModelGame {
             font.shader = Some(font_shader);
         }
 
-        let scene = Scene::from_gltf("data/model/Scene.gltf");
-        self.scene = Some(scene)
+        let size = 64;
+        let mut noise = Fbm::default();
+        noise = noise.set_seed(1234);
+        noise = noise.set_frequency(1.0);
+        let mut heightmap = vec![0.0; size*size];
+        for y in 0..size {
+            for x in 0..size {
+                let val = &noise.get([x as f64,y as f64]);
+                println!("value {}",val);
+                heightmap[y*size+x] = val*0.01;
+            }
+        }
+        let mesh = Mesh::from_heightmap(size as i32, size as i32, &heightmap);
+        let mut data = vec![66,76,80];
+        let texture = Texture::new(1,1,3,&data);
+        let base_shader = ShaderProgram::new("base");
+        let material = Material::new(vec![texture],base_shader);
+        let terrain = Model::new(vec![mesh],material);
+
+        let mut scene = Scene::empty();
+        scene.models.push(terrain);
+
+        // let mut scene = Scene::from_gltf("data/model/Scene.gltf");
+        self.scene = Some(scene);
+
+        let camera = &mut self.scene.as_mut().unwrap().camera;
+        camera.set_position(-0.7,0.5,0.4);
+        camera.set_rotation(-90.0,-30.0)
     }
 
     fn input(&mut self,window:&Window) {
+        self.camera_state = (0.0,0.0,0.0,0.0);
+
         if window.is_key_pressed(W){
             self.camera_state.1 = 1.0
         }
@@ -58,24 +89,26 @@ impl IGameLogic for ModelGame {
             self.camera_state.0 = 1.0
         }
 
-        let (_,_,x0,y0) = window.mouse_offset;
-        self.camera_state.2 = x0;
-        self.camera_state.3 = y0
+        if window.is_mouse_click(Button2){
+            self.camera_state.2 = window.mouse_offset.2;
+            self.camera_state.3 = window.mouse_offset.3;
+        }
+
+        if window.is_key_pressed(F1){
+            self.renderer.set_wireframe_mode()
+        }
     }
 
     fn update(&mut self, window: &Window, interval: f32) {
         let scene = self.scene.as_mut().unwrap();
         for model in &mut scene.models {
-            model.rotate(interval*10.0,&vec3(0.0,1.0,0.0));
+            model.rotate(interval*10.0,&vec3(1.0,0.0,0.0));
         }
 
         let camera = &mut scene.camera;
-        camera.move_forward(self.camera_state.1*interval*10.0);
-        camera.move_right(self.camera_state.0*interval*10.0);
-
-        camera.rotation(self.camera_state.2,self.camera_state.3);
-
-        self.camera_state = (0.0,0.0,0.0,0.0);
+        camera.move_forward(self.camera_state.1*interval);
+        camera.move_right(self.camera_state.0*interval);
+        camera.rotate(self.camera_state.2,self.camera_state.3);
     }
 
     fn render(&mut self, window: &Window) {
@@ -89,7 +122,12 @@ impl IGameLogic for ModelGame {
 
         let font_noto = &mut self.fonts[0];
         let font_color:TVec3<f32> = vec3(179.0/255.0,0.0,0.0);
-        self.renderer.render_text((5.0,690.0),&font_color,String::from("Powered By Rust\u{00A9}"),font_noto)
+
+        let pos = (&camera.position.x,&camera.position.y,&camera.position.z);
+        self.renderer.render_text((5.0,5.0),&vec3(0.1,0.9,0.2),format!("相机位置{:?}",pos).as_str(),font_noto);
+        let rot = (&camera.yaw,&camera.pitch);
+        self.renderer.render_text((5.0,25.0),&vec3(0.1,0.9,0.2),format!("相机旋转{:?}",rot).as_str(),font_noto);
+        self.renderer.render_text((5.0,690.0),&font_color,"Powered By Rust\u{00A9}",font_noto)
     }
 }
 

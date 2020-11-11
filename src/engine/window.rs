@@ -1,4 +1,4 @@
-use glfw::{Glfw, Context, SwapInterval, WindowEvent, Key, Action, InitHint, WindowHint};
+use glfw::{Glfw, Context, SwapInterval, WindowEvent, Key, Action, InitHint, WindowHint, MouseButton};
 use glfw::WindowMode::Windowed;
 use std::sync::mpsc::Receiver;
 use glfw::ffi::glfwGetTime;
@@ -24,7 +24,7 @@ impl Window {
         glfw.window_hint(WindowHint::ContextVersion(4,1));
         glfw.window_hint(WindowHint::DoubleBuffer(true));
         glfw.window_hint(WindowHint::Resizable(true));
-        glfw.window_hint(WindowHint::Samples(Some(4)));
+        glfw.window_hint(WindowHint::Samples(Some(2)));
         glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
         #[cfg(target_os = "macos")]
             glfw.window_hint(glfw::WindowHint::OpenGlForwardCompat(true));
@@ -33,7 +33,9 @@ impl Window {
             .expect("创建窗口失败");
         window.make_current();
         window.set_key_polling(true);
+        window.set_mouse_button_polling(true);
         window.set_framebuffer_size_polling(true);
+        window.set_cursor_pos_polling(true);
         window.set_close_polling(true);
 
         glfw.with_primary_monitor_mut(|_,m|{
@@ -71,12 +73,28 @@ impl Window {
         let elapsed = now-self.last_frame_time;
         self.last_frame_time = now;
         self.fps = (1.0/elapsed) as i32;
-        self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str())
+        self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str());
+
+        let (x,y) = self.canvas.get_cursor_pos();
+        self.update_mouse_pos(x,y)
     }
 
     pub fn is_key_pressed(&self,key:Key)->bool{
         let action = self.canvas.get_key(key);
         action == Action::Press
+    }
+
+    pub fn is_mouse_click(&self,btn:MouseButton)->bool{
+        let action = self.canvas.get_mouse_button(btn);
+        action == Action::Press
+    }
+
+    fn update_mouse_pos(&mut self,x:f64,y:f64){
+        let (prv_x,prv_y,x0,y0) = self.mouse_offset;
+        let x1 = x as f32 - prv_x;
+        let y1 = prv_y - y as f32;
+        let sensitivity = 0.05f32;
+        self.mouse_offset = (x as f32,y as f32,x1*sensitivity,y1*sensitivity);
     }
 
     fn input(&mut self){
@@ -91,17 +109,13 @@ impl Window {
                     self.closed = true;
                     self.canvas.set_should_close(true)
                 },
-                glfw::WindowEvent::CursorPos(x,y)=>{
-                    let (prv_x,prv_y,x0,y0) = self.mouse_offset;
-                    let x1 = x as f32 - prv_x;
-                    let y1 = prv_y - y as f32;
-                    let sensitivity:f32 = 0.05;
-                    self.mouse_offset = (x as f32,y as f32,x1*sensitivity,y1*sensitivity);
-                },
                 glfw::WindowEvent::Size(w,h)=>{
                     self.width = w;
                     self.height = h;
                     self.aspect =  w as f32/h as f32
+                },
+                glfw::WindowEvent::CursorPos(x,y)=>{
+
                 },
                 glfw::WindowEvent::FramebufferSize(w,h)=>{
                     self.frame_buffer_size = (w,h);
