@@ -1,4 +1,4 @@
-use glfw::{Glfw, Context, SwapInterval, WindowEvent, Key, Action, InitHint, WindowHint};
+use glfw::{Glfw, Context, SwapInterval, WindowEvent, Key, Action, InitHint, WindowHint, MouseButton};
 use glfw::WindowMode::Windowed;
 use std::sync::mpsc::Receiver;
 use glfw::ffi::glfwGetTime;
@@ -33,7 +33,9 @@ impl Window {
             .expect("创建窗口失败");
         window.make_current();
         window.set_key_polling(true);
+        window.set_mouse_button_polling(true);
         window.set_framebuffer_size_polling(true);
+        window.set_cursor_pos_polling(true);
         window.set_close_polling(true);
 
         glfw.with_primary_monitor_mut(|_,m|{
@@ -79,6 +81,11 @@ impl Window {
         action == Action::Press
     }
 
+    pub fn is_mouse_click(&self,btn:MouseButton)->bool{
+        let action = self.canvas.get_mouse_button(btn);
+        action == Action::Press
+    }
+
     fn input(&mut self){
         for (_, event) in glfw::flush_messages(&self.events) {
             // println!("{:?}", event);
@@ -91,17 +98,16 @@ impl Window {
                     self.closed = true;
                     self.canvas.set_should_close(true)
                 },
-                glfw::WindowEvent::CursorPos(x,y)=>{
-                    let (prv_x,prv_y,x0,y0) = self.mouse_offset;
-                    let x1 = x as f32 - prv_x;
-                    let y1 = prv_y - y as f32;
-                    let sensitivity:f32 = 0.05;
-                    self.mouse_offset = (x as f32,y as f32,x1*sensitivity,y1*sensitivity);
-                },
                 glfw::WindowEvent::Size(w,h)=>{
                     self.width = w;
                     self.height = h;
                     self.aspect =  w as f32/h as f32
+                },
+                glfw::WindowEvent::CursorPos(x,y)=>{
+                    let (prv_x,prv_y,x0,y0) = self.mouse_offset;
+                    let x1 = x as f32 - prv_x;
+                    let y1 = prv_y - y as f32;
+                    self.mouse_offset = (x as f32,y as f32,x1,y1);
                 },
                 glfw::WindowEvent::FramebufferSize(w,h)=>{
                     self.frame_buffer_size = (w,h);

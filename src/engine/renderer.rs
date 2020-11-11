@@ -47,6 +47,7 @@ impl Renderer {
 
     pub fn render_model(&mut self,camera:&Camera,models:&Vec<Model>){
         gl_enable_depth_test();
+        gl_wireframe_mode();
 
         for model in models {
             model.draw(camera)

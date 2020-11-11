@@ -23,12 +23,10 @@ pub struct Scene{
 }
 
 impl Model{
-    pub fn new(meshes:Vec<Mesh>,material:Material,transform:TMat4<f32>)->Self{
+    pub fn new(meshes:Vec<Mesh>,material:Material)->Self{
+        let mut transform:TMat4<f32> = TMat4::default();
+        transform.fill_with_identity();
         Model{meshes,material,transform}
-    }
-
-    pub fn attach_mesh(&mut self,mesh:Mesh){
-        self.meshes.push(mesh)
     }
 
     pub fn draw(&self,camera:&Camera){
@@ -50,6 +48,17 @@ impl Model{
 }
 
 impl Scene {
+    pub fn add_model(&mut self,model:Model){
+        self.models.push(model)
+    }
+
+    pub fn empty()->Scene{
+        let mut models = Vec::new();
+        let mut camera = Camera::new(4.0/3.0);
+        camera.move_forward(-5.0);
+        Scene{camera,models}
+    }
+
     pub fn from_gltf(path:&str)->Scene{
         let mut models = Vec::new();
         let mut camera = Camera::new(4.0/3.0);
@@ -199,9 +208,7 @@ impl Scene {
                     }
 
                     let mut material = Material::new(textures,base_shader);
-                    let mut transform = TMat4::default();
-                    transform.fill_with_identity();
-                    let model = Model::new(meshes,material,transform);
+                    let model = Model::new(meshes,material);
                     models.push(model)
                 }
             }
