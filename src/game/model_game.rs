@@ -43,16 +43,19 @@ impl IGameLogic for ModelGame {
             font.shader = Some(font_shader);
         }
 
-        let size = 64;
+        let size = 256;
         let mut noise = Fbm::default();
         noise = noise.set_seed(1234);
         noise = noise.set_frequency(1.0);
+        noise = noise.set_lacunarity(0.1);
+        noise = noise.set_persistence(0.6);
+        noise = noise.set_octaves(20);
         let mut heightmap = vec![0.0; size*size];
         for y in 0..size {
             for x in 0..size {
-                let val = &noise.get([x as f64,y as f64]);
-                println!("value {}",val);
-                heightmap[y*size+x] = val*0.01;
+                let val = noise.get([x as f64,y as f64]);
+                // println!("value {}",val);
+                heightmap[y*size+x] = val;
             }
         }
         let mesh = Mesh::from_heightmap(size as i32, size as i32, &heightmap);
@@ -69,7 +72,7 @@ impl IGameLogic for ModelGame {
         self.scene = Some(scene);
 
         let camera = &mut self.scene.as_mut().unwrap().camera;
-        camera.set_position(-0.7,0.5,0.4);
+        camera.set_position(0.0,2.0,2.0);
         camera.set_rotation(-90.0,-30.0)
     }
 
@@ -101,8 +104,9 @@ impl IGameLogic for ModelGame {
 
     fn update(&mut self, window: &Window, interval: f32) {
         let scene = self.scene.as_mut().unwrap();
+        let factor = window.glfw.get_time().sin() as f32;
         for model in &mut scene.models {
-            model.rotate(interval*10.0,&vec3(1.0,0.0,0.0));
+            model.rotate(interval*factor*5.0,&vec3(1.0,0.0,0.0));
         }
 
         let camera = &mut scene.camera;

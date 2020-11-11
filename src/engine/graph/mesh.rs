@@ -1,7 +1,9 @@
 use std::mem::size_of;
 use std::os::raw::c_void;
 use std::process::id;
-use nalgebra_glm::{vec3, TVec3, normalize};
+use nalgebra_glm::{vec3, TVec3, normalize, cross, fast_normalize_dot};
+use crate::engine::math::vec3_sub;
+use nalgebra::DimAdd;
 
 pub struct VertexAttr{
     pub position:Vec<f32>,
@@ -20,11 +22,11 @@ pub struct Mesh{
 
 impl Mesh {
     pub fn from_heightmap(width:i32,height:i32,heightmap:&[f64])->Mesh{
-        let bound_x = (-0.5f32,0.5f32);
-        let bound_z = (-0.5f32,0.5f32);
+        let bound_x = (-5.0f32,5.0f32);
+        let bound_z = (-5.0f32,5.0f32);
 
-        let inc_x = bound_x.0/(width-1) as f32;
-        let inc_z = bound_z.1/(height-1) as f32;
+        let inc_x = (bound_x.0*2.0).abs()/(width-1) as f32;
+        let inc_z = (bound_z.0*2.0).abs()/(height-1) as f32;
         let mut position = Vec::new();
         let mut normal = Vec::new();
         let mut tex_coord = Vec::new();
@@ -40,8 +42,8 @@ impl Mesh {
                 position.push(x);
                 position.push(y);
                 position.push(z);
-                let tex_coord_x = col as f32 / width as f32;
-                let tex_coord_z = row as f32 / height as f32;
+                let tex_coord_x = 1.0 * col as f32 / width as f32;
+                let tex_coord_z = 1.0 * row as f32 / height as f32;
                 tex_coord.push(tex_coord_x);
                 tex_coord.push(tex_coord_z);
 
@@ -49,9 +51,9 @@ impl Mesh {
                 normal.push(1.0);
                 normal.push(0.0);
 
-                let color_r = tex_coord_x;
-                let color_g = tex_coord_z;
-                let color_b = 0.4f32;
+                let color_r = (y+1.0)/2.0;
+                let color_g = 0.0f32;
+                let color_b = 0.0f32;
                 color.push(color_r);
                 color.push(color_g);
                 color.push(color_b);
@@ -74,18 +76,41 @@ impl Mesh {
         }
 
         for row in 1..height-1 {
-            for col in 1..width - 1 {
-                let mut n:TVec3<f32> = vec3(0.0,0.0,0.0);
+            for col in 1..width-1 {
+                let idx = ((row*width+col)*3) as usize;
+                let p0 = &position[idx..idx+3];
+                let p1 = &position[idx-3..idx];
+                let p2 = &position[idx+width as usize*3..idx+width as usize*3+3];
+                let p3 = &position[idx+3..idx+3+3];
+                let p4 = &position[idx-width as usize*3..idx-width as usize*3+3];
 
-                n.x = position[((row+1)*width+col+1) as usize] - position[((row-1)*width+col+1) as usize];
-                n.y = -1.0;
-                n.z = position[(row*width+col+1+1) as usize] - position[(row*width+col-1+1) as usize];
+                let v1 = vec3_sub(p1,p0);
+                // println!("v1 {:?}-{:?}={}",p1,p0,v1);
+                let v2 = vec3_sub(p2,p0);
+                // println!("v2 {:?}-{:?}={}",p2,p0,v2);
+                let v3 = vec3_sub(p3,p0);
+                // println!("v3 {:?}-{:?}={}",p3,p0,v3);
+                let v4 = vec3_sub(p4,p0);
+                // println!("v4 {:?}-{:?}={}",p4,p0,v4);
 
-                let n:TVec3<f32> = normalize(&n)*1.0f32;
+                let v12:TVec3<f32> = v1.cross(&v2).normalize();
+                let v23:TVec3<f32> = v2.cross(&v3).normalize();
+                let v34:TVec3<f32> = v3.cross(&v4).normalize();
+                let v41:TVec3<f32> = v4.cross(&v1).normalize();
 
-                normal[(row*width+col) as usize] = n.x;
-                normal[(row*width+col+1) as usize] = n.y;
-                normal[(row*width+col+2) as usize] = n.z;
+                // let v12:TVec3<f32> = normalize(&cross(&v1,&v2))*1.0;
+                // let v23:TVec3<f32> = normalize(&cross(&v2,&v3))*1.0;
+                // let v34:TVec3<f32> = normalize(&cross(&v3,&v4))*1.0;
+                // let v41:TVec3<f32> = normalize(&cross(&v4,&v1))*1.0;
+
+                let n = v12+v23+v34+v41;
+                let n:TVec3<f32> = normalize(&n)*1.0;
+
+                // println!("normal old({},{},{}), new({},{},{})",normal[idx+0],normal[idx+1],normal[idx+2],n.x,n.y,n.z);
+
+                normal[idx+0] = n.x;
+                normal[idx+1] = n.y;
+                normal[idx+2] = n.z;
             }
         }
 

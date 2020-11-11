@@ -8,3 +8,5 @@ pub mod font;
 pub mod graph;
 pub mod camera;
 pub mod gui;
+pub mod math;
+pub mod audio;

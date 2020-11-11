@@ -22,5 +22,5 @@ void main(){
     vec3 light_dir = normalize(light_pos-v_WorldPos);
 
     vec3 diffuse = max(dot(v_Normal,light_dir),0.0)*light_color;
-    FragColor = vec4(base_color.xyz*(ambient+diffuse),1.0);
+    FragColor = vec4(v_Color*(ambient+diffuse),1.0);
 }
