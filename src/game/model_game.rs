@@ -42,7 +42,8 @@ impl IGameLogic for ModelGame {
             font.shader = Some(font_shader);
         }
 
-        let mesh = Mesh::from_heightmap(10,10,&[0.1;10*10]);
+        let size = 10;
+        let mesh = Mesh::from_heightmap(size,size,&[0.1;512*512]);
         let texture = Texture::new(1,1,3,&[255,123,233]);
         let base_shader = ShaderProgram::new("base");
         let material = Material::new(vec![texture],base_shader);
@@ -55,10 +56,12 @@ impl IGameLogic for ModelGame {
 
         let camera = &mut self.scene.as_mut().unwrap().camera;
         camera.set_position(-0.7,0.5,0.4);
-        camera.set_rotation(-90.0,-20.0)
+        camera.set_rotation(-90.0,-30.0)
     }
 
     fn input(&mut self,window:&Window) {
+        self.camera_state = (0.0,0.0,0.0,0.0);
+
         if window.is_key_pressed(W){
             self.camera_state.1 = 1.0
         }
@@ -87,9 +90,7 @@ impl IGameLogic for ModelGame {
         let camera = &mut scene.camera;
         camera.move_forward(self.camera_state.1*interval);
         camera.move_right(self.camera_state.0*interval);
-        camera.rotate(self.camera_state.2*interval,self.camera_state.3*interval);
-
-        self.camera_state = (0.0,0.0,0.0,0.0);
+        camera.rotate(self.camera_state.2,self.camera_state.3);
     }
 
     fn render(&mut self, window: &Window) {

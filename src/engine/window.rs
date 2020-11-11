@@ -73,7 +73,10 @@ impl Window {
         let elapsed = now-self.last_frame_time;
         self.last_frame_time = now;
         self.fps = (1.0/elapsed) as i32;
-        self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str())
+        self.canvas.set_title(format!("{},FPS:{}",self.title,self.fps).as_str());
+
+        let (x,y) = self.canvas.get_cursor_pos();
+        self.update_mouse_pos(x,y)
     }
 
     pub fn is_key_pressed(&self,key:Key)->bool{
@@ -84,6 +87,14 @@ impl Window {
     pub fn is_mouse_click(&self,btn:MouseButton)->bool{
         let action = self.canvas.get_mouse_button(btn);
         action == Action::Press
+    }
+
+    fn update_mouse_pos(&mut self,x:f64,y:f64){
+        let (prv_x,prv_y,x0,y0) = self.mouse_offset;
+        let x1 = x as f32 - prv_x;
+        let y1 = prv_y - y as f32;
+        let sensitivity = 0.05f32;
+        self.mouse_offset = (x as f32,y as f32,x1*sensitivity,y1*sensitivity);
     }
 
     fn input(&mut self){
@@ -104,10 +115,7 @@ impl Window {
                     self.aspect =  w as f32/h as f32
                 },
                 glfw::WindowEvent::CursorPos(x,y)=>{
-                    let (prv_x,prv_y,x0,y0) = self.mouse_offset;
-                    let x1 = x as f32 - prv_x;
-                    let y1 = prv_y - y as f32;
-                    self.mouse_offset = (x as f32,y as f32,x1,y1);
+
                 },
                 glfw::WindowEvent::FramebufferSize(w,h)=>{
                     self.frame_buffer_size = (w,h);
