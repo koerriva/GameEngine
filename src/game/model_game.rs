@@ -6,7 +6,7 @@ use crate::engine::font::{Font};
 use crate::engine::graph::mesh::Mesh;
 use gltf::json::accessor::Type::Vec2;
 use crate::engine::camera::Camera;
-use nalgebra_glm::{vec3, TMat4, TVec3, sin, Mat4};
+use nalgebra_glm::{vec3, TMat4, TVec3, sin, Mat4, vec1};
 use crate::engine::graph::model::{Model, Scene};
 use crate::engine::graph::material::Material;
 use std::thread::sleep;
@@ -14,6 +14,7 @@ use nalgebra::clamp;
 use glfw::Key::*;
 use crate::engine::graph::texture::Texture;
 use glfw::MouseButton::Button2;
+use noise::{Worley, NoiseFn, Perlin, Fbm, MultiFractal, Seedable};
 
 pub struct ModelGame{
     renderer:Renderer,
@@ -42,9 +43,21 @@ impl IGameLogic for ModelGame {
             font.shader = Some(font_shader);
         }
 
-        let size = 10;
-        let mesh = Mesh::from_heightmap(size,size,&[0.1;512*512]);
-        let texture = Texture::new(1,1,3,&[255,123,233]);
+        let size = 64;
+        let mut noise = Fbm::default();
+        noise = noise.set_seed(1234);
+        noise = noise.set_frequency(1.0);
+        let mut heightmap = vec![0.0; size*size];
+        for y in 0..size {
+            for x in 0..size {
+                let val = &noise.get([x as f64,y as f64]);
+                println!("value {}",val);
+                heightmap[y*size+x] = val*0.05;
+            }
+        }
+        let mesh = Mesh::from_heightmap(size as i32, size as i32, &heightmap);
+        let mut data = vec![66,76,80];
+        let texture = Texture::new(1,1,3,&data);
         let base_shader = ShaderProgram::new("base");
         let material = Material::new(vec![texture],base_shader);
         let terrain = Model::new(vec![mesh],material);
@@ -78,6 +91,10 @@ impl IGameLogic for ModelGame {
         if window.is_mouse_click(Button2){
             self.camera_state.2 = window.mouse_offset.2;
             self.camera_state.3 = window.mouse_offset.3;
+        }
+
+        if window.is_key_pressed(F1){
+            self.renderer.set_wireframe_mode()
         }
     }
 

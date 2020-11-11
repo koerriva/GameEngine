@@ -40,6 +40,10 @@ impl Renderer {
         self.view_size = (width,height)
     }
 
+    pub fn set_wireframe_mode(&mut self){
+        gl_wireframe_mode()
+    }
+
     pub fn clear_color(&self,r:f32,g:f32,b:f32){
         gl_clear_color(r,g,b);
         gl_clear();
@@ -47,7 +51,6 @@ impl Renderer {
 
     pub fn render_model(&mut self,camera:&Camera,models:&Vec<Model>){
         gl_enable_depth_test();
-        gl_wireframe_mode();
 
         for model in models {
             model.draw(camera)

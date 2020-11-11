@@ -18,7 +18,7 @@ pub struct Mesh{
 }
 
 impl Mesh {
-    pub fn from_heightmap(width:i32,height:i32,heightmap:&[f32])->Mesh{
+    pub fn from_heightmap(width:i32,height:i32,heightmap:&[f64])->Mesh{
         let bound_x = (-0.5f32,0.5f32);
         let bound_z = (-0.5f32,0.5f32);
 
@@ -35,7 +35,7 @@ impl Mesh {
                 let idx = (row*width+col) as usize;
                 let x = bound_x.0 + col as f32*inc_x;
                 let z = bound_z.0 + row as f32*inc_z;
-                let y = heightmap[idx];
+                let y = heightmap[idx] as f32;
                 position.push(x);
                 position.push(y);
                 position.push(z);

@@ -10,5 +10,5 @@ uniform sampler2D metallic_roughness_sampler;
 void main(){
     vec4 base_color = texture(base_color_sampler,v_TexCoord);
     vec4 metallic_roughness_color = texture(metallic_roughness_sampler,v_TexCoord);
-    FragColor = base_color+metallic_roughness_color;
+    FragColor = base_color;
 }

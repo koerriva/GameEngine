@@ -24,7 +24,7 @@ impl Window {
         glfw.window_hint(WindowHint::ContextVersion(4,1));
         glfw.window_hint(WindowHint::DoubleBuffer(true));
         glfw.window_hint(WindowHint::Resizable(true));
-        glfw.window_hint(WindowHint::Samples(Some(4)));
+        glfw.window_hint(WindowHint::Samples(Some(2)));
         glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
         #[cfg(target_os = "macos")]
             glfw.window_hint(glfw::WindowHint::OpenGlForwardCompat(true));
