@@ -16,7 +16,8 @@ pub trait Drawable{
 
 pub struct Renderer{
     gui_context:GUIContext,
-    view_size:(i32,i32)
+    view_size:(i32,i32),
+    record_mode:bool
 }
 
 pub struct GUIContext{
@@ -27,7 +28,7 @@ pub struct GUIContext{
 impl Renderer {
     pub fn new(width:i32,height:i32)->Renderer{
         let gui_context = GUIContext{font_vao:None,font_vbo:None};
-        Renderer{gui_context,view_size:(width,height)}
+        Renderer{gui_context,view_size:(width,height),record_mode:false}
     }
 
     pub fn init(&mut self,){
@@ -42,6 +43,10 @@ impl Renderer {
 
     pub fn set_wireframe_mode(&mut self){
         gl_wireframe_mode();
+    }
+
+    pub fn set_record_mode(&mut self){
+        self.record_mode = !self.record_mode
     }
 
     pub fn clear_color(&self,r:f32,g:f32,b:f32){
@@ -78,6 +83,9 @@ impl Renderer {
     }
 
     pub fn render_text(&mut self,pos:(f32,f32),color:&TVec3<f32>,text:&str,font:&mut Font){
+        if self.record_mode {
+            return
+        }
         unsafe {
             gl::Enable(gl::CULL_FACE);
             gl::Enable(gl::BLEND);

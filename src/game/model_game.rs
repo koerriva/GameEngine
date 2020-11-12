@@ -47,9 +47,9 @@ impl IGameLogic for ModelGame {
         let mut noise = Fbm::default();
         noise = noise.set_seed(1291);
         noise = noise.set_frequency(0.01);
-        noise = noise.set_lacunarity(1.7);
-        noise = noise.set_persistence(0.59);
-        noise = noise.set_octaves(32);
+        noise = noise.set_lacunarity(1.6);
+        noise = noise.set_persistence(0.57);
+        noise = noise.set_octaves(8);
         let mut heightmap = vec![0.0; size*size];
         for y in 0..size {
             for x in 0..size {
@@ -99,6 +99,10 @@ impl IGameLogic for ModelGame {
 
         if window.is_key_pressed(F1){
             self.renderer.set_wireframe_mode()
+        }
+
+        if window.is_key_pressed(F2){
+            self.renderer.set_record_mode()
         }
     }
 

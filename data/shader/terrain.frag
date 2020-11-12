@@ -19,6 +19,8 @@ uniform sampler2D metallic_roughness_sampler;
 
 float near = 0.01;
 float far  = 1000.0;
+float width = 1280;
+float height = 720;
 
 float LinearizeDepth(float depth)
 {
@@ -59,34 +61,62 @@ float snoise(vec2 v) {
     return 130.0 * dot(m, g);
 }
 
+//由近及远，由上到下
 void main(){
-    vec4 base_color = texture(base_color_sampler,v_TexCoord);
+    vec4 color = vec4(v_Color,1.0);
 
-    vec3 view_dir = normalize(view_pos-v_WorldPos);
-    float hit_color = abs(dot(v_Normal,view_dir));
+    float depth = gl_FragCoord.z;
+    float height = (v_WorldPos.y+1.0)/6.0;
+    color.a = height*height*depth;
 
-    float depth = LinearizeDepth(gl_FragCoord.z);
-    if(hit_color<0.3){
-        //边缘
-        FragColor = vec4(v_Color,1.0);
-    }else if(v_WorldPos.y==-1.0){
-        vec2 st = v_TexCoord.xy;
-
-        vec3 color = v_Color;
-
-        vec2 pos = vec2(st*17.);
-
-        vec2 vel = vec2(time*.05);
-
-        float r = snoise(pos+vel)*.25+.25;
-
-        float a = snoise(pos*vec2(cos(time*0.15),sin(time*0.1))*0.1)*3.1415;
-        vel = vec2(cos(a),sin(a));
-        r += snoise(pos+vel)*.25+.25;
-
-        color += vec3(smoothstep(.1,.25,fract(r)));
-        FragColor = vec4(1.0-color,r);
-    }else{
-        FragColor = vec4(v_Color,0.0);
+    //描边
+    vec3 vier_dir = normalize(view_pos-v_WorldPos);
+    float angle = max(dot(v_Normal,vier_dir),0.0);
+    if(angle<0.4){
+        color.rgb += angle*angle;
+        color.a += angle*0.5;
     }
+
+    //水面
+    if(v_WorldPos.y>=-1.0&&v_WorldPos.y<=-0.95){
+        float factor = max(dot(v_Normal,vec3(0,1,0)),0.0);
+        color.a = factor*factor*0.2;
+    }
+    FragColor = color;
 }
+
+//void main(){
+//    vec4 base_color = texture(base_color_sampler,v_TexCoord);
+//
+//    vec3 view_dir = normalize(view_pos-v_WorldPos);
+//    float hit_color = abs(dot(v_Normal,view_dir));
+//
+//    if(hit_color<0.4){
+//        //边缘
+//        FragColor = vec4(v_Color+hit_color*hit_color,1.0);
+//    }else if(hit_color<=1.0&&hit_color>0.98){
+//        float a = hit_color*hit_color;
+//        FragColor = vec4(v_Color+a*0.25,a);
+//    }else{
+//        FragColor = vec4(v_Color,0);
+//    }
+//
+//    if(v_WorldPos.y==-1.0){
+//        vec2 st = v_TexCoord.xy;
+//
+//        vec3 color = v_Color;
+//
+//        vec2 pos = vec2(st*3.);
+//
+//        vec2 vel = vec2(time*.05);
+//
+//        float r = snoise(pos+vel)*.25+.25;
+//
+//        float a = snoise(pos*vec2(cos(time*0.15),sin(time*0.1))*0.1)*3.1415;
+//        vel = vec2(cos(a),sin(a));
+//        r += snoise(pos+vel)*.25+.25;
+//
+//        color += vec3(smoothstep(.1,.25,fract(r)));
+//        FragColor = vec4(1.0-color,r);
+//    }
+//}
