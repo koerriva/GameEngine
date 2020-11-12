@@ -49,6 +49,15 @@ impl Renderer {
         self.record_mode = !self.record_mode
     }
 
+    pub fn read_framebuffer(&mut self,width:i32,height:i32)->Vec<u8>{
+        let buffer_size = width*height*3;
+        let mut buffer = vec![0u8;buffer_size as usize];
+        unsafe {
+            gl::ReadPixels(0,0,width,height,gl::RGB,gl::UNSIGNED_BYTE,buffer.as_mut_ptr() as *mut c_void)
+        }
+        buffer
+    }
+
     pub fn clear_color(&self,r:f32,g:f32,b:f32){
         gl_clear_color(r,g,b);
         gl_clear();

@@ -15,12 +15,14 @@ use glfw::Key::*;
 use crate::engine::graph::texture::Texture;
 use glfw::MouseButton::Button2;
 use noise::{Worley, NoiseFn, Perlin, Fbm, MultiFractal, Seedable};
+use crate::engine::recoder::ScreenRecoder;
 
 pub struct ModelGame{
     renderer:Renderer,
     fonts:Vec<Font>,
     scene:Option<Scene>,
-    camera_state:(f32,f32,f32,f32)
+    camera_state:(f32,f32,f32,f32),
+    recorder:ScreenRecoder
 }
 
 impl ModelGame{
@@ -30,13 +32,15 @@ impl ModelGame{
         let font = Font::new("NotoSansSC-Regular.otf",18);
         fonts.push(font);
 
-        ModelGame{renderer,fonts,scene:None,camera_state:(0.0,0.0,0.0,0.0)}
+        ModelGame{renderer,fonts,scene:None
+            ,camera_state:(0.0,0.0,0.0,0.0),recorder:ScreenRecoder::new()}
     }
 }
 
 impl IGameLogic for ModelGame {
     fn init(&mut self) {
         self.renderer.init();
+        self.recorder.run();
 
         let font_shader = ShaderProgram::new("font");
         for font in &mut self.fonts {
@@ -102,7 +106,11 @@ impl IGameLogic for ModelGame {
         }
 
         if window.is_key_pressed(F2){
-            self.renderer.set_record_mode()
+            self.renderer.set_record_mode();
+
+            let (w,h) = window.frame_buffer_size;
+            let buffer = self.renderer.read_framebuffer(w,h);
+            self.recorder.record(w,h,buffer);
         }
     }
 

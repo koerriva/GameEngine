@@ -10,3 +10,4 @@ pub mod camera;
 pub mod gui;
 pub mod math;
 pub mod audio;
+pub mod recoder;
