@@ -106,8 +106,10 @@ impl IGameLogic for ModelGame {
         }
 
         if window.is_key_pressed(F2){
-            self.renderer.set_record_mode();
+            self.renderer.set_hide_hud();
+        }
 
+        if window.is_key_pressed(F3) {
             let (w,h) = window.frame_buffer_size;
             let buffer = self.renderer.read_framebuffer(w,h);
             self.recorder.record(w,h,buffer);

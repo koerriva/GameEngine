@@ -45,7 +45,7 @@ impl Renderer {
         gl_wireframe_mode();
     }
 
-    pub fn set_record_mode(&mut self){
+    pub fn set_hide_hud(&mut self){
         self.record_mode = !self.record_mode
     }
 
