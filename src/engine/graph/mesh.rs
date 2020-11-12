@@ -3,7 +3,7 @@ use std::os::raw::c_void;
 use std::process::id;
 use nalgebra_glm::{vec3, TVec3, normalize, cross, fast_normalize_dot};
 use crate::engine::math::vec3_sub;
-use nalgebra::DimAdd;
+use nalgebra::{DimAdd, clamp};
 
 pub struct VertexAttr{
     pub position:Vec<f32>,
@@ -40,7 +40,7 @@ impl Mesh {
                 let z = bound_z.0 + row as f32*inc_z;
                 let y = heightmap[idx] as f32;
                 position.push(x);
-                position.push(y);
+                position.push(clamp(y*5.0,-1.0,5.0));
                 position.push(z);
                 let tex_coord_x = 1.0 * col as f32 / width as f32;
                 let tex_coord_z = 1.0 * row as f32 / height as f32;
@@ -51,12 +51,10 @@ impl Mesh {
                 normal.push(1.0);
                 normal.push(0.0);
 
-                let color_r = (y+1.0)/2.0;
-                let color_g = 0.0f32;
-                let color_b = 0.0f32;
-                color.push(color_r);
-                color.push(color_g);
-                color.push(color_b);
+                let c = (y+1.0)/2.0*vec3(66.0/255.9,76.0/255.9,80.0/255.9);
+                color.push(c.x);
+                color.push(c.y);
+                color.push(c.z);
 
                 if col<width-1&&row<height-1 {
                     let p0 = (col,row);

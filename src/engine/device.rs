@@ -44,6 +44,15 @@ pub mod opengl{
         unsafe {gl::Disable(gl::DEPTH_TEST)}
     }
 
+    pub fn gl_enable_blend(){
+        unsafe {
+            gl::Enable(gl::BLEND);
+            gl::BlendFunc(gl::SRC_ALPHA, gl::ONE_MINUS_SRC_ALPHA);
+        }
+    }
+
+    pub fn gl_disable_blend(){unsafe{gl::Disable(gl::BLEND)}}
+
     pub fn gl_wireframe_mode(){
         unsafe {gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE)}
     }

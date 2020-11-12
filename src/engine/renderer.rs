@@ -41,7 +41,7 @@ impl Renderer {
     }
 
     pub fn set_wireframe_mode(&mut self){
-        gl_wireframe_mode()
+        gl_wireframe_mode();
     }
 
     pub fn clear_color(&self,r:f32,g:f32,b:f32){
@@ -51,6 +51,7 @@ impl Renderer {
 
     pub fn render_model(&mut self,camera:&Camera,models:&Vec<Model>){
         gl_enable_depth_test();
+        gl_enable_blend();
 
         for model in models {
             model.draw(camera)

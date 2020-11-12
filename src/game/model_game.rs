@@ -45,11 +45,11 @@ impl IGameLogic for ModelGame {
 
         let size = 256;
         let mut noise = Fbm::default();
-        noise = noise.set_seed(1234);
-        noise = noise.set_frequency(1.0);
-        noise = noise.set_lacunarity(0.1);
-        noise = noise.set_persistence(0.6);
-        noise = noise.set_octaves(20);
+        noise = noise.set_seed(1291);
+        noise = noise.set_frequency(0.01);
+        noise = noise.set_lacunarity(1.7);
+        noise = noise.set_persistence(0.59);
+        noise = noise.set_octaves(32);
         let mut heightmap = vec![0.0; size*size];
         for y in 0..size {
             for x in 0..size {
@@ -61,7 +61,7 @@ impl IGameLogic for ModelGame {
         let mesh = Mesh::from_heightmap(size as i32, size as i32, &heightmap);
         let mut data = vec![66,76,80];
         let texture = Texture::new(1,1,3,&data);
-        let base_shader = ShaderProgram::new("base");
+        let base_shader = ShaderProgram::new("terrain");
         let material = Material::new(vec![texture],base_shader);
         let terrain = Model::new(vec![mesh],material);
 
@@ -72,8 +72,8 @@ impl IGameLogic for ModelGame {
         self.scene = Some(scene);
 
         let camera = &mut self.scene.as_mut().unwrap().camera;
-        camera.set_position(0.0,2.0,2.0);
-        camera.set_rotation(-90.0,-30.0)
+        camera.set_position(2.87,2.42,-5.81);
+        camera.set_rotation(111.75,-11.0)
     }
 
     fn input(&mut self,window:&Window) {
@@ -104,10 +104,10 @@ impl IGameLogic for ModelGame {
 
     fn update(&mut self, window: &Window, interval: f32) {
         let scene = self.scene.as_mut().unwrap();
-        let factor = window.glfw.get_time().sin() as f32;
-        for model in &mut scene.models {
-            model.rotate(interval*factor*5.0,&vec3(1.0,0.0,0.0));
-        }
+        // let factor = window.glfw.get_time().sin() as f32;
+        // for model in &mut scene.models {
+        //     model.rotate(interval*factor*5.0,&vec3(1.0,0.0,0.0));
+        // }
 
         let camera = &mut scene.camera;
         camera.move_forward(self.camera_state.1*interval);

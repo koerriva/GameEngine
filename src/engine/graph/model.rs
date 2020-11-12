@@ -10,6 +10,7 @@ use crate::engine::graph::shader::ShaderProgram;
 use gltf::json::accessor::Type;
 use crate::engine::graph::texture::Texture;
 use gltf::image::Format;
+use std::time::SystemTime;
 
 pub struct Model{
     meshes:Vec<Mesh>,
@@ -19,7 +20,7 @@ pub struct Model{
 
 pub struct Scene{
     pub camera:Camera,
-    pub models:Vec<Model>
+    pub models:Vec<Model>,
 }
 
 impl Model{
@@ -32,6 +33,8 @@ impl Model{
     pub fn draw(&self,camera:&Camera){
         self.material.bind();
         self.material.set_pvm(&camera.projection_matrix(),&camera.view_matrix(),&self.transform);
+        self.material.set_view_pos(&camera.position);
+        self.material.set_time();
         for mesh in &self.meshes {
             mesh.draw()
         }

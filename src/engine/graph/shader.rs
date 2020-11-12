@@ -49,6 +49,14 @@ impl ShaderProgram {
         }
     }
 
+    pub fn set_f32(&self,name:&str,value:f32){
+        unsafe {
+            let c_name = CString::from_vec_unchecked(name.as_bytes().to_vec());
+            let location = gl::GetUniformLocation(self.program,c_name.as_ptr());
+            gl::Uniform1f(location,value)
+        }
+    }
+
     pub fn bind(&self){
         unsafe {gl::UseProgram(self.program)}
     }
