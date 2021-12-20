@@ -11,13 +11,6 @@ namespace Engine::Common{
     private:
         wstring data;;
     public:
-        static Text from(const string& text){
-            return Text(wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(text));
-        }
-
-        static wstring s_2_w(const string& text){
-            return wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(text);
-        }
 
         [[nodiscard]] wstring::const_iterator begin() const {
             return data.begin();
